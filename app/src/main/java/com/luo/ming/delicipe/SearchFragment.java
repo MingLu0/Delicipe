@@ -3,21 +3,29 @@ package com.luo.ming.delicipe;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SearchView;
+
+import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
+import com.luo.ming.delicipe.Views.SearchRecyclerViewAdapter;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * to handle interaction events.
- * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements SearchActivityPresenter.View{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,6 +36,15 @@ public class SearchFragment extends Fragment {
     private String mParam2;
 
     private SearchView searchView;
+    private RecyclerView recyclerView;
+    private SearchRecyclerViewAdapter searchRecyclerViewAdapter;
+    private SearchActivityPresenter presenter;
+
+    private EditText editText;
+    private Button button;
+
+
+    private String mQuery;
 
    // private OnFragmentInteractionListener mListener;
 
@@ -39,19 +56,18 @@ public class SearchFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+
      * @return A new instance of fragment SearchFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SearchFragment newInstance(String param1, String param2) {
-        SearchFragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    public static SearchFragment newInstance(String param1, String param2) {
+//        SearchFragment fragment = new SearchFragment();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,18 +77,67 @@ public class SearchFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        //searchView = (SearchView) findViewByid(R.id.always);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        searchView = (SearchView)container.findViewById(R.id.always);
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        // Setup any handles to view objects here
+        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext())); //?
+
+        presenter = new SearchActivityPresenter(this,getContext());//?
+
+        
+
+
+
+
+        searchView = (SearchView)view.findViewById(R.id.searchView);
+        CharSequence query = searchView.getQuery();// get the query string currently in the text field
+
+        searchView.setIconifiedByDefault(false);
+        searchView.setQueryHint("Search Recipe");
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                mQuery = query;
+                Log.d("query",mQuery);
+
+                presenter.setUrl(mQuery);
+
+                searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(presenter,getContext());
+
+                presenter.getRecipesList();
+
+                searchRecyclerViewAdapter.notifyDataSetChanged();
+
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -96,6 +161,18 @@ public class SearchFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
        // mListener = null;
+    }
+
+    @Override
+    public void refreshRecipeList() {
+        searchRecyclerViewAdapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void setRecyclerViewAdapter() {
+        recyclerView.setAdapter(searchRecyclerViewAdapter);
+
     }
 
     /**
