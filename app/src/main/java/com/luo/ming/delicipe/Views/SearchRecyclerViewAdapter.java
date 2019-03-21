@@ -1,7 +1,9 @@
 package com.luo.ming.delicipe.Views;
 
 import android.app.PendingIntent;
+
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -12,13 +14,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.luo.ming.delicipe.MainActivity;
 import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
 import com.luo.ming.delicipe.R;
+import com.luo.ming.delicipe.ScrollingActivity;
 import com.squareup.picasso.Picasso;
 
 
-public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>{
+
+public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>{
 
     private final SearchActivityPresenter presenter;
 
@@ -67,29 +72,35 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
             txtRecipeTitle = (TextView) itemView.findViewById(R.id.title);
             txtRecipePublisher = (TextView) itemView.findViewById(R.id.source);
 
-            /*
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
+                    Log.d("itemview intent","itemviewonclicklistener called");
+
                     Recipe recipe = presenter.getRecipeList().get(getAdapterPosition());
                     //send the info about the specific view that the user has clicked on to the
                     //the next recipe page
-                   // Intent intent = new Intent(context, RecipeActivity.class);
+                    Intent intent = new Intent(context, ScrollingActivity.class);
+
+
                     //send the recipe id to the next page
-                   // intent.putExtra("recipeID",recipe.getID());
+                    intent.putExtra("imageLink",recipe.getImageLink());
+
+                    context.startActivity(intent);
                     //send the source of the activity to the next page for certain action
                   //  intent.putExtra("activity", "FROM_RECIPE_SEARCH");
-                    Log.i("recipeID", recipe.getID());
-                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    try {
-                        pendingIntent.send();
-                    } catch (PendingIntent.CanceledException e) {
-                        e.printStackTrace();
-                    }
+                  //  Log.i("recipeID", recipe.getID());
+//                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                    try {
+//                        pendingIntent.send();
+//                    } catch (PendingIntent.CanceledException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             });
-            */
+
 
         }
 
