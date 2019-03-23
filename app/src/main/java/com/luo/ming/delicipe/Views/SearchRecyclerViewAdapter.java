@@ -22,7 +22,6 @@ import com.luo.ming.delicipe.ScrollingActivity;
 import com.squareup.picasso.Picasso;
 
 
-
 public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>{
 
     private final SearchActivityPresenter presenter;
@@ -86,7 +85,8 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
 
 
                     //send the recipe id to the next page
-                    intent.putExtra("imageLink",recipe.getImageLink());
+                    intent.putExtra("recipeID",recipe.getID());
+                   // intent.putExtra("ingredients",recipe.getIngredients());
 
                     context.startActivity(intent);
                     //send the source of the activity to the next page for certain action

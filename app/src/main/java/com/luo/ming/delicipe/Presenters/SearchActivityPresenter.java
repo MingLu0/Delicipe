@@ -31,9 +31,9 @@ public class SearchActivityPresenter {
     private SearchRecyclerViewAdapter recipeRecyclerViewAdapter;
 
     private final String baseUrl = "https://www.food2fork.com/api/search?key=";
-    private final String key = "4d78d05d9f20215c272d04f6974c04db"; //50 calls limit per day
-   // private final String key = "f5b73a553a6a92ccfabca695807bdaeb";//50 calls limit per day
-   // private final String key = "bba82bc3b0c0d5036c7d521014b02b62";//50 calls limit per day
+    //private final String key = "4d78d05d9f20215c272d04f6974c04db"; //50 calls limit per day
+    //private final String key = "f5b73a553a6a92ccfabca695807bdaeb";//50 calls limit per day
+    private final String key = "bba82bc3b0c0d5036c7d521014b02b62";//50 calls limit per day
     // private final String key = "2066d15049b02e6f8ea0b11f77f9fd30";//50 calls limit per day
     //private final String key = "3092e7c11f93c302283e456ed92207e4"; //50 calls limit per day
 
@@ -112,6 +112,19 @@ public class SearchActivityPresenter {
                         Log.d("imageLink",recipe.getImageLink());
                         recipe.setPublisher(recipeObj.getString("publisher"));
                         recipe.setID(recipeObj.getString("recipe_id"));
+                     //   ArrayList<String>ingredients = new ArrayList<>();
+//
+                        //JSONArray jArray = recipeObj.getJSONArray("ingredients");
+
+ //                       Log.d("jArray",String.valueOf(jArray.length()));
+//
+//                        for(int j=0;j<jArray.length();j++){
+//                            ingredients.add(jArray.getString(j));
+//                        }
+//
+//                        recipe.setIngredients(ingredients);
+
+
                         recipeList.add(recipe);
                         //set recycler view adapter
                         view.setRecyclerViewAdapter();

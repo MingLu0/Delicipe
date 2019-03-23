@@ -12,16 +12,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.luo.ming.delicipe.Models.Recipe;
+import com.luo.ming.delicipe.Presenters.ScrollingActivityPresenter;
 import com.squareup.picasso.Picasso;
 
-public class ScrollingActivity extends AppCompatActivity {
+public class ScrollingActivity extends AppCompatActivity implements ScrollingActivityPresenter.View {
 
     private ImageView recipeImg;
     private ImageView personImg;
+    private List<String> ingredients;
+    private ScrollingActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,24 +39,29 @@ public class ScrollingActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        recipeImg = (ImageView)findViewById(R.id.imgRecipe);
-        //personImg = (ImageView)findViewById(R.id.imgPerson);
+        presenter = new ScrollingActivityPresenter(this,this);
 
-        init();
+
+        recipeImg = (ImageView)findViewById(R.id.imgRecipe);
+
+
+
 
 
         Intent intent = getIntent();
-        //String imageLink = intent.getStringExtra("imageLink");
+        String recipeID = intent.getStringExtra("recipeID");
+        presenter.setUrl(recipeID);
+        Log.d("ScrollingActivity",recipeID);
 
-        String imageLink = "https://static.food2fork.com/best_pizza_dough_recipe1b20.jpg";
+        presenter.getRecipe();
 
-                Log.d("scroll imagelink",imageLink);
+        //init();
 
-        Picasso.with(this)
-                .load(imageLink)
-                .error(R.drawable.ic_launcher_foreground)
-                .fit()
-                .into(recipeImg);
+        //String imageLink = "https://static.food2fork.com/best_pizza_dough_recipe1b20.jpg";
+      //  ingredients = intent.getStringArrayListExtra("ingredients");
+
+
+
 
 
     }
@@ -55,15 +69,36 @@ public class ScrollingActivity extends AppCompatActivity {
 
     public void init(){
 
+        presenter.getRecipePhoto();
+        presenter.getTableLayout();
+
+    }
+
+    @Override
+    public void displayRecipePhoto(String imageLink) {
+
+        Picasso.with(this)
+                .load(imageLink)
+                .error(R.drawable.ic_launcher_foreground)
+                .fit()
+                .into(recipeImg);
+
+    }
+
+    @Override
+    public void displayTableLayout(ArrayList<String> ingredients) {
+
         TableLayout tableLayout = (TableLayout)findViewById(R.id.table_main);
 
-        for(int i=0;i<6;i++){
+        for(int i=0;i<ingredients.size();i++){
             LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            RelativeLayout row = (RelativeLayout)inflater.inflate(R.layout.table_row,null);
+            LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row,null);
+            TextView textView = (TextView)row.findViewById(R.id.ingredient);
+            textView.setText(ingredients.get(i));
             tableLayout.addView(row,i);
         }
 
-
     }
+
 
 }
