@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Presenters.ScrollingActivityPresenter;
 import com.squareup.picasso.Picasso;
@@ -86,15 +87,21 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     }
 
     @Override
-    public void displayTableLayout(ArrayList<String> ingredients) {
+    public void displayTableLayout(ArrayList<Ingredient> ingredients) {
 
         TableLayout tableLayout = (TableLayout)findViewById(R.id.table_main);
 
         for(int i=0;i<ingredients.size();i++){
             LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row,null);
-            TextView textView = (TextView)row.findViewById(R.id.ingredient);
-            textView.setText(ingredients.get(i));
+            TextView textCount = (TextView)row.findViewById(R.id.count);
+            TextView textUnit = (TextView)row.findViewById(R.id.unit);
+            TextView textIngredient = (TextView)row.findViewById(R.id.ingredient);
+
+            textCount.setText(String.valueOf(ingredients.get(i).getCount()));
+            textUnit.setText(ingredients.get(i).getUnit());
+            textIngredient.setText(ingredients.get(i).getIngredient());
+
             tableLayout.addView(row,i);
         }
 

@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.luo.ming.delicipe.Helpers.VolleyCallBack;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +26,10 @@ public class Recipe {
     private String imageLink;
     private String publisher;
     private String sourceURL;
-    private ArrayList<String> ingredients;
+    private int cookingTime;
+    private int servings;
+
+    private ArrayList<Ingredient> ingredients;
 
     public Recipe(){}
 
@@ -42,13 +46,21 @@ public class Recipe {
     public String getSourceURL() {
         return sourceURL;
     }
-    public ArrayList<String> getIngredients() { return ingredients; }
+    public ArrayList<Ingredient> getIngredients() { return ingredients; }
     public String getID() {
         return ID;
+    }
+    public int getCookingTime() {
+        return cookingTime;
+    }
+
+    public int getServings() {
+        return servings;
     }
 
     // Setters
     public void setTitle(String title){
+
         this.title = title;
     }
     public void setImageLink(String imageLink){
@@ -59,6 +71,7 @@ public class Recipe {
         }
     }
     public void setPublisher(String publisher){
+
         this.publisher = publisher;
     }
     public void setSourceURL(String sourceURL) {
@@ -66,16 +79,26 @@ public class Recipe {
         this.sourceURL = sourceURL.replace("http","https");
     }
 
-    public void setIngredients(ArrayList<String> ingredients) {
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = new ArrayList<>(ingredients);
     }
 
     public void setID(String id){
+
         this.ID = id;
     }
 
+    public void setCookingTime( ) {
+        int numberOfIngredients = ingredients.size();
+        int periods = (int)(Math.ceil(numberOfIngredients/3));
+        this.cookingTime = 15*periods;
+    }
 
-    public void getRecipeObj(String url,Context context,final VolleyCallBack callBack) {
+    public void setServings() {
+        this.servings = 4;
+    }
+
+    public void getRecipeObj(String url, Context context, final VolleyCallBack callBack) {
         Log.d("recipeModel","getRecipeObj called");
 
 
@@ -104,14 +127,25 @@ public class Recipe {
 
                     JSONArray jArray = recipeObj.getJSONArray("ingredients");
 
-                    ArrayList<String>ingredientList = new ArrayList<String>();
+                    ArrayList<Ingredient>ingredientList = new ArrayList<Ingredient>();
+                    Ingredient newIngredient = new Ingredient();
                     for(int j=0;j<jArray.length();j++){
-                        ingredientList.add(jArray.getString(j));
-                        Log.d("recipeModel",jArray.getString(j));
+                        if(!jArray.getString(j).contains("FOR")&&!jArray.getString(j).contains("___")){
+
+                            newIngredient= newIngredient.parseIngredient(jArray.getString(j));
+                            ingredientList.add(newIngredient);
+                            Log.d("recipeModel",jArray.getString(j));
+
+                        }
+
                     }
 
                     setIngredients(ingredientList);
                     Log.d("recipeModel",String.valueOf(getIngredients().size()));
+
+                    setCookingTime();
+
+                    setServings();
 
                     callBack.onSuccess();
 
@@ -136,8 +170,5 @@ public class Recipe {
 
     }
 
-    public interface VolleyCallBack {
-        void onSuccess();
-    }
 
 }

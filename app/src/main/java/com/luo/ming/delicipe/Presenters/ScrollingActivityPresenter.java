@@ -15,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
+import com.luo.ming.delicipe.Helpers.VolleyCallBack;
+import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
 
 public class ScrollingActivityPresenter {
@@ -53,7 +55,7 @@ public class ScrollingActivityPresenter {
     }
 
     public void getRecipe(){
-        recipe.getRecipeObj(url, context, new Recipe.VolleyCallBack() {
+        recipe.getRecipeObj(url, context, new VolleyCallBack() {
             @Override
             public void onSuccess() {
                 getRecipePhoto();
@@ -72,7 +74,7 @@ public class ScrollingActivityPresenter {
 
     public void getTableLayout(){
 
-        ArrayList<String>ingredients = recipe.getIngredients();
+        ArrayList<Ingredient>ingredients = recipe.getIngredients();
         view.displayTableLayout(ingredients);
     }
 
@@ -81,7 +83,7 @@ public class ScrollingActivityPresenter {
     public interface View {
 
         void displayRecipePhoto(String imageLink);
-        void displayTableLayout(ArrayList<String>ingredients);
+        void displayTableLayout(ArrayList<Ingredient>ingredients);
 
 
 
