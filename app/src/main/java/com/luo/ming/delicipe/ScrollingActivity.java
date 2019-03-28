@@ -46,9 +46,6 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         recipeImg = (ImageView)findViewById(R.id.imgRecipe);
 
 
-
-
-
         Intent intent = getIntent();
         String recipeID = intent.getStringExtra("recipeID");
         presenter.setUrl(recipeID);
