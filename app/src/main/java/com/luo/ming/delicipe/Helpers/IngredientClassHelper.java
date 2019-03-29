@@ -16,7 +16,9 @@ public class IngredientClassHelper {
 
         if(ratio.contains("/")){
             String[] rat = ratio.split("/");
-            return Double.parseDouble(rat[0])/Double.parseDouble(rat[1]);
+            double value = Double.parseDouble(rat[0])/Double.parseDouble(rat[1]);
+
+            return (double)Math.round(value * 100d) / 100d;
         }
         else
             return Double.parseDouble(ratio);

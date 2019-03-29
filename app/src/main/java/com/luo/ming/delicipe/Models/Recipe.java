@@ -130,7 +130,7 @@ public class Recipe {
                     ArrayList<Ingredient>ingredientList = new ArrayList<Ingredient>();
                     Ingredient newIngredient = new Ingredient();
                     for(int j=0;j<jArray.length();j++){
-                        if(!jArray.getString(j).contains("FOR")&&!jArray.getString(j).contains("___")){
+                        if(!Character.isUpperCase(jArray.getString(j).toCharArray()[0])&&!jArray.getString(j).contains("___")){
 
                             newIngredient= newIngredient.parseIngredient(jArray.getString(j));
                             ingredientList.add(newIngredient);

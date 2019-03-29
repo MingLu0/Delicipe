@@ -61,20 +61,22 @@ public class IngredientUnitTest {
         Assert.assertEquals(uniformedUnitStr2,uniformedUnitStr1);
     }
 
-    @Test
-    public void testStripParentheses() {
 
-        String uniformedUnitStr1 = ingredient.stripParentheses("4 Tablespoons (heaping) Cocoa");
-        String uniformedUnitStr2 = "4 Tablespoons Cocoa";
+
+    @Test
+    public void testStrip1Parentheses() {
+
+        String uniformedUnitStr1 = ingredient.stripParentheses("1 box red velvet cake mix (I used Duncan Hines)");
+        String uniformedUnitStr2 = "1 box red velvet cake mix";
 
         Assert.assertEquals(uniformedUnitStr2,uniformedUnitStr1);
     }
 
     @Test
-    public void testStripParentheses1() {
+    public void testStrip2Parentheses() {
 
-        String uniformedUnitStr1 = ingredient.stripParentheses("1 box red velvet cake mix (I used Duncan Hines)");
-        String uniformedUnitStr2 = "4 Tablespoons Cocoa";
+        String uniformedUnitStr1 = ingredient.stripParentheses("1 box (18.5 Ounce) German Chocolate Cake Mix (I Used Duncan Hines)");
+        String uniformedUnitStr2 = "1 box German Chocolate Cake Mix ";
 
         Assert.assertEquals(uniformedUnitStr2,uniformedUnitStr1);
     }
@@ -108,7 +110,7 @@ public class IngredientUnitTest {
     }
 
     @Test
-    public void testparseIngredientWithThreeCountElementsandOneUnit() {
+    public void testparseIngredientWithThreeCountElementsandOneUnit1() {
 
         Ingredient newIngredient = ingredient.parseIngredient("1-3/4 stick Butter");
         Double count = newIngredient.getCount();
@@ -119,6 +121,20 @@ public class IngredientUnitTest {
         Assert.assertEquals(expectedCount,count);
         Assert.assertEquals("stick",unit);
         Assert.assertEquals("butter ",ingredient);
+    }
+
+    @Test
+    public void testparseIngredientWithThreeCountElementsandOneUnit2() {
+
+        Ingredient newIngredient = ingredient.parseIngredient("1-1/2 ounce, fluid Red Food Coloring");
+        Double count = newIngredient.getCount();
+        Double expectedCount = 1.5;
+        String unit = newIngredient.getUnit();
+        String ingredient = newIngredient.getIngredient();
+
+       // Assert.assertEquals(expectedCount,count);
+       // Assert.assertEquals("oz",unit);
+        Assert.assertEquals(", fluid Red Food Coloring ",ingredient);
     }
 
     @Test

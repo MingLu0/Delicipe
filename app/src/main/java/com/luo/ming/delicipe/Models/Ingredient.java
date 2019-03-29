@@ -47,6 +47,8 @@ public class Ingredient {
         ingredient = stripParentheses(ingredient);
         ingredient = uniformUnits(ingredient);
         ingredient = ingredient.replace("-"," ");
+        ingredient = ingredient.replaceAll(",.*", "");
+        //ingredient = ingredient.replaceAll("/..*", "");
 
 
         String words[]= ingredient.split("\\s+");
@@ -135,7 +137,9 @@ public class Ingredient {
 
     public String stripParentheses(String ingredient){
         //TODO paranthese removal does not cover all the cases, need more testing
-        String newIngredient = ingredient.replaceAll("\\(.*\\) ", "");
+        String newIngredient = ingredient.replaceAll("\\s*\\([^\\)]*\\)\\s*", " ");
+
+       // String newIngredient = ingredient.replaceAll("\\(.*\\) ", "");
 
         return newIngredient;
     }
