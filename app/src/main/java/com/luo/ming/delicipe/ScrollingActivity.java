@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -32,6 +33,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     private ImageView personImg;
     private List<String> ingredients;
     private ScrollingActivityPresenter presenter;
+    private ImageButton btnCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
 
         recipeImg = (ImageView)findViewById(R.id.imgRecipe);
+        btnCart = (ImageButton)findViewById(R.id.btnCart);
 
 
         Intent intent = getIntent();
@@ -53,24 +56,21 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
         presenter.getRecipe();
 
-        //init();
-
-        //String imageLink = "https://static.food2fork.com/best_pizza_dough_recipe1b20.jpg";
-      //  ingredients = intent.getStringArrayListExtra("ingredients");
-
-
-
-
-
-    }
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.saveAllIngredients();
+            }
+        });
 
 
-    public void init(){
 
-        presenter.getRecipePhoto();
-        presenter.getTableLayout();
+
 
     }
+
+
+
 
     @Override
     public void displayRecipePhoto(String imageLink) {

@@ -1,6 +1,9 @@
 package com.luo.ming.delicipe.Models;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -9,6 +12,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.luo.ming.delicipe.Data.DatabaseHandler;
+import com.luo.ming.delicipe.Helpers.Constants;
 import com.luo.ming.delicipe.Helpers.VolleyCallBack;
 
 import org.json.JSONArray;
@@ -19,7 +24,7 @@ import java.util.ArrayList;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class Recipe {
+public class Recipe  {
 
     private String ID;
     private String title;
@@ -28,6 +33,7 @@ public class Recipe {
     private String sourceURL;
     private int cookingTime;
     private int servings;
+    private DatabaseHandler db;
 
     private ArrayList<Ingredient> ingredients;
 
@@ -169,6 +175,14 @@ public class Recipe {
 
 
     }
+
+    public void addIngredientToDB(Context context,ArrayList<Ingredient>ingredients){
+        db = new DatabaseHandler(context);
+        db.addIngredient(ingredients);
+    }
+
+
+
 
 
 }

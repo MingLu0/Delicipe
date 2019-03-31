@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Presenters.ShoppingFragmentPresenter;
 import com.luo.ming.delicipe.R;
 
@@ -51,20 +52,27 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
         private CheckBox btnChk;
         private TextView txtItem;
         private ImageButton btnEdit;
+        private TextView txtCount;
+        private TextView txtUnit;
 
         public ViewHolder(View itemView, final Context cxt){
             super(itemView);
 
             btnChk = (CheckBox)itemView.findViewById(R.id.chk_selected);
             txtItem = (TextView)itemView.findViewById(R.id.txt_item);
+
             btnEdit = (ImageButton)itemView.findViewById(R.id.btn_edit);
+            txtCount = (TextView)itemView.findViewById(R.id.txt_count);
+            txtUnit = (TextView)itemView.findViewById(R.id.txt_unit);
 
 
         }
 
         @Override
-        public void setRowContent(String itemContent) {
-            txtItem.setText(itemContent);
+        public void setRowContent(Ingredient ingredient) {
+            txtCount.setText(String.valueOf(ingredient.getCount()));
+            txtUnit.setText(ingredient.getUnit());
+            txtItem.setText(ingredient.getIngredient());
 
         }
     }

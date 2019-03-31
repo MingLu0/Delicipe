@@ -26,7 +26,7 @@ public class ScrollingActivityPresenter {
     private Recipe recipe;
     private RequestQueue queue;
     private Context context;
-    private ArrayList<String> ingredientList;
+    private ArrayList<Ingredient>ingredients;
 
 
 
@@ -50,6 +50,7 @@ public class ScrollingActivityPresenter {
         this.view = view;
         this.context = context;
         recipe = new Recipe();
+        ingredients = new ArrayList<>();
 
 
     }
@@ -74,8 +75,14 @@ public class ScrollingActivityPresenter {
 
     public void getTableLayout(){
 
-        ArrayList<Ingredient>ingredients = recipe.getIngredients();
+        ingredients = recipe.getIngredients();
         view.displayTableLayout(ingredients);
+    }
+
+    public void saveAllIngredients(){
+
+        recipe.addIngredientToDB(context,ingredients);
+
     }
 
 
@@ -84,8 +91,6 @@ public class ScrollingActivityPresenter {
 
         void displayRecipePhoto(String imageLink);
         void displayTableLayout(ArrayList<Ingredient>ingredients);
-
-
 
     }
 

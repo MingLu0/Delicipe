@@ -1,5 +1,8 @@
 package com.luo.ming.delicipe.Models;
 
+import android.content.Context;
+
+import com.luo.ming.delicipe.Data.DatabaseHandler;
 import com.luo.ming.delicipe.Helpers.IngredientClassHelper;
 
 import java.util.ArrayList;
@@ -12,6 +15,16 @@ public class Ingredient {
     private String unit;
     private String ingredient;
     private IngredientClassHelper _helper;
+    private String ID;
+    private DatabaseHandler db;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public double getCount() {
         return count;
@@ -143,5 +156,7 @@ public class Ingredient {
 
         return newIngredient;
     }
+
+
 
 }
