@@ -15,50 +15,19 @@ public class ShoppingFragmentPresenter {
 
     private RecyclerView recyclerView;
     private ShoppingListRecyclerViewAdapter recyclerViewAdapter;
-    private View view;
     private Context context;
     private Ingredients ingredientsObj;
     private ArrayList<Ingredient>ingredients;
-    private Ingredient ingredient1;
-    private Ingredient ingredient2;
-    private Ingredient ingredient3;
+    private ShoppingRowView rowView;
+    private View view;
 
 
-
-  //  String[]  = {"1.5 tsp baking soda","2.0 large eggs","0.5 cup heavy cream","1.0 cup water"};
-
-
-    public ShoppingFragmentPresenter(View view,Context context){
+    public ShoppingFragmentPresenter(Context context, View view){
         this.view = view;
         this.context = context;
         ingredientsObj = new Ingredients();
         ingredients = new ArrayList<>();
         ingredients = ingredientsObj.getAllIngredientsFromDB(context);
-
-//        ingredient1 = new Ingredient();
-//        ingredient2 = new Ingredient();
-//        ingredient3 = new Ingredient();
-//
-//        ingredient1.setCount(1.5);
-//        ingredient1.setUnit("tsp");
-//        ingredient1.setIngredient("baking soda");
-//
-//        ingredient2.setCount(2.0);
-//        ingredient2.setUnit("");
-//        ingredient2.setIngredient("large eggs");
-//
-//        ingredient3.setCount(0.33);
-//        ingredient3.setUnit("cup");
-//        ingredient3.setIngredient("chocolate fudge cake mix with pudding");
-//
-//        ingredients = new ArrayList<>();
-//
-//        ingredients.add(ingredient1);
-//        ingredients.add(ingredient2);
-//        ingredients.add(ingredient3);
-
-
-
 
     }
 
@@ -73,8 +42,21 @@ public class ShoppingFragmentPresenter {
         return ingredients.size();
     }
 
+    public void deleteShoppingItem(int position) {
+
+        Ingredient deleteItem = ingredients.get(position);
+
+        //TODO MIGHT NEED TO CHANGE ID FROM STRING TO INT
+        deleteItem.deleteShoppingItemFromDB(Integer.valueOf(deleteItem.getID()),context);
+        ingredients.remove(position);
+        view.notifyShoppingItemRemoved(position);
+
+    }
+
 
     public interface View{
+
+        void notifyShoppingItemRemoved(int position);
 
 
     }
@@ -82,6 +64,7 @@ public class ShoppingFragmentPresenter {
     public interface ShoppingRowView{
 
          void setRowContent(Ingredient ingredient);
+         void notifyItemRemoved(int position);
 
     }
 

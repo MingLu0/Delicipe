@@ -17,12 +17,14 @@ import com.luo.ming.delicipe.R;
 
 public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingListRecyclerViewAdapter.ViewHolder> {
 
-    private final ShoppingFragmentPresenter presenter;
+    private  ShoppingFragmentPresenter presenter;
     private Context context;
+    private ShoppingFragmentPresenter.ShoppingRowView view;
 
-    public ShoppingListRecyclerViewAdapter(ShoppingFragmentPresenter presenter,Context context){
-        this.presenter = presenter;
+    public ShoppingListRecyclerViewAdapter(Context context, ShoppingFragmentPresenter presenter){
         this.context = context;
+        this.presenter = presenter;
+
 
     }
 
@@ -65,6 +67,20 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
             txtCount = (TextView)itemView.findViewById(R.id.txt_count);
             txtUnit = (TextView)itemView.findViewById(R.id.txt_unit);
 
+            btnChk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if(btnChk.isChecked()){
+
+                        presenter.deleteShoppingItem(getAdapterPosition());
+
+
+                    }
+
+                }
+            });
+
 
         }
 
@@ -74,6 +90,11 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
             txtUnit.setText(ingredient.getUnit());
             txtItem.setText(ingredient.getIngredient());
 
+        }
+
+        @Override
+        public void notifyItemRemoved(int position) {
+            this.notifyItemRemoved(position);
         }
     }
 

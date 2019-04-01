@@ -52,19 +52,11 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext())); //?
 
-        presenter = new ShoppingFragmentPresenter(this,getContext());//?
+        presenter = new ShoppingFragmentPresenter(getContext(),this);//?
 
-        recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(presenter,getContext());
+        recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getContext(),presenter);
 
         recyclerView.setAdapter(recyclerViewAdapter);
-
-
-
-
-
-
-
-
 
     }
 
@@ -82,4 +74,10 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
     }
 
 
+    @Override
+    public void notifyShoppingItemRemoved(int position) {
+
+        recyclerViewAdapter.notifyItemRemoved(position);
+
+    }
 }

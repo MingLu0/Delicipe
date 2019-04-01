@@ -157,6 +157,11 @@ public class Ingredient {
         return newIngredient;
     }
 
+    public void deleteShoppingItemFromDB(int id,Context context){
+        DatabaseHandler db = new DatabaseHandler(context);
+        db.deleteShoppingItem(id);
+    }
+
 
 
 }
