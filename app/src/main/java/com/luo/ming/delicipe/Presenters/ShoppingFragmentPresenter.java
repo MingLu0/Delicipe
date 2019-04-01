@@ -53,10 +53,26 @@ public class ShoppingFragmentPresenter {
 
     }
 
+    public void editShoppingItem(int position){
+        Ingredient editItem = ingredients.get(position);
+        view.getEditedItem(editItem,position);
+//        editItem.updateShoppingItemFromDB(newItem,context);
+
+
+    }
+
+    public void saveUpdatedItem(Ingredient newIngredient, int position){
+        newIngredient.updateShoppingItemFromDB(newIngredient,context);
+        view.notifyShoppingItemChanged(position,newIngredient);
+
+    }
+
 
     public interface View{
 
         void notifyShoppingItemRemoved(int position);
+        void notifyShoppingItemChanged(int position,Ingredient newIngredient);
+        void getEditedItem(Ingredient ingredient,int position);
 
 
     }

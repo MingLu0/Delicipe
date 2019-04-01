@@ -4,13 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.luo.ming.delicipe.Data.DatabaseHandler;
+import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
 import com.luo.ming.delicipe.Presenters.ShoppingFragmentPresenter;
 import com.luo.ming.delicipe.Views.ShoppingListRecyclerViewAdapter;
@@ -21,6 +26,10 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
     private RecyclerView recyclerView;
     private ShoppingListRecyclerViewAdapter recyclerViewAdapter;
     private ShoppingFragmentPresenter presenter;
+
+    private AlertDialog.Builder alertDialogBuilder;
+    private AlertDialog dialog;
+    private LayoutInflater inflater;
 
 
 
@@ -78,6 +87,54 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
     public void notifyShoppingItemRemoved(int position) {
 
         recyclerViewAdapter.notifyItemRemoved(position);
+
+    }
+
+    @Override
+    public void notifyShoppingItemChanged(int position,Ingredient newIngredient) {
+
+        recyclerViewAdapter.notifyItemChanged(position,newIngredient);
+
+    }
+
+    @Override
+    public void getEditedItem(final Ingredient editIngredit, final int position) {
+
+        alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+        inflater = LayoutInflater.from(getContext());
+        final View view = inflater.inflate(R.layout.edit_popup, null);
+
+        final EditText txtCount = (EditText) view.findViewById(R.id.edit_count);
+        final EditText txtUnit = (EditText) view.findViewById(R.id.edit_unit);
+        final EditText txtItemName = (EditText) view.findViewById(R.id.edit_itemName);
+        final TextView title = (TextView) view.findViewById(R.id.tile);
+        Button btnSave = (Button) view.findViewById(R.id.edit_saveButton);
+
+        txtCount.setText(String.valueOf(editIngredit.getCount()));
+        txtUnit.setText(editIngredit.getUnit());
+        txtItemName.setText(editIngredit.getIngredient());
+
+        alertDialogBuilder.setView(view);
+        dialog = alertDialogBuilder.create();
+        dialog.show();
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!txtCount.getText().toString().isEmpty()||!txtItemName.getText().toString().isEmpty()
+                        ||!txtUnit.getText().toString().isEmpty()){
+
+                    Ingredient newIngredient = new Ingredient();
+                    newIngredient.setID(editIngredit.getID());
+                    newIngredient.setCount(Double.valueOf(txtCount.getText().toString()));
+                    newIngredient.setUnit(txtUnit.getText().toString());
+                    newIngredient.setIngredient(txtItemName.getText().toString());
+                    presenter.saveUpdatedItem(newIngredient,position);
+                    dialog.dismiss();
+                }
+            }
+        });
 
     }
 }

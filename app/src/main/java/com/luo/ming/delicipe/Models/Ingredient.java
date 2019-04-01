@@ -162,6 +162,12 @@ public class Ingredient {
         db.deleteShoppingItem(id);
     }
 
+    public void updateShoppingItemFromDB(Ingredient ingredient, Context context){
+        DatabaseHandler db = new DatabaseHandler(context);
+        db.updateShoppingListItem(ingredient);
+    }
+
+
 
 
 }

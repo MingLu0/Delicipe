@@ -97,6 +97,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    //Updated Shopping
+    public int updateShoppingListItem(Ingredient ingredient) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Constants.KEY_COUNT, ingredient.getCount());
+        values.put(Constants.KEY_UNIT, ingredient.getUnit());
+        values.put(Constants.KEY_ITEMNAME, ingredient.getIngredient());//get system time
+
+
+        //update row
+        return db.update(Constants.TABLE_SHOPPINGLIST_NAME, values, Constants.KEY_INGREDIENT_ITEM_ID + "=?", new String[] { ingredient.getID()} );
+    }
+
 
 
 }

@@ -81,6 +81,13 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
                 }
             });
 
+            btnEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.editShoppingItem(getAdapterPosition());
+                }
+            });
+
 
         }
 
