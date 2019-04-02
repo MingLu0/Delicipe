@@ -9,8 +9,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,10 +66,6 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
             }
         });
 
-
-
-
-
     }
 
 
@@ -101,6 +100,24 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
             tableLayout.addView(row,i);
         }
+
+    }
+
+    @Override
+    public void popupToast(String text) {
+
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_custom,
+                (ViewGroup) findViewById(R.id.custom_toast_container));
+
+        TextView txtToast = (TextView) layout.findViewById(R.id.toast_text);
+        txtToast.setText(text);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
 
     }
 

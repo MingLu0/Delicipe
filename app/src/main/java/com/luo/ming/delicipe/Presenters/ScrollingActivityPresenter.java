@@ -82,6 +82,7 @@ public class ScrollingActivityPresenter {
     public void saveAllIngredients(){
 
         recipe.addIngredientToDB(context,ingredients);
+        view.popupToast("All Ingredients have been saved!");
 
     }
 
@@ -91,6 +92,7 @@ public class ScrollingActivityPresenter {
 
         void displayRecipePhoto(String imageLink);
         void displayTableLayout(ArrayList<Ingredient>ingredients);
+        void popupToast(String text);
 
     }
 
