@@ -1,12 +1,15 @@
 package com.luo.ming.delicipe;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.luo.ming.delicipe.Data.DatabaseHandler;
+import com.luo.ming.delicipe.Helpers.SwipeController;
+import com.luo.ming.delicipe.Helpers.SwipeControllerActions;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
 import com.luo.ming.delicipe.Presenters.ShoppingFragmentPresenter;
@@ -31,6 +36,9 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
     private AlertDialog dialog;
     private LayoutInflater inflater;
 
+    private SwipeController swipeController;
+
+    ItemTouchHelper itemTouchHelper;
 
 
 
@@ -65,7 +73,26 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
 
         recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getContext(),presenter);
 
+        swipeController = new SwipeController(new SwipeControllerActions() {
+            @Override
+            public void onRightClicked(int position) {
+                super.onRightClicked(position);
+            }
+        },getContext());
+        itemTouchHelper = new ItemTouchHelper(swipeController);
+
+
+        itemTouchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                swipeController.onDraw(c);
+            }
+        });
+
+
+
 
     }
 
