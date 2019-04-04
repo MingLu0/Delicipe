@@ -133,6 +133,7 @@ public class Ingredient {
 
     public String uniformUnits(String ingredient){
 
+        //TODO " 1 1/4 lb ground turkey"
         String longUnits[]={"tablespoons","tablespoon","ounces","ounce","teaspoons","teaspoon","cups","pounds","sticks"};
         String shortUnits[]={"tbsp","tbsp","oz","oz","tsp","tsp","cup","pound","stick"};
         String newIngredient;

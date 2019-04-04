@@ -2,8 +2,8 @@ package com.luo.ming.delicipe.Helpers;
 
 public abstract class SwipeControllerActions {
 
-    public void onLeftClicked(int position) {}
+    public void onEditClicked(int position) {}
 
-    public void onRightClicked(int position) {}
+    public void onDeleteClicked(int position) {}
 
 }

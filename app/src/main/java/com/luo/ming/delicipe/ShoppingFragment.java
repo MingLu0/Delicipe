@@ -75,10 +75,15 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
 
         swipeController = new SwipeController(new SwipeControllerActions() {
             @Override
-            public void onRightClicked(int position) {
-                super.onRightClicked(position);
+            public void onEditClicked(int position) {
+                presenter.editShoppingItem(position);
             }
-        },getContext());
+
+            @Override
+            public void onDeleteClicked(int position) {
+                super.onDeleteClicked(position);
+            }
+        }, getContext());
         itemTouchHelper = new ItemTouchHelper(swipeController);
 
 

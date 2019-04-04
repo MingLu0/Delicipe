@@ -106,7 +106,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(Constants.KEY_UNIT, ingredient.getUnit());
         values.put(Constants.KEY_ITEMNAME, ingredient.getIngredient());//get system time
 
-
         //update row
         return db.update(Constants.TABLE_SHOPPINGLIST_NAME, values, Constants.KEY_INGREDIENT_ITEM_ID + "=?", new String[] { ingredient.getID()} );
     }
