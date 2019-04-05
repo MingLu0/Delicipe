@@ -18,6 +18,7 @@ public class Ingredient {
     private String ID;
     private DatabaseHandler db;
 
+
     public String getID() {
         return ID;
     }
@@ -167,8 +168,6 @@ public class Ingredient {
         DatabaseHandler db = new DatabaseHandler(context);
         db.updateShoppingListItem(ingredient);
     }
-
-
 
 
 }

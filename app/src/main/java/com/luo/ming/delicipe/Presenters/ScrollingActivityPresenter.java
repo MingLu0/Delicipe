@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import com.luo.ming.delicipe.Helpers.VolleyCallBack;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
+import com.luo.ming.delicipe.R;
 
 public class ScrollingActivityPresenter {
 
@@ -77,6 +78,7 @@ public class ScrollingActivityPresenter {
 
         ingredients = recipe.getIngredients();
         view.displayTableLayout(ingredients);
+
     }
 
     public void saveAllIngredients(){
@@ -86,6 +88,16 @@ public class ScrollingActivityPresenter {
 
     }
 
+    public void updateIngredientCount(int newServing){
+
+        ingredients=recipe.updateIngredientCount(newServing);
+        view.displayTableLayout(ingredients);
+
+    }
+
+    public void updateServing(int newServing) {
+        view.updateServingSize(newServing);
+    }
 
 
     public interface View {
@@ -93,6 +105,9 @@ public class ScrollingActivityPresenter {
         void displayRecipePhoto(String imageLink);
         void displayTableLayout(ArrayList<Ingredient>ingredients);
         void popupToast(String text);
+        void updateCountInTableLayout(ArrayList<Ingredient> ingredients);
+        void updateServingSize(int newSergving);
+
 
     }
 

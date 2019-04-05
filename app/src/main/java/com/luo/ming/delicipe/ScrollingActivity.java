@@ -37,6 +37,11 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     private List<String> ingredients;
     private ScrollingActivityPresenter presenter;
     private ImageButton btnCart;
+    private TableLayout tableLayout;
+    private ImageButton btnPlus;
+    private ImageButton btnMinus;
+    private TextView txtServing;
+    private static int newServing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +55,13 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
         recipeImg = (ImageView)findViewById(R.id.imgRecipe);
         btnCart = (ImageButton)findViewById(R.id.btnCart);
+        tableLayout = (TableLayout)findViewById(R.id.table_main);
+        btnPlus = (ImageButton)findViewById(R.id.btnPlus);
+        btnMinus = (ImageButton)findViewById(R.id.btnMinus);
+        txtServing = (TextView)findViewById(R.id.txtServing);
 
+
+        newServing = 4;
 
         Intent intent = getIntent();
         String recipeID = intent.getStringExtra("recipeID");
@@ -63,6 +74,32 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
             @Override
             public void onClick(View v) {
                 presenter.saveAllIngredients();
+            }
+        });
+
+        btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ++newServing;
+                Log.d("serving plus",String.valueOf(newServing));
+                presenter.updateIngredientCount(newServing);
+                presenter.updateServing(newServing);
+            }
+        });
+
+        btnMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                --newServing;
+                if(newServing>=1){
+                    Log.d("serving minus",String.valueOf(newServing));
+                    presenter.updateIngredientCount(newServing);
+                    presenter.updateServing(newServing);
+                } else {
+                    Log.d("serving minus",String.valueOf(newServing));
+                    newServing =1;
+                    //presenter.updateServing(newServing);
+                }
             }
         });
 
@@ -85,7 +122,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     @Override
     public void displayTableLayout(ArrayList<Ingredient> ingredients) {
 
-        TableLayout tableLayout = (TableLayout)findViewById(R.id.table_main);
+        tableLayout.removeAllViews();
 
         for(int i=0;i<ingredients.size();i++){
             LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -99,7 +136,26 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
             textIngredient.setText(ingredients.get(i).getIngredient());
 
             tableLayout.addView(row,i);
+
         }
+
+    }
+
+    @Override
+    public void updateCountInTableLayout(ArrayList<Ingredient> ingredients) {
+
+        for(int i=0;i<ingredients.size();i++){
+            TableRow row = (TableRow)tableLayout.getChildAt(i);
+            TextView txtCount = (TextView)row.findViewById(R.id.count);
+            txtCount.setText(String.valueOf(ingredients.get(i).getCount()));
+        }
+
+    }
+
+    @Override
+    public void updateServingSize(int newSergving) {
+
+        txtServing.setText(String.valueOf(newSergving));
 
     }
 
@@ -120,6 +176,8 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         toast.show();
 
     }
+
+
 
 
 }

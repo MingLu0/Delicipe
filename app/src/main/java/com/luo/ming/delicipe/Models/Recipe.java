@@ -37,7 +37,7 @@ public class Recipe  {
 
     private ArrayList<Ingredient> ingredients;
 
-    public Recipe(){}
+    public Recipe(){this.servings=4;}
 
     // Getters
     public String getTitle() {
@@ -179,6 +179,32 @@ public class Recipe  {
     public void addIngredientToDB(Context context,ArrayList<Ingredient>ingredients){
         db = new DatabaseHandler(context);
         db.addIngredient(ingredients);
+    }
+
+    public ArrayList<Ingredient> updateIngredientCount(int newServing){
+
+        if(ingredients.isEmpty()){
+            Log.d("Recipe","ingredient list is empty when updating count");
+        }
+        for(int i=0;i<ingredients.size();i++){
+
+            Log.d("Recipe",ingredients.get(i).getIngredient());
+            double count = ingredients.get(i).getCount();
+            Log.d("Recipe count",String.valueOf(count));
+            Log.d("Recipe newserving",String.valueOf(newServing));
+            count = count*((double) newServing/servings);
+            Log.d("Recipe new count",String.valueOf(count));
+            count=(double)Math.round(count * 100d) / 100d;
+            ingredients.get(i).setCount(count);
+
+
+            Log.d("Recipe","");
+
+        }
+
+        this.servings = newServing;
+        return ingredients;
+
     }
 
 
