@@ -1,9 +1,6 @@
 package com.luo.ming.delicipe.Models;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -13,7 +10,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.luo.ming.delicipe.Data.DatabaseHandler;
-import com.luo.ming.delicipe.Helpers.Constants;
 import com.luo.ming.delicipe.Helpers.VolleyCallBack;
 
 import org.json.JSONArray;
@@ -197,7 +193,6 @@ public class Recipe  {
             count=(double)Math.round(count * 100d) / 100d;
             ingredients.get(i).setCount(count);
 
-
             Log.d("Recipe","");
 
         }
@@ -206,9 +201,5 @@ public class Recipe  {
         return ingredients;
 
     }
-
-
-
-
 
 }
