@@ -1,4 +1,4 @@
-package com.luo.ming.delicipe;
+package com.luo.ming.delicipe.Views;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -28,6 +28,7 @@ import java.util.List;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Presenters.ScrollingActivityPresenter;
+import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
 
 public class ScrollingActivity extends AppCompatActivity implements ScrollingActivityPresenter.View {

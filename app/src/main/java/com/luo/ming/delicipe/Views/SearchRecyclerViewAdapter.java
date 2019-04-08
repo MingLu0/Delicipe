@@ -1,9 +1,6 @@
 package com.luo.ming.delicipe.Views;
 
-import android.app.PendingIntent;
-
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -14,11 +11,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.luo.ming.delicipe.MainActivity;
 import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
 import com.luo.ming.delicipe.R;
-import com.luo.ming.delicipe.ScrollingActivity;
 import com.squareup.picasso.Picasso;
 
 

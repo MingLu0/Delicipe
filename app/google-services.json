@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "658109207604",
+    "firebase_url": "https://delicipe-2711b.firebaseio.com",
+    "project_id": "delicipe-2711b",
+    "storage_bucket": "delicipe-2711b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658109207604:android:856f59a39e41a99e",
+        "android_client_info": {
+          "package_name": "com.luo.ming.delicipe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658109207604-hqv55i3mvf41gbddq7q9kp48n61nrdgk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.luo.ming.delicipe",
+            "certificate_hash": "0c97644219b768da41dd76d914ec5e69cc89aea6"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuXkx-VjCpniVD1G5R_Cu6mm1oje7Fhds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658109207604-5pgumb5trm2rq1agq31ef6i88u8kcar0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
