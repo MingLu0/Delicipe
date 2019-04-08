@@ -31,9 +31,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/thumbnail"
                 android:textColor="#ff373435"
-                android:paddingLeft="@dimen/album_title_padding"
-                android:paddingRight="@dimen/album_title_padding"
-                android:paddingTop="@dimen/album_title_padding"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
                 android:textSize="16sp" />
 
             <TextView
@@ -41,9 +41,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
-                android:paddingBottom="@dimen/songs_count_padding_bottom"
-                android:paddingLeft="@dimen/album_title_padding"
-                android:paddingRight="@dimen/album_title_padding"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textSize="14sp" />
 
 
