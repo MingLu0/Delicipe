@@ -75,7 +75,7 @@ public class SearchFragment extends Fragment implements SearchActivityPresenter.
         CharSequence query = searchView.getQuery();// get the query string currently in the text field
 
         searchView.setIconifiedByDefault(false);
-        searchView.setQueryHint("Search Recipe");
+        searchView.setQueryHint("search recipe");
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
