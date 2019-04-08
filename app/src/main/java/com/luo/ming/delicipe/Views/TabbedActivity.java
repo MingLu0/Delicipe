@@ -1,5 +1,6 @@
 package com.luo.ming.delicipe.Views;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,9 +12,14 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
 import com.luo.ming.delicipe.R;
-import com.luo.ming.delicipe.Views.FavouritesFragment;
-import com.luo.ming.delicipe.Views.SearchFragment;
-import com.luo.ming.delicipe.Views.ShoppingFragment;
+import android.view.View;
+
+import android.widget.ImageButton;
+
+//import com.luo.ming.delicipe.Views.AddRecipeActivity;
+//import com.luo.ming.delicipe.Views.FavouritesFragment;
+//import com.luo.ming.delicipe.Views.SearchFragment;
+//import com.luo.ming.delicipe.Views.ShoppingFragment;
 
 public class TabbedActivity extends AppCompatActivity {
 
@@ -40,6 +46,10 @@ public class TabbedActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ImageButton btnAddNote = (ImageButton)toolbar.findViewById(R.id.btn_add_note);
+
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -52,6 +62,15 @@ public class TabbedActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        btnAddNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AddRecipeActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
 
     }
