@@ -1,4 +1,4 @@
-package com.luo.ming.delicipe;
+package com.luo.ming.delicipe.Views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -23,6 +23,7 @@ import com.luo.ming.delicipe.Helpers.SwipeControllerActions;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
 import com.luo.ming.delicipe.Presenters.ShoppingFragmentPresenter;
+import com.luo.ming.delicipe.R;
 import com.luo.ming.delicipe.Views.ShoppingListRecyclerViewAdapter;
 
 

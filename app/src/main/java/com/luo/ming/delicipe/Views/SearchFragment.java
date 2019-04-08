@@ -1,4 +1,4 @@
-package com.luo.ming.delicipe;
+package com.luo.ming.delicipe.Views;
 
 import android.content.Context;
 import android.net.Uri;
@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.SearchView;
 
 import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
+import com.luo.ming.delicipe.R;
 import com.luo.ming.delicipe.Views.SearchRecyclerViewAdapter;
 
 

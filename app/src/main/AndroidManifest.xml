@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,16 +23,16 @@
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TabbedActivity"
+            android:name=".Views.TabbedActivity"
             android:label="@string/title_activity_tabbed"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Views.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.luo.ming.delicipe.MainActivity" />
+                android:value="com.luo.ming.delicipe.Views.MainActivity" />
         </activity>
         <activity
-            android:name=".ScrollingActivity"
+            android:name=".Views.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
