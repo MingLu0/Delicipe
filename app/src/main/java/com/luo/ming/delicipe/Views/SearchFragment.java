@@ -3,7 +3,6 @@ package com.luo.ming.delicipe.Views;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
-import android.widget.Toolbar;
 
 import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
 import com.luo.ming.delicipe.R;
-import com.luo.ming.delicipe.Views.SearchRecyclerViewAdapter;
 
 
 
@@ -31,7 +28,6 @@ public class SearchFragment extends Fragment implements SearchActivityPresenter.
 
     private EditText editText;
     private Button button;
-
 
     private String mQuery;
 
@@ -50,8 +46,6 @@ public class SearchFragment extends Fragment implements SearchActivityPresenter.
         super.onCreate(savedInstanceState);
 
 
-
-
     }
 
     @Override
@@ -64,46 +58,44 @@ public class SearchFragment extends Fragment implements SearchActivityPresenter.
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        // Setup any handles to view objects here
-        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext())); //?
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        presenter = new SearchActivityPresenter(this,getContext());//?
+        presenter = new SearchActivityPresenter(this,getContext());
 
-        searchView = (SearchView)view.findViewById(R.id.searchView);
-        CharSequence query = searchView.getQuery();// get the query string currently in the text field
-
-        searchView.setIconifiedByDefault(false);
-        searchView.setQueryHint("search recipe");
-
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                mQuery = query;
-                Log.d("query",mQuery);
-
-                presenter.setUrl(mQuery);
-
-                searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(presenter,getContext());
-
-                presenter.getRecipesList();
-
-                searchRecyclerViewAdapter.notifyDataSetChanged();
-
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+//        searchView = (SearchView)view.findViewById(R.id.searchView);
+//        CharSequence query = searchView.getQuery();// get the query string currently in the text field
+//
+//        searchView.setIconifiedByDefault(false);
+//        searchView.setQueryHint("search recipe");
+//
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//
+//                mQuery = query;
+//                Log.d("query",mQuery);
+//
+//                presenter.setUrl(mQuery);
+//
+//                searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(presenter,getContext());
+//
+//                presenter.getRecipesList();
+//
+//                searchRecyclerViewAdapter.notifyDataSetChanged();
+//
+//
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
 
     }
 
@@ -138,6 +130,8 @@ public class SearchFragment extends Fragment implements SearchActivityPresenter.
         recyclerView.setAdapter(searchRecyclerViewAdapter);
 
     }
+
+
 
 
 }

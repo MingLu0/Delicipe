@@ -112,17 +112,6 @@ public class SearchActivityPresenter {
                         Log.d("imageLink",recipe.getImageLink());
                         recipe.setPublisher(recipeObj.getString("publisher"));
                         recipe.setID(recipeObj.getString("recipe_id"));
-                     //   ArrayList<String>ingredients = new ArrayList<>();
-//
-                        //JSONArray jArray = recipeObj.getJSONArray("ingredients");
-
- //                       Log.d("jArray",String.valueOf(jArray.length()));
-//
-//                        for(int j=0;j<jArray.length();j++){
-//                            ingredients.add(jArray.getString(j));
-//                        }
-//
-//                        recipe.setIngredients(ingredients);
 
 
                         recipeList.add(recipe);

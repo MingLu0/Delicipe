@@ -1,7 +1,10 @@
 package com.luo.ming.delicipe.Views;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -16,17 +19,15 @@ import android.os.Bundle;
 
 import com.luo.ming.delicipe.R;
 
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
-import android.widget.ImageButton;
+import android.widget.SearchView;
 
-//import com.luo.ming.delicipe.Views.AddRecipeActivity;
-//import com.luo.ming.delicipe.Views.FavouritesFragment;
-//import com.luo.ming.delicipe.Views.SearchFragment;
-//import com.luo.ming.delicipe.Views.ShoppingFragment;
 
-public class TabbedActivity extends AppCompatActivity {
+public class TabbedActivity extends AppCompatActivity{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -69,7 +70,7 @@ public class TabbedActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.fragment_container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -77,26 +78,52 @@ public class TabbedActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-//        btnAddNote.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), AddRecipeActivity.class);
-//                startActivity(intent);
-//
-//            }
-//        });
-
 
     }
 
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_tabbed, menu);
-//        return true;
-//    }
-//
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu,menu);
+
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+//        searchView.setSearchableInfo(
+//                searchManager.getSearchableInfo(getComponentName()));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                intent.putExtra("keyword",query);
+                startActivity(intent);
+
+                Log.d("searchview",query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
+        return true;
+    }
+
+
+
+
+
 
 
     @Override
@@ -108,6 +135,7 @@ public class TabbedActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
      }
+
 
 
     /**
@@ -152,7 +180,7 @@ public class TabbedActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position){
             switch(position){
                 case 0:
-                    return "SEARCH";
+                    return "FOR YOU";
 
                 case 1:
                     return "FAVOURITES";
