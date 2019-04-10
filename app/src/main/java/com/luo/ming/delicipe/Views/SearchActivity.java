@@ -1,32 +1,18 @@
 package com.luo.ming.delicipe.Views;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.SearchView;
-
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.SearchView;
 
-import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
-import com.luo.ming.delicipe.R;
 
 import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
 import com.luo.ming.delicipe.R;
@@ -37,6 +23,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
     private RecyclerView recyclerView;
     private SearchRecyclerViewAdapter searchRecyclerViewAdapter;
     private SearchActivityPresenter presenter;
+    private  Context cxt;
 
     private String mQuery;
 
@@ -47,6 +34,9 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        cxt = this.getApplicationContext();
+
 
         recyclerView = (RecyclerView)findViewById(R.id.search_recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -65,6 +55,8 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
 
         searchRecyclerViewAdapter.notifyDataSetChanged();
 
+        //handleIntent(getIntent());
+
 
 
     }
@@ -82,4 +74,76 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
         recyclerView.setAdapter(searchRecyclerViewAdapter);
 
     }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+
+        inflater.inflate(R.menu.options_menu,menu);
+
+        //TODO SEARCHABLE NOT WORKING YET
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
+        //CharSequence query = searchView.getQuery();// get the query string currently in the text field
+
+        searchView.setIconifiedByDefault(false);
+        searchView.setQueryHint("search recipe");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                mQuery = query;
+                Log.d("query",mQuery);
+
+                presenter.setUrl(mQuery);
+
+                searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(presenter,getApplicationContext());
+
+                presenter.getRecipesList();
+
+                searchRecyclerViewAdapter.notifyDataSetChanged();
+
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
+
+
+        return true;
+    }
+
+
+    //TODO GOOGLE DOUCMENTATION BELOW DOES NOT WORK
+
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//        handleIntent(intent);
+//    }
+//
+//    public void handleIntent(Intent intent){
+//        if(Intent.ACTION_SEARCH.equals(intent.getAction())){
+//            String query = intent.getStringExtra(SearchManager.QUERY);
+//
+//            Log.d("searchactivity query",query);
+//        }
+//    }
+
+
 }
