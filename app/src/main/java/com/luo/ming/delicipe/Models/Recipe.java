@@ -116,6 +116,7 @@ public class Recipe  {
             public void onResponse(JSONObject response) {
                 try{
 
+                    //TODO CONSIDER USING GSON
                     Log.d("recipeModel","getRecipeObj jsonreuqestcalled");
                     JSONObject recipeObj = response.getJSONObject("recipe");
                     setImageLink(recipeObj.getString("image_url"));

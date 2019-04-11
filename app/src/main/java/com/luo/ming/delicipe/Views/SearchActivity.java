@@ -27,6 +27,8 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
 
     private String mQuery;
 
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +40,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
         cxt = this.getApplicationContext();
 
 
-        recyclerView = (RecyclerView)findViewById(R.id.search_recyclerView);
+        recyclerView = findViewById(R.id.search_recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -57,14 +59,12 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
 
         //handleIntent(getIntent());
 
-
-
     }
-
 
 
     @Override
     public void refreshRecipeList() {
+
         searchRecyclerViewAdapter.notifyDataSetChanged();
 
     }
@@ -76,13 +76,12 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
 
-        inflater.inflate(R.menu.options_menu,menu);
+        inflater.inflate(R.menu.menu_search,menu);
 
         //TODO SEARCHABLE NOT WORKING YET
         // Associate searchable configuration with the SearchView
@@ -92,8 +91,6 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
                 (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
-
-        //CharSequence query = searchView.getQuery();// get the query string currently in the text field
 
         searchView.setIconifiedByDefault(false);
         searchView.setQueryHint("search recipe");
@@ -113,7 +110,6 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
 
                 searchRecyclerViewAdapter.notifyDataSetChanged();
 
-
                 return false;
             }
 
@@ -122,8 +118,6 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
                 return false;
             }
         });
-
-
 
 
         return true;
