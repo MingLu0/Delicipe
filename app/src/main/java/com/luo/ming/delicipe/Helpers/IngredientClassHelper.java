@@ -25,14 +25,19 @@ public class IngredientClassHelper {
     }
 
     public String convertArrayOfStringIntoString(String []arr){
+
         StringBuilder builder = new StringBuilder();
+
         for(String s : arr) {
+
             builder.append(s);
             builder.append(" ");
+
         }
         String str = builder.toString();
 
         return  str;
 
     }
+
 }
