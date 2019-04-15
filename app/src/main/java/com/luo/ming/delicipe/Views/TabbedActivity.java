@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -63,20 +64,28 @@ public class TabbedActivity extends AppCompatActivity{
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
-//        ImageButton btnAddNote = (ImageButton)toolbar.findViewById(R.id.btn_add_note);
-
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.fragment_container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager = findViewById(R.id.fragment_container);
+
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
+        // Set the text for each tab.
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label1));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label2));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label3));
+
+        // Set the tabs to fill the entire layout.
+        //tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        //detect if a tab is clicked
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        // set viewpager to the appropriate screen
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
 
@@ -130,11 +139,6 @@ public class TabbedActivity extends AppCompatActivity{
     }
 
 
-
-
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -165,60 +169,38 @@ public class TabbedActivity extends AppCompatActivity{
         recreate();
      }
 
-
-
+     
 
     /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * A {@link FragmentStatePagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        int mNumOfTabs;
+
+        public SectionsPagerAdapter(FragmentManager fm,int mNumOfTabs) {
             super(fm);
+            this.mNumOfTabs = mNumOfTabs;
         }
 
         @Override
         public Fragment getItem(int position) {
 
             switch(position){
-                case 0:
-                    SearchFragment fragment1 = new SearchFragment();
-                    return fragment1;
-
-                case 1:
-                    FavouritesFragment fragment2 = new FavouritesFragment();
-                    return fragment2;
-
-                case 2:
-                    ShoppingFragment fragment3 = new ShoppingFragment();
-                    return fragment3;
-
-                default:
-                    return null;
+                case 0: return new SearchFragment();
+                case 1: return new FavouritesFragment();
+                case 2: return new ShoppingFragment();
+                default: return null;
             }
 
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return mNumOfTabs;
         }
 
-        @Override
-        public CharSequence getPageTitle(int position){
-            switch(position){
-                case 0:
-                    return "FOR YOU";
 
-                case 1:
-                    return "FAVOURITES";
-
-                case 2:
-                    return "SHOPPING LIST";
-            }
-            return null;
-        }
     }
 }

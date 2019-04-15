@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Views.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".Views.ScrollingActivity2"
             android:label="@string/title_activity_scrolling2"
             android:parentActivityName=".Views.TabbedActivity"

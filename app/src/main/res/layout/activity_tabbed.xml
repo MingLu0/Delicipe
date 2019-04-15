@@ -43,27 +43,8 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/tabItem"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="FOR YOU" />
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/tabItem2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="FAVOURITES" />
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/tabItem3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SHOPPING LIST" />
-
             </android.support.design.widget.TabLayout>
+
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager
