@@ -20,7 +20,7 @@
                 android:layout_centerHorizontal="true"
                 android:textStyle="italic"
                 android:textSize="18sp"
-                android:text="Enter Item Details"
+                android:text="@string/edit_shopping_item_title"
                 android:layout_height="wrap_content" />
 
 
@@ -48,7 +48,7 @@
                 android:id="@+id/edit_saveButton"
                 android:layout_marginTop="5dp"
                 android:layout_below="@id/edit_itemName"
-                android:text="SAVE"
+                android:text="@string/edit_shopping_item_save_btn"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:background="@color/colorAccent"

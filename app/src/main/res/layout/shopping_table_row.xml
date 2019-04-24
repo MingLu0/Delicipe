@@ -33,7 +33,7 @@
                 android:layout_toLeftOf="@+id/chk_selected"
                 android:layout_weight="0.5"
                 android:padding="1dp"
-                android:text="Item Name"
+                android:text="@string/shopping_row_count_placeholder"
                 android:textSize="16dp" />
 
             <TextView
@@ -43,7 +43,7 @@
                 android:layout_toLeftOf="@+id/txt_count"
                 android:layout_weight="0.5"
                 android:padding="2dp"
-                android:text="Item Name"
+                android:text="@string/shopping_row_unit_placeholder"
                 android:textSize="16dp" />
 
             <TextView
@@ -53,7 +53,7 @@
                 android:layout_toLeftOf="@+id/txt_unit"
                 android:layout_weight="2"
                 android:padding="5dp"
-                android:text="Item Name"
+                android:text="@string/shopping_row_item_placeholder"
                 android:textSize="16dp" />
 
 

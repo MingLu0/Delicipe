@@ -82,7 +82,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="SERVINGS"
+            android:text="@string/recipe_serving_label"
             tools:layout_editor_absoluteX="126dp"
             tools:layout_editor_absoluteY="434dp" />
 
@@ -110,7 +110,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ingredients"
+            android:text="@string/recipe_ingredient_label"
             tools:layout_editor_absoluteX="36dp"
             tools:layout_editor_absoluteY="434dp" />
 
@@ -161,9 +161,10 @@
             android:id="@+id/btnGetDirection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get Direction"
+            android:text="@string/recipe_get_btn"
             tools:layout_editor_absoluteX="134dp"
-            tools:layout_editor_absoluteY="486dp" />
+            tools:layout_editor_absoluteY="486dp"
+            tools:ignore="HardcodedText" />
 
 
     </android.support.constraint.ConstraintLayout>

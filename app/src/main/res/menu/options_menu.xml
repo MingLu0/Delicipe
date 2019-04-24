@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/addNote"
-        android:title="CREATE YOUR RECIPE"
+        android:title="@string/option_menu_create_title"
         android:icon="@drawable/ic_status_add_note"
         app:showAsAction="always" />
 
     <item android:id="@+id/search"
-        android:title="SEARCH RECIPE"
+        android:title="@string/option_menu_search_title"
         android:icon="@drawable/ic_status_search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom" />
