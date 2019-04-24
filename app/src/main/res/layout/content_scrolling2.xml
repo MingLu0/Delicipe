@@ -58,57 +58,75 @@
             app:layout_constraintTop_toBottomOf="@+id/imgRecipe" />
 
 
-
         <ImageView
             android:id="@+id/imgPerson"
-            android:layout_gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/ic_action_person"/>
+            android:background="@drawable/ic_action_person"
+            tools:layout_editor_absoluteX="347dp"
+            tools:layout_editor_absoluteY="216dp" />
 
         <TextView
             android:id="@+id/txtServing"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center_horizontal"
-            android:text="4"/>
+            android:layout_weight="1"
+            android:text="4"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="216dp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="SERVINGS"/>
+            android:text="SERVINGS"
+            tools:layout_editor_absoluteX="126dp"
+            tools:layout_editor_absoluteY="434dp" />
 
         <ImageButton
             android:id="@+id/btnPlus"
             android:layout_width="0dp"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/ic_action_add"/>
+            android:background="@drawable/ic_action_add"
+            tools:layout_editor_absoluteX="302dp"
+            tools:layout_editor_absoluteY="216dp" />
 
         <ImageButton
             android:id="@+id/btnMinus"
             android:layout_width="0dp"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/ic_action_remove"/>
+            android:background="@drawable/ic_action_remove"
+            tools:layout_editor_absoluteX="248dp"
+            tools:layout_editor_absoluteY="212dp" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ingredients"
-            />
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="434dp" />
 
         <ImageButton
             android:id="@+id/btnCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_action_cart"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/ic_action_cart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/table_main" />
 
         <TableLayout
             android:id="@+id/table_main"
@@ -143,7 +161,9 @@
             android:id="@+id/btnGetDirection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get Direction"/>
+            android:text="Get Direction"
+            tools:layout_editor_absoluteX="134dp"
+            tools:layout_editor_absoluteY="486dp" />
 
 
     </android.support.constraint.ConstraintLayout>

@@ -163,18 +163,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     @Override
     public void popupToast(String text) {
 
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.toast_custom,
-                (ViewGroup) findViewById(R.id.custom_toast_container));
-
-        TextView txtToast = (TextView) layout.findViewById(R.id.toast_text);
-        txtToast.setText(text);
-
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(layout);
-        toast.show();
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
 
     }
 
