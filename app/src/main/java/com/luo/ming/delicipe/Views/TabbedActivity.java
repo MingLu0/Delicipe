@@ -1,7 +1,6 @@
 package com.luo.ming.delicipe.Views;
 
-import android.app.SearchManager;
-import android.content.Context;
+
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -67,15 +66,13 @@ public class TabbedActivity extends AppCompatActivity{
         mViewPager = findViewById(R.id.fragment_container);
 
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-
+        TabLayout tabLayout = findViewById(R.id.tabs);
         // Set the text for each tab.
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label1));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label2));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label3));
-
         // Set the tabs to fill the entire layout.
-        //tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -98,9 +95,6 @@ public class TabbedActivity extends AppCompatActivity{
         inflater.inflate(R.menu.options_menu,menu);
 
 
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         android.support.v7.widget.SearchView searchView =
                 (android.support.v7.widget.SearchView) menu.findItem(R.id.search).getActionView();
 
@@ -150,7 +144,6 @@ public class TabbedActivity extends AppCompatActivity{
 
                 return true;
         }
-
 
         return super.onOptionsItemSelected(item);
      }
