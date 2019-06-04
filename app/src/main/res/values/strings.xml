@@ -17,7 +17,7 @@
 
     <string name="night_mode">Night Mode</string>
     <string name="day_mode">Day Mode</string>
-    <string name="tab_label1">HISTORY</string>
+    <string name="tab_label1">MY RECIPE</string>
     <string name="tab_label2">FAVOURITES</string>
     <string name="tab_label3">SHOPPING</string>
     <string name="title_activity_main2">Main2Activity</string>

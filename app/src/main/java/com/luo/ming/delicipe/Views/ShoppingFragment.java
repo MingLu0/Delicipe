@@ -42,9 +42,6 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
     ItemTouchHelper itemTouchHelper;
 
 
-
-    //private OnFragmentInteractionListener mListener;
-
     public ShoppingFragment() {
         // Required empty public constructor
     }
