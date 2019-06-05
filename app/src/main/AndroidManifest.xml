@@ -12,7 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Views.AddRecipeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Views.TabbedActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.luo.ming.delicipe.Views.TabbedActivity" />
+        </activity>
         <activity
             android:name=".Views.Main2Activity"
             android:label="@string/title_activity_main2"

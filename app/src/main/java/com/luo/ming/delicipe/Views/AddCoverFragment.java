@@ -65,6 +65,7 @@ public class AddCoverFragment extends Fragment {
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = data.getData();
                     coverImage.setImageURI(selectedImage);
+                    coverImage.setAdjustViewBounds(true);
                     addBtn.setVisibility(View.INVISIBLE);
                 }
         }

@@ -30,9 +30,9 @@ public class AddRecipeActivity extends AppCompatActivity {
         Toolbar toolbar =  findViewById(R.id.toolbar_recipe);
         setSupportActionBar(toolbar);
 
-        //ActionBar actionbar = getSupportActionBar();
-        //actionbar.setDisplayHomeAsUpEnabled(true);
-        //actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+       // actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.pager);
