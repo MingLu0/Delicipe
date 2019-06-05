@@ -11,10 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Views.AddRecipeActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Views.Main2Activity"
             android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Views.ScrollingActivity2"
             android:label="@string/title_activity_scrolling2"
@@ -40,7 +42,6 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".Views.AddRecipeActivity" />
         <activity
             android:name=".Views.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

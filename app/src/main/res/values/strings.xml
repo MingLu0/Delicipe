@@ -36,6 +36,7 @@
     <string name="main_browse_btn">Not now, thanks</string>
     <string name="main_sign_up_btn">SIGN UP</string>
     <string name="edit_shopping_item_save_btn">SAVE</string>
+    <string name="title_activity_create_recipe">CreateRecipeActivity</string>
 
 
 </resources>

@@ -1,8 +1,8 @@
 package com.luo.ming.delicipe.Views;
 
-import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +24,7 @@ public class SearchFragment extends Fragment implements SearchActivityPresenter.
     private RecyclerView recyclerView;
     private SearchRecyclerViewAdapter searchRecyclerViewAdapter;
     private SearchActivityPresenter presenter;
+    private FloatingActionButton createBtn;
 
     private EditText editText;
     private Button button;
@@ -48,7 +49,6 @@ public class SearchFragment extends Fragment implements SearchActivityPresenter.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_recipe, container, false);
     }
@@ -60,61 +60,24 @@ public class SearchFragment extends Fragment implements SearchActivityPresenter.
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        createBtn = view.findViewById(R.id.addRecipe);
         presenter = new SearchActivityPresenter(this,getContext());
 
-//        searchView = (SearchView)view.findViewById(R.id.searchView);
-//        CharSequence query = searchView.getQuery();// get the query string currently in the text field
-//
-//        searchView.setIconifiedByDefault(false);
-//        searchView.setQueryHint("search recipe");
-//
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//
-//                mQuery = query;
-//                Log.d("query",mQuery);
-//
-//                presenter.setUrl(mQuery);
-//
-//                searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(presenter,getContext());
-//
-//                presenter.getRecipesList();
-//
-//                searchRecyclerViewAdapter.notifyDataSetChanged();
-//
-//
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return false;
-//            }
-//        });
+        createBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddRecipeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
 
     }
 
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-       // mListener = null;
-    }
 
     @Override
     public void refreshRecipeList() {
