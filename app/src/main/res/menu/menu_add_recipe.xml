@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/delete_recipe"
+        android:title="delete recipe"
+        android:icon="@drawable/ic_action_delete_recipe"
+        android:orderInCategory="10"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/save_recipe"
+        android:title="save recipe"
+        android:icon="@drawable/ic_action_save_recipe"
+        android:orderInCategory="20"
+        app:showAsAction="always" />
+
+</menu>

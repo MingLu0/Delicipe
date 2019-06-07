@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.luo.ming.delicipe.R;
 
@@ -21,6 +23,16 @@ public class AddRecipeActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_add_recipe,menu);
+
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +92,7 @@ public class AddRecipeActivity extends AppCompatActivity {
             switch(position){
                 case 0: return new AddCoverFragment();
                 case 1: return new AddIngredientFragment();
-                case 2: return new AddCookStepFragment();
+                case 2: return new AddCookingStepFragment();
                 default: return null;
             }
 
