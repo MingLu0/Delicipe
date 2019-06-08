@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.luo.ming.delicipe.Models.RecipeCover;
 import com.luo.ming.delicipe.R;
 
 import static android.app.Activity.RESULT_OK;
@@ -24,9 +26,13 @@ import static android.app.Activity.RESULT_OK;
  */
 public class AddCoverFragment extends Fragment {
 
+    private Uri imageUri;
+
     private ImageView coverImage;
     private Button addBtn;
     private OnFragmentInteractionListener listener;
+    private RecipeCover recipeCover;
+    public final static String COVER_INFO_BUNDLE_TAG= "com.luo.ming.delicipe.Views.AddCoverFragment";
 
 
     public AddCoverFragment() {
@@ -67,6 +73,7 @@ public class AddCoverFragment extends Fragment {
             case 1:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = data.getData();
+                    imageUri = selectedImage;
                     coverImage.setImageURI(selectedImage);
                     coverImage.setAdjustViewBounds(true);
                     addBtn.setVisibility(View.INVISIBLE);
@@ -89,7 +96,11 @@ public class AddCoverFragment extends Fragment {
 
     public void saveCoverPageInfo(){
 
-        listener.onFragmentInteraction();
+        recipeCover = new RecipeCover("uri sample","cover name",2,2,"my recipe");
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(COVER_INFO_BUNDLE_TAG,recipeCover);
+
+        listener.onFragmentInteraction(bundle);
 
     }
 

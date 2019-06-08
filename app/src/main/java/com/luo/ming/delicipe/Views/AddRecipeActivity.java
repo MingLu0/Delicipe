@@ -1,5 +1,6 @@
 package com.luo.ming.delicipe.Views;
 
+import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,15 +10,22 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import com.luo.ming.delicipe.Models.Recipe;
+import com.luo.ming.delicipe.Models.RecipeCover;
 import com.luo.ming.delicipe.R;
+
+import static com.luo.ming.delicipe.Views.AddCoverFragment.COVER_INFO_BUNDLE_TAG;
 
 public class AddRecipeActivity extends AppCompatActivity implements AddCoverFragment.OnFragmentInteractionListener{
 
     private PagerAdapter mSectionsPagerAdapter;
     private AddCoverFragment addCoverFragment;
+    private RecipeCover recipeCover;
 
 
     /**
@@ -25,6 +33,19 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
      */
     private ViewPager mViewPager;
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        switch (item.getItemId()){
+            case R.id.save_recipe:
+                addCoverFragment.saveCoverPageInfo();
+
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onAttachFragment(Fragment fragment) {
@@ -40,6 +61,12 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
     @Override
     public void onFragmentInteraction(Bundle bundle) {
 
+        recipeCover = bundle.getParcelable(COVER_INFO_BUNDLE_TAG);
+        Log.d("AddRecipeActivity",recipeCover.getComment());
+        Log.d("AddRecipeActivity",recipeCover.getImageUri());
+        Log.d("AddRecipeActivity",recipeCover.getCoverName());
+        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getCookingTime()));
+        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getComment()));
 
 
     }
