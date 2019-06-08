@@ -55,6 +55,7 @@
                 android:inputType="textAutoComplete"
                 app:layout_constraintBottom_toBottomOf="@+id/edit_text_unit"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toEndOf="@+id/spinner"
                 app:layout_constraintTop_toTopOf="@+id/edit_text_unit" />
 
@@ -75,7 +76,7 @@
                 app:layout_constraintVertical_bias="1.0" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/button_delete_ingredient"
                 android:layout_width="29dp"
                 android:layout_height="23dp"
 
@@ -86,6 +87,7 @@
                 android:background="@drawable/ic_action_delete"
                 app:layout_constraintBottom_toBottomOf="@+id/edit_text_ingredient_name"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.9"
                 app:layout_constraintStart_toEndOf="@+id/edit_text_ingredient_name"
                 app:layout_constraintTop_toTopOf="@+id/edit_text_ingredient_name" />
         </android.support.constraint.ConstraintLayout>

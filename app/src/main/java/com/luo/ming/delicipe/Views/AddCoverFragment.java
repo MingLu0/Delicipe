@@ -1,6 +1,7 @@
 package com.luo.ming.delicipe.Views;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ public class AddCoverFragment extends Fragment {
 
     private ImageView coverImage;
     private Button addBtn;
+    private OnFragmentInteractionListener listener;
+
 
     public AddCoverFragment() {
         // Required empty public constructor
@@ -70,5 +73,29 @@ public class AddCoverFragment extends Fragment {
                 }
         }
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if(context instanceof OnFragmentInteractionListener){
+            listener = (OnFragmentInteractionListener)context;
+        } else {
+            throw new RuntimeException(context.toString()+
+                    "must implement OnFragmentInteractionListener");
+        }
+    }
+
+    public void saveCoverPageInfo(){
+
+        listener.onFragmentInteraction();
+
+    }
+
+
+    public interface OnFragmentInteractionListener{
+
+        void onFragmentInteraction(Bundle bundle);
     }
 }

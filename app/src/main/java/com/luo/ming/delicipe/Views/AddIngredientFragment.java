@@ -24,7 +24,6 @@ import com.luo.ming.delicipe.R;
  */
 public class AddIngredientFragment extends Fragment implements AddIngredientFragmentPresenter.View {
 
-    //private FloatingActionButton addBtn;
     private Button addIngredientBtn;
     private TableLayout tableLayout;
     private AddIngredientFragmentPresenter presenter;
@@ -69,6 +68,23 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_ingredient,null);
 
+        Button deleteIngredientBtn = row.findViewById(R.id.button_delete_ingredient);
+
+        deleteIngredientBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // row is your row, the parent of the clicked button
+                View row = (View) v.getParent();
+                // container contains all the rows, you could keep a variable somewhere else to the container which you can refer to here
+                ViewGroup container = ((ViewGroup)row.getParent());
+                // delete the row and invalidate your view so it gets redrawn
+                container.removeView(row);
+                container.invalidate();
+
+            }
+        });
+
         EditText textCount = row.findViewById(R.id.edit_text_unit);
         EditText textName = row.findViewById(R.id.edit_text_ingredient_name);
 
@@ -76,4 +92,10 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
         tableLayout.addView(row,0);
 
     }
+
+    public interface OnFragmentInteractionListener{
+
+        void onFragmentInteraction();
+    }
+
 }

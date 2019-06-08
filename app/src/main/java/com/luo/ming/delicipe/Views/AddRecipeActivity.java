@@ -14,15 +14,35 @@ import android.view.MenuInflater;
 
 import com.luo.ming.delicipe.R;
 
-public class AddRecipeActivity extends AppCompatActivity {
+public class AddRecipeActivity extends AppCompatActivity implements AddCoverFragment.OnFragmentInteractionListener{
 
     private PagerAdapter mSectionsPagerAdapter;
+    private AddCoverFragment addCoverFragment;
+
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
 
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+
+        if(fragment instanceof AddCoverFragment){
+            addCoverFragment = (AddCoverFragment)fragment;
+        }
+
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Bundle bundle) {
+
+
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -69,10 +89,6 @@ public class AddRecipeActivity extends AppCompatActivity {
         // set viewpager to the appropriate screen
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
-
-
-
-
 
 
 
