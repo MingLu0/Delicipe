@@ -28,7 +28,7 @@ public class FavouritesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-   // private OnFragmentInteractionListener mListener;
+   // private OnAddCoverFragmentInteractionListener mListener;
 
     public FavouritesFragment() {
         // Required empty public constructor
@@ -71,18 +71,18 @@ public class FavouritesFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
 //        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
+//            mListener.onAddCoverFragmentInteraction(uri);
 //        }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
+//        if (context instanceof OnAddCoverFragmentInteractionListener) {
+//            mListener = (OnAddCoverFragmentInteractionListener) context;
 //        } else {
 //            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
+//                    + " must implement OnAddCoverFragmentInteractionListener");
 //        }
     }
 
@@ -102,8 +102,8 @@ public class FavouritesFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-//    public interface OnFragmentInteractionListener {
+//    public interface OnAddCoverFragmentInteractionListener {
 //        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
+//        void onAddCoverFragmentInteraction(Uri uri);
 //    }
 }

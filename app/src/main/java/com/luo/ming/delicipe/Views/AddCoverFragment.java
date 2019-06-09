@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,7 +29,7 @@ public class AddCoverFragment extends Fragment {
 
     private ImageView coverImage;
     private Button addBtn;
-    private OnFragmentInteractionListener listener;
+    private OnAddCoverFragmentInteractionListener listener;
     private RecipeCover recipeCover;
     public final static String COVER_INFO_BUNDLE_TAG= "com.luo.ming.delicipe.Views.AddCoverFragment";
 
@@ -86,11 +85,11 @@ public class AddCoverFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if(context instanceof OnFragmentInteractionListener){
-            listener = (OnFragmentInteractionListener)context;
+        if(context instanceof OnAddCoverFragmentInteractionListener){
+            listener = (OnAddCoverFragmentInteractionListener)context;
         } else {
             throw new RuntimeException(context.toString()+
-                    "must implement OnFragmentInteractionListener");
+                    "must implement OnAddCoverFragmentInteractionListener");
         }
     }
 
@@ -100,13 +99,13 @@ public class AddCoverFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putParcelable(COVER_INFO_BUNDLE_TAG,recipeCover);
 
-        listener.onFragmentInteraction(bundle);
+        listener.onAddCoverFragmentInteraction(bundle);
 
     }
 
 
-    public interface OnFragmentInteractionListener{
+    public interface OnAddCoverFragmentInteractionListener {
 
-        void onFragmentInteraction(Bundle bundle);
+        void onAddCoverFragmentInteraction(Bundle bundle);
     }
 }

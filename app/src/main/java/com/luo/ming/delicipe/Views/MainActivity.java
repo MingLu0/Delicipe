@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 //presenter.login();  ONLY LINE BEFORE EDITING
                 // Go to Home Page activity
                 //Intent intent = new Intent(getApplicationContext(), TabbedActivity.class);
-                Intent intent = new Intent(getApplicationContext(), AddRecipeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), TabbedActivity.class);
                 startActivity(intent);
 
             }

@@ -1,6 +1,5 @@
 package com.luo.ming.delicipe.Views;
 
-import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,17 +14,28 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Models.RecipeCover;
+import com.luo.ming.delicipe.Models.RecipeIngredient;
+import com.luo.ming.delicipe.Models.RecipeStep;
 import com.luo.ming.delicipe.R;
 
-import static com.luo.ming.delicipe.Views.AddCoverFragment.COVER_INFO_BUNDLE_TAG;
+import java.util.ArrayList;
 
-public class AddRecipeActivity extends AppCompatActivity implements AddCoverFragment.OnFragmentInteractionListener{
+import static com.luo.ming.delicipe.Views.AddCoverFragment.COVER_INFO_BUNDLE_TAG;
+import static com.luo.ming.delicipe.Views.AddIngredientFragment.INGREDIENT_BUNDLE_TAG;
+
+public class AddRecipeActivity extends AppCompatActivity implements AddCoverFragment.OnAddCoverFragmentInteractionListener, AddIngredientFragment.OnAddIngredientFragmentInteractionListener{
 
     private PagerAdapter mSectionsPagerAdapter;
     private AddCoverFragment addCoverFragment;
+    private AddIngredientFragment addIngredientFragment;
+    private AddCookingStepFragment addCookingStepFragment;
+
     private RecipeCover recipeCover;
+    private RecipeIngredient ingredient;
+    private RecipeStep step;
+
+    private ArrayList<RecipeIngredient> ingredientList;
 
 
     /**
@@ -40,6 +50,7 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
         switch (item.getItemId()){
             case R.id.save_recipe:
                 addCoverFragment.saveCoverPageInfo();
+                addIngredientFragment.saveIngredientListInfo();
 
 
         }
@@ -53,23 +64,15 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
 
         if(fragment instanceof AddCoverFragment){
             addCoverFragment = (AddCoverFragment)fragment;
+        } else if (fragment instanceof AddIngredientFragment){
+            addIngredientFragment = (AddIngredientFragment)fragment;
+        } else if (fragment instanceof AddCookingStepFragment){
+            addCookingStepFragment = (AddCookingStepFragment)fragment;
         }
 
-
     }
 
-    @Override
-    public void onFragmentInteraction(Bundle bundle) {
 
-        recipeCover = bundle.getParcelable(COVER_INFO_BUNDLE_TAG);
-        Log.d("AddRecipeActivity",recipeCover.getComment());
-        Log.d("AddRecipeActivity",recipeCover.getImageUri());
-        Log.d("AddRecipeActivity",recipeCover.getCoverName());
-        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getCookingTime()));
-        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getComment()));
-
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -117,7 +120,34 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
 
+    @Override
+    public void onAddCoverFragmentInteraction(Bundle bundle) {
 
+        recipeCover = bundle.getParcelable(COVER_INFO_BUNDLE_TAG);
+        Log.d("AddRecipeActivity",recipeCover.getComment());
+        Log.d("AddRecipeActivity",recipeCover.getImageUri());
+        Log.d("AddRecipeActivity",recipeCover.getCoverName());
+        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getCookingTime()));
+        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getComment()));
+
+
+    }
+
+    @Override
+    public void onAddIngredientFragmentInteraction(Bundle bundle) {
+
+        ingredientList = bundle.getParcelableArrayList(INGREDIENT_BUNDLE_TAG);
+
+        for(int i=0;i<ingredientList.size();i++){
+            ingredient = ingredientList.get(i);
+            Log.d("AddRecipeActivity",String.valueOf(ingredient.getAmount()));
+            Log.d("AddRecipeActivity",ingredient.getUnit());
+            Log.d("AddRecipeActivity",ingredient.getName());
+        }
+
+
+
+    }
 
 
     public class PagerAdapter extends FragmentStatePagerAdapter {
