@@ -21,10 +21,9 @@ import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    private Context context;
+
     public DatabaseHandler(Context context) {
         super(context, Constants.DB_NAME, null, Constants.DB_VERSION);
-        this.context = context;
     }
 
     @Override

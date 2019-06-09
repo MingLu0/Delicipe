@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.luo.ming.delicipe.Models.RecipeCover;
@@ -25,13 +26,16 @@ import static android.app.Activity.RESULT_OK;
  */
 public class AddCoverFragment extends Fragment {
 
-    private Uri imageUri;
 
+    private String imageUri;
     private ImageView coverImage;
     private Button addBtn;
     private OnAddCoverFragmentInteractionListener listener;
     private RecipeCover recipeCover;
     public final static String COVER_INFO_BUNDLE_TAG= "com.luo.ming.delicipe.Views.AddCoverFragment";
+
+    private EditText name_text,cooking_time_text,serving_size_text,comment_text;
+
 
 
     public AddCoverFragment() {
@@ -49,6 +53,13 @@ public class AddCoverFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        name_text = view.findViewById(R.id.text_recipe_name);
+        cooking_time_text = view.findViewById(R.id.text_cooking_time);
+        serving_size_text = view.findViewById(R.id.text_serving_size);
+        comment_text = view.findViewById(R.id.text_comment);
+
+
 
         coverImage = view.findViewById(R.id.imageCover);
         addBtn = view.findViewById(R.id.addImageButton);
@@ -72,7 +83,7 @@ public class AddCoverFragment extends Fragment {
             case 1:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = data.getData();
-                    imageUri = selectedImage;
+                    imageUri = selectedImage.toString();
                     coverImage.setImageURI(selectedImage);
                     coverImage.setAdjustViewBounds(true);
                     addBtn.setVisibility(View.INVISIBLE);
@@ -94,7 +105,14 @@ public class AddCoverFragment extends Fragment {
 
     public void saveCoverPageInfo(){
 
-        recipeCover = new RecipeCover("uri sample","cover name",2,2,"my recipe");
+
+        String name = name_text.getText().toString();
+        int cookingTime = Integer.valueOf(cooking_time_text.getText().toString());
+        int servingSize = Integer.valueOf(serving_size_text.getText().toString());
+        String comment = comment_text.getText().toString();
+
+
+        recipeCover = new RecipeCover(imageUri,name,cookingTime,servingSize,comment);
         Bundle bundle = new Bundle();
         bundle.putParcelable(COVER_INFO_BUNDLE_TAG,recipeCover);
 

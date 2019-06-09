@@ -29,14 +29,16 @@
             android:id="@+id/imageCover"
             android:layout_width="402dp"
             android:layout_height="289dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:background="#DCDCDC"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="-7dp" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/text_recipe_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -57,7 +59,7 @@
             app:layout_constraintVertical_bias="0.060000002" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/text_cooking_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -72,11 +74,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.08"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText3"
+            app:layout_constraintTop_toBottomOf="@+id/text_recipe_name"
             app:layout_constraintVertical_bias="0.07999998" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/text_serving_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -86,14 +88,14 @@
             android:ems="5"
             android:inputType="textPersonName"
             android:hint="serving size"
-            app:layout_constraintBottom_toBottomOf="@+id/editText2"
+            app:layout_constraintBottom_toBottomOf="@+id/text_cooking_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toEndOf="@+id/editText2"
-            app:layout_constraintTop_toTopOf="@+id/editText2" />
+            app:layout_constraintStart_toEndOf="@+id/text_cooking_time"
+            app:layout_constraintTop_toTopOf="@+id/text_cooking_time" />
 
         <EditText
-            android:id="@+id/editText6"
+            android:id="@+id/text_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -105,7 +107,7 @@
             android:inputType="textMultiLine"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText2"
+            app:layout_constraintTop_toBottomOf="@+id/text_cooking_time"
             app:layout_constraintVertical_bias="0.07999998" />
 
     </android.support.constraint.ConstraintLayout>

@@ -40,6 +40,9 @@ public class RecipeIngredient implements Parcelable {
     }
 
     protected RecipeIngredient(Parcel in) {
+        amount = in.readFloat();
+        unit = in.readString();
+        name = in.readString();
     }
 
     public static final Creator<RecipeIngredient> CREATOR = new Creator<RecipeIngredient>() {
@@ -61,5 +64,9 @@ public class RecipeIngredient implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeFloat(amount);
+        dest.writeString(unit);
+        dest.writeString(name);
     }
 }

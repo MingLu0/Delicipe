@@ -127,11 +127,11 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
     public void onAddCoverFragmentInteraction(Bundle bundle) {
 
         recipeCover = bundle.getParcelable(COVER_INFO_BUNDLE_TAG);
-//        Log.d("AddRecipeActivity",recipeCover.getComment());
-//        Log.d("AddRecipeActivity",recipeCover.getImageUri());
-//        Log.d("AddRecipeActivity",recipeCover.getCoverName());
-//        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getCookingTime()));
-//        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getComment()));
+        Log.d("AddRecipeActivity",recipeCover.getComment());
+        Log.d("AddRecipeActivity",recipeCover.getImageUri());
+        Log.d("AddRecipeActivity",recipeCover.getCoverName());
+        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getCookingTime()));
+        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getServingSize()));
 
 
     }
@@ -143,9 +143,9 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
 
         for(int i=0;i<ingredientList.size();i++){
             ingredient = ingredientList.get(i);
-//            Log.d("AddRecipeActivity",String.valueOf(ingredient.getAmount()));
-//            Log.d("AddRecipeActivity",ingredient.getUnit());
-//            Log.d("AddRecipeActivity",ingredient.getName());
+            Log.d("AddRecipeActivity",String.valueOf(ingredient.getAmount()));
+            Log.d("AddRecipeActivity",ingredient.getUnit());
+            Log.d("AddRecipeActivity",ingredient.getName());
         }
 
 
