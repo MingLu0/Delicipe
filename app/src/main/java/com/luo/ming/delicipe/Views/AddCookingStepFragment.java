@@ -2,7 +2,10 @@ package com.luo.ming.delicipe.Views;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,12 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 import com.luo.ming.delicipe.Presenters.AddCookingStepPresenter;
 import com.luo.ming.delicipe.R;
+import com.squareup.picasso.Picasso;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +32,8 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
     private TableLayout tableLayout;
     private Button addStepButton;
     private AddCookingStepPresenter presenter;
+
+    private int selectedRow;
 
 
     public AddCookingStepFragment() {
@@ -61,11 +70,40 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
     public void displayTableLayout() {
 
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_step,null);
-//        EditText textCount = row.findViewById(R.id.edit_text_unit);
-//        EditText textName = row.findViewById(R.id.edit_text_ingredient_name);
+        final LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_step,null);
 
-        tableLayout.addView(row,0);
+        final Button addphotoBtn = row.findViewById(R.id.button_add_photo);
+
+        TextView testStepNum = row.findViewById(R.id.textStepNum);
+        int rowCount = tableLayout.getChildCount();
+        testStepNum.setText("Step "+String.valueOf(rowCount+1));
+        tableLayout.addView(row,rowCount);
+
+        addphotoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int requestCode = tableLayout.indexOfChild(row);
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto,requestCode);
+            }
+
+
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+
+            Uri selectedImage = data.getData();
+            View row = tableLayout.getChildAt(requestCode);
+            ImageView stepImage = row.findViewById(R.id.imageStep);
+            stepImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            stepImage.setImageURI(selectedImage);
+        }
 
     }
 }

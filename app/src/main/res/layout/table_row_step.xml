@@ -20,34 +20,53 @@
             android:layout_marginRight="8dp">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageStep"
                 android:layout_width="402dp"
                 android:layout_height="289dp"
                 android:background="#DCDCDC"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-               />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/editText4"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textStepNum"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
+                android:layout_marginBottom="8dp"
+                android:text="TextView"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                app:layout_constraintBottom_toBottomOf="@+id/textStep"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintTop_toTopOf="@+id/textStep" />
+
+            <EditText
+                android:id="@+id/textStep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:ems="18"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textStepNum"
+                app:layout_constraintTop_toBottomOf="@+id/imageStep" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/button_add_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -56,10 +75,10 @@
                 android:layout_marginBottom="8dp"
                 android:background="@null"
                 android:text="+ Add photo"
-                app:layout_constraintBottom_toTopOf="@+id/editText4"
-                app:layout_constraintEnd_toEndOf="@+id/imageView"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="@+id/imageView" />
+                app:layout_constraintBottom_toTopOf="@+id/textStep"
+                app:layout_constraintEnd_toEndOf="@+id/imageStep"
+                app:layout_constraintStart_toStartOf="@+id/imageStep"
+                app:layout_constraintTop_toTopOf="@+id/imageStep" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

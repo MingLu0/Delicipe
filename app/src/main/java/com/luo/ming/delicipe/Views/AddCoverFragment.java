@@ -88,8 +88,7 @@ public class AddCoverFragment extends Fragment {
         if(context instanceof OnAddCoverFragmentInteractionListener){
             listener = (OnAddCoverFragmentInteractionListener)context;
         } else {
-            throw new RuntimeException(context.toString()+
-                    "must implement OnAddCoverFragmentInteractionListener");
+            throw new RuntimeException();
         }
     }
 
