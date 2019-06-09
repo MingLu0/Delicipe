@@ -21,10 +21,11 @@ import com.luo.ming.delicipe.R;
 
 import java.util.ArrayList;
 
+import static com.luo.ming.delicipe.Views.AddCookingStepFragment.STEP_INFO_BUNDLE;
 import static com.luo.ming.delicipe.Views.AddCoverFragment.COVER_INFO_BUNDLE_TAG;
 import static com.luo.ming.delicipe.Views.AddIngredientFragment.INGREDIENT_BUNDLE_TAG;
 
-public class AddRecipeActivity extends AppCompatActivity implements AddCoverFragment.OnAddCoverFragmentInteractionListener, AddIngredientFragment.OnAddIngredientFragmentInteractionListener{
+public class AddRecipeActivity extends AppCompatActivity implements AddCoverFragment.OnAddCoverFragmentInteractionListener, AddIngredientFragment.OnAddIngredientFragmentInteractionListener,AddCookingStepFragment.OnAddCookingStepFragmentInteractionListener{
 
     private PagerAdapter mSectionsPagerAdapter;
     private AddCoverFragment addCoverFragment;
@@ -36,6 +37,7 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
     private RecipeStep step;
 
     private ArrayList<RecipeIngredient> ingredientList;
+    private ArrayList<RecipeStep>recipeStepList;
 
 
     /**
@@ -51,6 +53,7 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
             case R.id.save_recipe:
                 addCoverFragment.saveCoverPageInfo();
                 addIngredientFragment.saveIngredientListInfo();
+                addCookingStepFragment.saveCookingStepInfo();
 
 
         }
@@ -124,11 +127,11 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
     public void onAddCoverFragmentInteraction(Bundle bundle) {
 
         recipeCover = bundle.getParcelable(COVER_INFO_BUNDLE_TAG);
-        Log.d("AddRecipeActivity",recipeCover.getComment());
-        Log.d("AddRecipeActivity",recipeCover.getImageUri());
-        Log.d("AddRecipeActivity",recipeCover.getCoverName());
-        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getCookingTime()));
-        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getComment()));
+//        Log.d("AddRecipeActivity",recipeCover.getComment());
+//        Log.d("AddRecipeActivity",recipeCover.getImageUri());
+//        Log.d("AddRecipeActivity",recipeCover.getCoverName());
+//        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getCookingTime()));
+//        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getComment()));
 
 
     }
@@ -140,11 +143,27 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
 
         for(int i=0;i<ingredientList.size();i++){
             ingredient = ingredientList.get(i);
-            Log.d("AddRecipeActivity",String.valueOf(ingredient.getAmount()));
-            Log.d("AddRecipeActivity",ingredient.getUnit());
-            Log.d("AddRecipeActivity",ingredient.getName());
+//            Log.d("AddRecipeActivity",String.valueOf(ingredient.getAmount()));
+//            Log.d("AddRecipeActivity",ingredient.getUnit());
+//            Log.d("AddRecipeActivity",ingredient.getName());
         }
 
+
+
+    }
+
+    @Override
+    public void onAddCookingStepFragmentInteraction(Bundle bundle) {
+
+        recipeStepList = bundle.getParcelableArrayList(STEP_INFO_BUNDLE);
+
+        for(int i=0;i<recipeStepList.size();i++){
+
+            step = recipeStepList.get(i);
+            Log.d("AddRecipeActivity",step.getImageUri());
+            Log.d("AddRecipeActivity",step.getStepText());
+
+        }
 
 
     }

@@ -77,8 +77,6 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
 
         addIngredientBtn = view.findViewById(R.id.button_add_ingredient);
 
-//        addBtn = view.findViewById(R.id.floatingActionButtonAddIngredient);
-//
         addIngredientBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,9 +118,6 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
             }
         });
 
-//        EditText textCount = row.findViewById(R.id.edit_text_unit);
-//        EditText textName = row.findViewById(R.id.edit_text_ingredient_name);
-
         rowCount = tableLayout.getChildCount();
         tableLayout.addView(row,rowCount);
 
@@ -159,7 +154,6 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
 
 
     }
-
 
 
     public interface OnAddIngredientFragmentInteractionListener{

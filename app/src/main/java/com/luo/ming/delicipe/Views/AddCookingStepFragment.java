@@ -13,14 +13,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.luo.ming.delicipe.Models.Recipe;
+import com.luo.ming.delicipe.Models.RecipeIngredient;
+import com.luo.ming.delicipe.Models.RecipeStep;
 import com.luo.ming.delicipe.Presenters.AddCookingStepPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -32,6 +38,12 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
     private TableLayout tableLayout;
     private Button addStepButton;
     private AddCookingStepPresenter presenter;
+    private OnAddCookingStepFragmentInteractionListener listener;
+
+    private ArrayList<String>imageUriList;
+
+    public static final String STEP_INFO_BUNDLE = "package com.luo.ming.delicipe." +
+            "Views.AddCookingStepFragment";
 
     private int selectedRow;
 
@@ -40,6 +52,17 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if(context instanceof OnAddCookingStepFragmentInteractionListener){
+            listener = (OnAddCookingStepFragmentInteractionListener)context;
+        } else {
+            throw new RuntimeException(context.toString()+
+                    "must implement OnAddIngredientStepFragmentInteractionListener");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +75,7 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        imageUriList = new ArrayList<>();
         tableLayout = view.findViewById(R.id.tableLayout_steps);
         addStepButton = view.findViewById(R.id.add_step_button);
 
@@ -103,7 +127,38 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
             ImageView stepImage = row.findViewById(R.id.imageStep);
             stepImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
             stepImage.setImageURI(selectedImage);
+            imageUriList.add(requestCode,selectedImage.toString());
         }
 
+    }
+
+    public void saveCookingStepInfo(){
+
+        ArrayList<RecipeStep> recipeStepsList = new ArrayList<>();
+
+        int rowCount = tableLayout.getChildCount();
+        for(int i=0;i<rowCount;i++){
+
+            View view = tableLayout.getChildAt(i);
+
+            EditText stepText = view.findViewById(R.id.textStep);
+
+            String step = stepText.getText().toString();
+
+
+            RecipeStep recipeStep = new RecipeStep(imageUriList.get(i),step);
+            recipeStepsList.add(recipeStep);
+
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(STEP_INFO_BUNDLE,recipeStepsList);
+
+        listener.onAddCookingStepFragmentInteraction(bundle);
+
+    }
+
+    public interface OnAddCookingStepFragmentInteractionListener{
+        void onAddCookingStepFragmentInteraction(Bundle bundle);
     }
 }
