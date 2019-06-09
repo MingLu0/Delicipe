@@ -148,8 +148,6 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
             Log.d("AddRecipeActivity",ingredient.getName());
         }
 
-
-
     }
 
     @Override

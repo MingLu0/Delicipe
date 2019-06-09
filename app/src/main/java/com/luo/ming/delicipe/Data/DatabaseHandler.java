@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import static android.content.ContentValues.TAG;
@@ -22,8 +23,21 @@ import java.util.List;
 public class DatabaseHandler extends SQLiteOpenHelper {
 
 
-    public DatabaseHandler(Context context) {
+    private static DatabaseHandler INSTANCE;
+
+    public DatabaseHandler(final Context context) {
         super(context, Constants.DB_NAME, null, Constants.DB_VERSION);
+    }
+
+    public static DatabaseHandler getDataBase(Context context){
+
+        if (INSTANCE == null ){
+            synchronized (DatabaseHandler.class){
+                INSTANCE = new DatabaseHandler(context);
+                return INSTANCE;
+            }
+        }
+        return INSTANCE;
     }
 
     @Override

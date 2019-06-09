@@ -174,7 +174,7 @@ public class Recipe  {
     }
 
     public void addIngredientToDB(Context context,ArrayList<Ingredient>ingredients){
-        db = new DatabaseHandler(context);
+        db = DatabaseHandler.getDataBase(context);
         db.addIngredient(ingredients);
     }
 

@@ -15,7 +15,7 @@ public class Ingredients {
     }
 
     public ArrayList<Ingredient>getAllIngredientsFromDB(Context context){
-        db = new DatabaseHandler(context);
+        db = DatabaseHandler.getDataBase(context);
         return db.getAllIngredients();
     }
 }
