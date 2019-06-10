@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.R;
@@ -107,7 +108,7 @@ public class AddCoverFragment extends Fragment {
     public void saveCoverPageInfo(){
 
 
-        String name = name_text.getText().toString();
+
         int cookingTime = 0;
         int servingSize = 0;
         String comment = null;
@@ -124,11 +125,20 @@ public class AddCoverFragment extends Fragment {
             comment = comment_text.getText().toString();
         }
 
-        userRecipeCover = new UserRecipeCover(imageUri,name,cookingTime,servingSize,comment);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(COVER_INFO_BUNDLE_TAG, userRecipeCover);
+        if(!TextUtils.isEmpty(name_text.getText())){
 
-        listener.onAddCoverFragmentInteraction(bundle);
+            String name = name_text.getText().toString();
+
+            userRecipeCover = new UserRecipeCover(imageUri,name,cookingTime,servingSize,comment);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(COVER_INFO_BUNDLE_TAG, userRecipeCover);
+            listener.onAddCoverFragmentInteraction(bundle);
+
+        } else {
+            Toast.makeText(getActivity(),"Please enter a recipe name", Toast.LENGTH_SHORT).show();
+        }
+
+
 
     }
 

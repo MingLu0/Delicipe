@@ -58,8 +58,14 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
                 addCoverFragment.saveCoverPageInfo();
 //                addIngredientFragment.saveIngredientListInfo();
 //                addCookingStepFragment.saveCookingStepInfo();
-                userRecipe = new UserRecipe(userRecipeCover,ingredientList,userRecipeStepList);
-                userRecipe.saveUserRecipeToDatabase(this);
+
+                if(userRecipeCover != null){
+
+                     userRecipe = new UserRecipe(userRecipeCover,ingredientList,userRecipeStepList);
+                     userRecipe.saveUserRecipeToDatabase(this);
+
+                }
+
 
 
         }
