@@ -107,10 +107,9 @@ public class AddCoverFragment extends Fragment {
 
     public void saveCoverPageInfo(){
 
-
-
         int cookingTime = 0;
         int servingSize = 0;
+
         String comment = null;
 
         if (!TextUtils.isEmpty(cooking_time_text.getText())){

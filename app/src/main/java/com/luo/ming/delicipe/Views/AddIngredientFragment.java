@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,10 +130,21 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
              Spinner spinner = row.findViewById(R.id.spinner_unit);
              EditText textCount = row.findViewById(R.id.text_unit);
              EditText textIngredientName = row.findViewById(R.id.text_ingredient_name);
+             Float count = 0.0f;
+             String unit = null;
+             String ingredientName = null;
 
-             Float count = Float.valueOf(textCount.getText().toString());
-             String unit = spinner.getSelectedItem().toString();
-             String ingredientName = textIngredientName.getText().toString();
+             if(!TextUtils.isEmpty(textCount.getText())){
+                 count = Float.valueOf(textCount.getText().toString());
+             }
+
+             if(!TextUtils.isEmpty(spinner.getSelectedItem().toString())){
+                 unit = spinner.getSelectedItem().toString();
+             }
+
+             if(!TextUtils.isEmpty(textIngredientName.getText())){
+                 ingredientName = textIngredientName.getText().toString();
+             }
 
              UserRecipeIngredient ingredient = new UserRecipeIngredient(count,unit,ingredientName);
              ingredientList.add(ingredient);

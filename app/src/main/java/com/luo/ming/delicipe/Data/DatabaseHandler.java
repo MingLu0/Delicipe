@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.luo.ming.delicipe.Helpers.Constants;
@@ -165,10 +166,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
+        if(ingredientList != null){
+            for(int i=0; i< ingredientList.size(); i++){
+
+                ContentValues values = new ContentValues();
+
+                values.put(Constants.KEY_USER_INGREDIENT_COVER_ID,coverID);
+                values.put(Constants.KEY_USER_INGREDIENT_AMOUNT,ingredientList.get(i).getAmount());
+                values.put(Constants.KEY_USER_INGREDIENT_UNIT,ingredientList.get(i).getUnit());
+                values.put(Constants.KEY_USER_INGREDIENT_NAME, ingredientList.get(i).getName());
+
+                db.insert(Constants.TABLE_USER_INGREDIENT, null,values);
+            }
+        }
+
+        db.close();
 
     }
 
     public void saveRecipeSteps(ArrayList<UserRecipeStep> userRecipeStepList, int coverID) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        if(userRecipeStepList != null){
+
+            for(int i=0;i<userRecipeStepList.size();i++){
+
+                ContentValues values = new ContentValues();
+                values.put(Constants.KEY_USER_STEP_COVER_ID, coverID);
+                values.put(Constants.KEY_USER_STEP_IMAGE_URI, userRecipeStepList.get(i).getImageUri());
+                values.put(Constants.KEY_USER_STEP_TEXT, userRecipeStepList.get(i).getStepText());
+
+                db.insert(Constants.TABLE_USER_STEP, null,values);
+            }
+        }
+
+        db.close();
 
     }
 

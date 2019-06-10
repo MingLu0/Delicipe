@@ -52,22 +52,21 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
         switch (item.getItemId()){
             case R.id.save_recipe:
                 addCoverFragment.saveCoverPageInfo();
-//                addIngredientFragment.saveIngredientListInfo();
-//                addCookingStepFragment.saveCookingStepInfo();
+                addIngredientFragment.saveIngredientListInfo();
+
+                if(addCookingStepFragment!=null){
+                    addCookingStepFragment.saveCookingStepInfo();
+                }
+
 
                 if(userRecipeCover != null){
 
                      userRecipe = new UserRecipe(userRecipeCover,ingredientList,userRecipeStepList);
                      userRecipe.saveUserRecipeToDatabase(this);
-
                 }
-
-
-
         }
 
         return super.onOptionsItemSelected(item);
@@ -86,7 +85,6 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
         }
 
     }
-
 
 
     @Override
@@ -155,9 +153,9 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
 
         for(int i=0;i<ingredientList.size();i++){
             ingredient = ingredientList.get(i);
-            Log.d("AddRecipeActivity",String.valueOf(ingredient.getAmount()));
-            Log.d("AddRecipeActivity",ingredient.getUnit());
-            Log.d("AddRecipeActivity",ingredient.getName());
+//            Log.d("AddRecipeActivity",String.valueOf(ingredient.getAmount()));
+//            Log.d("AddRecipeActivity",ingredient.getUnit());
+//            Log.d("AddRecipeActivity",ingredient.getName());
         }
 
     }
@@ -170,8 +168,8 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
         for(int i = 0; i< userRecipeStepList.size(); i++){
 
             step = userRecipeStepList.get(i);
-            Log.d("AddRecipeActivity",step.getImageUri());
-            Log.d("AddRecipeActivity",step.getStepText());
+//            Log.d("AddRecipeActivity",step.getImageUri());
+//            Log.d("AddRecipeActivity",step.getStepText());
 
         }
 

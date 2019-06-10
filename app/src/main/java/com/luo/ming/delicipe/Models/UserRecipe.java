@@ -1,10 +1,8 @@
 package com.luo.ming.delicipe.Models;
 
-        import android.content.Context;
-
-        import com.luo.ming.delicipe.Data.DatabaseHandler;
-
-        import java.util.ArrayList;
+import android.content.Context;
+import com.luo.ming.delicipe.Data.DatabaseHandler;
+import java.util.ArrayList;
 
 public class UserRecipe {
 

@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -140,10 +141,20 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
 
             EditText stepText = view.findViewById(R.id.textStep);
 
-            String step = stepText.getText().toString();
+            String step = null;
 
+            UserRecipeStep userRecipeStep = null;
 
-            UserRecipeStep userRecipeStep = new UserRecipeStep(imageUriList.get(i),step);
+            if(!TextUtils.isEmpty(stepText.getText())){
+                step = stepText.getText().toString();
+            }
+
+            if(!imageUriList.isEmpty()){
+                userRecipeStep = new UserRecipeStep(imageUriList.get(i),step);
+            } else {
+                userRecipeStep = new UserRecipeStep(null,step);
+            }
+
             userRecipeStepsList.add(userRecipeStep);
 
         }
