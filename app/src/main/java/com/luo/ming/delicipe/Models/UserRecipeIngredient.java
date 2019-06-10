@@ -3,7 +3,7 @@ package com.luo.ming.delicipe.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class RecipeIngredient implements Parcelable {
+public class UserRecipeIngredient implements Parcelable {
 
     private float amount;
     private String unit;
@@ -33,27 +33,27 @@ public class RecipeIngredient implements Parcelable {
         this.name = name;
     }
 
-    public RecipeIngredient(float amount, String unit, String name) {
+    public UserRecipeIngredient(float amount, String unit, String name) {
         this.amount = amount;
         this.unit = unit;
         this.name = name;
     }
 
-    protected RecipeIngredient(Parcel in) {
+    protected UserRecipeIngredient(Parcel in) {
         amount = in.readFloat();
         unit = in.readString();
         name = in.readString();
     }
 
-    public static final Creator<RecipeIngredient> CREATOR = new Creator<RecipeIngredient>() {
+    public static final Creator<UserRecipeIngredient> CREATOR = new Creator<UserRecipeIngredient>() {
         @Override
-        public RecipeIngredient createFromParcel(Parcel in) {
-            return new RecipeIngredient(in);
+        public UserRecipeIngredient createFromParcel(Parcel in) {
+            return new UserRecipeIngredient(in);
         }
 
         @Override
-        public RecipeIngredient[] newArray(int size) {
-            return new RecipeIngredient[size];
+        public UserRecipeIngredient[] newArray(int size) {
+            return new UserRecipeIngredient[size];
         }
     };
 

@@ -1,10 +1,9 @@
 package com.luo.ming.delicipe.Models;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class RecipeCover implements Parcelable {
+public class UserRecipeCover implements Parcelable {
 
     private String imageUri;
     private String coverName;
@@ -12,7 +11,7 @@ public class RecipeCover implements Parcelable {
     private int servingSize;
     private String comment;
 
-    public RecipeCover(String imageUri, String coverName, int cookingTime, int servingSize, String comment) {
+    public UserRecipeCover(String imageUri, String coverName, int cookingTime, int servingSize, String comment) {
         this.imageUri = imageUri;
         this.coverName = coverName;
         this.cookingTime = cookingTime;
@@ -60,7 +59,7 @@ public class RecipeCover implements Parcelable {
         return comment;
     }
 
-    protected RecipeCover(Parcel in) {
+    protected UserRecipeCover(Parcel in) {
 
         imageUri = in.readString();
         coverName = in.readString();
@@ -70,15 +69,15 @@ public class RecipeCover implements Parcelable {
 
     }
 
-    public static final Creator<RecipeCover> CREATOR = new Creator<RecipeCover>() {
+    public static final Creator<UserRecipeCover> CREATOR = new Creator<UserRecipeCover>() {
         @Override
-        public RecipeCover createFromParcel(Parcel in) {
-            return new RecipeCover(in);
+        public UserRecipeCover createFromParcel(Parcel in) {
+            return new UserRecipeCover(in);
         }
 
         @Override
-        public RecipeCover[] newArray(int size) {
-            return new RecipeCover[size];
+        public UserRecipeCover[] newArray(int size) {
+            return new UserRecipeCover[size];
         }
     };
 

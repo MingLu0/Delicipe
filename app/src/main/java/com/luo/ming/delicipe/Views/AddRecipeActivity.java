@@ -14,9 +14,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.luo.ming.delicipe.Models.RecipeCover;
-import com.luo.ming.delicipe.Models.RecipeIngredient;
-import com.luo.ming.delicipe.Models.RecipeStep;
+import com.luo.ming.delicipe.Models.UserRecipe;
+import com.luo.ming.delicipe.Models.UserRecipeCover;
+import com.luo.ming.delicipe.Models.UserRecipeIngredient;
+import com.luo.ming.delicipe.Models.UserRecipeStep;
 import com.luo.ming.delicipe.R;
 
 import java.util.ArrayList;
@@ -32,12 +33,15 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
     private AddIngredientFragment addIngredientFragment;
     private AddCookingStepFragment addCookingStepFragment;
 
-    private RecipeCover recipeCover;
-    private RecipeIngredient ingredient;
-    private RecipeStep step;
+    private UserRecipeCover userRecipeCover;
+    private UserRecipeIngredient ingredient;
+    private UserRecipeStep step;
 
-    private ArrayList<RecipeIngredient> ingredientList;
-    private ArrayList<RecipeStep>recipeStepList;
+    private ArrayList<UserRecipeIngredient> ingredientList;
+    private ArrayList<UserRecipeStep> userRecipeStepList;
+
+    //todo convert to MVP
+    private UserRecipe userRecipe;
 
 
     /**
@@ -52,8 +56,10 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
         switch (item.getItemId()){
             case R.id.save_recipe:
                 addCoverFragment.saveCoverPageInfo();
-                addIngredientFragment.saveIngredientListInfo();
-                addCookingStepFragment.saveCookingStepInfo();
+//                addIngredientFragment.saveIngredientListInfo();
+//                addCookingStepFragment.saveCookingStepInfo();
+                userRecipe = new UserRecipe(userRecipeCover,ingredientList,userRecipeStepList);
+                userRecipe.saveUserRecipeToDatabase(this);
 
 
         }
@@ -126,12 +132,12 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
     @Override
     public void onAddCoverFragmentInteraction(Bundle bundle) {
 
-        recipeCover = bundle.getParcelable(COVER_INFO_BUNDLE_TAG);
-        Log.d("AddRecipeActivity",recipeCover.getComment());
-        Log.d("AddRecipeActivity",recipeCover.getImageUri());
-        Log.d("AddRecipeActivity",recipeCover.getCoverName());
-        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getCookingTime()));
-        Log.d("AddRecipeActivity",String.valueOf(recipeCover.getServingSize()));
+        userRecipeCover = bundle.getParcelable(COVER_INFO_BUNDLE_TAG);
+//        Log.d("AddRecipeActivity", userRecipeCover.getComment());
+//        Log.d("AddRecipeActivity", userRecipeCover.getImageUri());
+//        Log.d("AddRecipeActivity", userRecipeCover.getCoverName());
+//        Log.d("AddRecipeActivity",String.valueOf(userRecipeCover.getCookingTime()));
+//        Log.d("AddRecipeActivity",String.valueOf(userRecipeCover.getServingSize()));
 
 
     }
@@ -153,11 +159,11 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
     @Override
     public void onAddCookingStepFragmentInteraction(Bundle bundle) {
 
-        recipeStepList = bundle.getParcelableArrayList(STEP_INFO_BUNDLE);
+        userRecipeStepList = bundle.getParcelableArrayList(STEP_INFO_BUNDLE);
 
-        for(int i=0;i<recipeStepList.size();i++){
+        for(int i = 0; i< userRecipeStepList.size(); i++){
 
-            step = recipeStepList.get(i);
+            step = userRecipeStepList.get(i);
             Log.d("AddRecipeActivity",step.getImageUri());
             Log.d("AddRecipeActivity",step.getStepText());
 

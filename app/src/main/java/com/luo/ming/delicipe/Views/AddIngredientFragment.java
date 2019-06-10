@@ -5,28 +5,22 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
-import android.widget.TextView;
 
-import com.luo.ming.delicipe.Models.Recipe;
-import com.luo.ming.delicipe.Models.RecipeIngredient;
+import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Presenters.AddIngredientFragmentPresenter;
 import com.luo.ming.delicipe.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -126,7 +120,7 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
 
     public void saveIngredientListInfo() {
 
-        ArrayList<RecipeIngredient> ingredientList = new ArrayList<RecipeIngredient>();
+        ArrayList<UserRecipeIngredient> ingredientList = new ArrayList<UserRecipeIngredient>();
 
         rowCount = tableLayout.getChildCount();
 
@@ -140,7 +134,7 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
              String unit = spinner.getSelectedItem().toString();
              String ingredientName = textIngredientName.getText().toString();
 
-             RecipeIngredient ingredient = new RecipeIngredient(count,unit,ingredientName);
+             UserRecipeIngredient ingredient = new UserRecipeIngredient(count,unit,ingredientName);
              ingredientList.add(ingredient);
 
         }

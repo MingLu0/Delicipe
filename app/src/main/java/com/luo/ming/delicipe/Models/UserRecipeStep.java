@@ -1,10 +1,9 @@
 package com.luo.ming.delicipe.Models;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class RecipeStep implements Parcelable {
+public class UserRecipeStep implements Parcelable {
 
     private String imageUri;
     private String stepText;
@@ -25,26 +24,26 @@ public class RecipeStep implements Parcelable {
         this.stepText = stepText;
     }
 
-    public RecipeStep(String imageUri, String stepText) {
+    public UserRecipeStep(String imageUri, String stepText) {
         this.imageUri = imageUri;
         this.stepText = stepText;
     }
 
-    protected RecipeStep(Parcel in) {
+    protected UserRecipeStep(Parcel in) {
 
         imageUri = in.readString();
         stepText = in.readString();
     }
 
-    public static final Creator<RecipeStep> CREATOR = new Creator<RecipeStep>() {
+    public static final Creator<UserRecipeStep> CREATOR = new Creator<UserRecipeStep>() {
         @Override
-        public RecipeStep createFromParcel(Parcel in) {
-            return new RecipeStep(in);
+        public UserRecipeStep createFromParcel(Parcel in) {
+            return new UserRecipeStep(in);
         }
 
         @Override
-        public RecipeStep[] newArray(int size) {
-            return new RecipeStep[size];
+        public UserRecipeStep[] newArray(int size) {
+            return new UserRecipeStep[size];
         }
     };
 

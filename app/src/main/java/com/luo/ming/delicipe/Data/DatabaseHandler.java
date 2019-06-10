@@ -9,6 +9,9 @@ import android.util.Log;
 
 import com.luo.ming.delicipe.Helpers.Constants;
 import com.luo.ming.delicipe.Models.Ingredient;
+import com.luo.ming.delicipe.Models.UserRecipeCover;
+import com.luo.ming.delicipe.Models.UserRecipeIngredient;
+import com.luo.ming.delicipe.Models.UserRecipeStep;
 
 import java.util.ArrayList;
 
@@ -60,8 +63,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + Constants.KEY_USER_STEP_TEXT + " TEXT," + Constants.KEY_USER_STEP_COVER_ID + " INTEGER,"
                 + " FOREIGN KEY (" + Constants.KEY_USER_STEP_COVER_ID + ") REFERENCES " + Constants.TABLE_USER_RECIPE_COVER
                 + " (" + Constants.KEY_COVER_ID + "));";
-
-
 
         db.execSQL(CREATE_SHOPPINGLIST_TABLE);
         db.execSQL(CREATE_USER_COVER_TABLE);
@@ -143,5 +144,51 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    public void saveRecipeCover(UserRecipeCover userRecipeCover) {
 
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(Constants.KEY_COVER_IMAGE_URI, userRecipeCover.getImageUri());
+        values.put(Constants.KEY_COVER_NAME, userRecipeCover.getCoverName());
+        values.put(Constants.KEY_COVER_COOKING_TIME, userRecipeCover.getCookingTime());
+        values.put(Constants.KEY_COVER_SERVING_SIZE, userRecipeCover.getServingSize());
+        values.put(Constants.KEY_COVER_COMMENT, userRecipeCover.getComment());
+
+        db.insert(Constants.TABLE_USER_RECIPE_COVER,null,values);
+        db.close();
+
+    }
+
+    public void saveRecipeIngredients(ArrayList<UserRecipeIngredient> ingredientList, int coverID) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+    }
+
+    public void saveRecipeSteps(ArrayList<UserRecipeStep> userRecipeStepList, int coverID) {
+
+    }
+
+    public int getUserRecipeCoverID(String coverName) {
+
+        int coverID = -1;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String whereClause = Constants.KEY_COVER_NAME+" = ?";
+
+        Cursor cursor = db.query(Constants.TABLE_USER_RECIPE_COVER, new String[] {
+                Constants.KEY_COVER_ID}, whereClause, new String[]{coverName}, null, null, null );
+
+        if(cursor.moveToFirst()){
+            coverID = Integer.parseInt(cursor.getString(cursor.getColumnIndex(Constants.KEY_COVER_ID)));
+        }
+
+        Log.d("Database",String.valueOf(coverID));
+
+        return coverID;
+    }
 }

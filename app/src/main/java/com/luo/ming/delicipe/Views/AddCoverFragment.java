@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.luo.ming.delicipe.Models.RecipeCover;
+import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.R;
 
 import static android.app.Activity.RESULT_OK;
@@ -31,7 +32,7 @@ public class AddCoverFragment extends Fragment {
     private ImageView coverImage;
     private Button addBtn;
     private OnAddCoverFragmentInteractionListener listener;
-    private RecipeCover recipeCover;
+    private UserRecipeCover userRecipeCover;
     public final static String COVER_INFO_BUNDLE_TAG= "com.luo.ming.delicipe.Views.AddCoverFragment";
 
     private EditText name_text,cooking_time_text,serving_size_text,comment_text;
@@ -107,14 +108,25 @@ public class AddCoverFragment extends Fragment {
 
 
         String name = name_text.getText().toString();
-        int cookingTime = Integer.valueOf(cooking_time_text.getText().toString());
-        int servingSize = Integer.valueOf(serving_size_text.getText().toString());
-        String comment = comment_text.getText().toString();
+        int cookingTime = 0;
+        int servingSize = 0;
+        String comment = null;
 
+        if (!TextUtils.isEmpty(cooking_time_text.getText())){
+            cookingTime = Integer.valueOf(cooking_time_text.getText().toString());
+        }
 
-        recipeCover = new RecipeCover(imageUri,name,cookingTime,servingSize,comment);
+        if(!TextUtils.isEmpty(serving_size_text.getText())){
+            servingSize = Integer.valueOf(serving_size_text.getText().toString());
+        }
+
+        if(!TextUtils.isEmpty(comment_text.getText())){
+            comment = comment_text.getText().toString();
+        }
+
+        userRecipeCover = new UserRecipeCover(imageUri,name,cookingTime,servingSize,comment);
         Bundle bundle = new Bundle();
-        bundle.putParcelable(COVER_INFO_BUNDLE_TAG,recipeCover);
+        bundle.putParcelable(COVER_INFO_BUNDLE_TAG, userRecipeCover);
 
         listener.onAddCoverFragmentInteraction(bundle);
 

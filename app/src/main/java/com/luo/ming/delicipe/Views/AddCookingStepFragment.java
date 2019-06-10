@@ -19,12 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.luo.ming.delicipe.Models.Recipe;
-import com.luo.ming.delicipe.Models.RecipeIngredient;
-import com.luo.ming.delicipe.Models.RecipeStep;
+import com.luo.ming.delicipe.Models.UserRecipeStep;
 import com.luo.ming.delicipe.Presenters.AddCookingStepPresenter;
 import com.luo.ming.delicipe.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -134,7 +131,7 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
 
     public void saveCookingStepInfo(){
 
-        ArrayList<RecipeStep> recipeStepsList = new ArrayList<>();
+        ArrayList<UserRecipeStep> userRecipeStepsList = new ArrayList<>();
 
         int rowCount = tableLayout.getChildCount();
         for(int i=0;i<rowCount;i++){
@@ -146,13 +143,13 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
             String step = stepText.getText().toString();
 
 
-            RecipeStep recipeStep = new RecipeStep(imageUriList.get(i),step);
-            recipeStepsList.add(recipeStep);
+            UserRecipeStep userRecipeStep = new UserRecipeStep(imageUriList.get(i),step);
+            userRecipeStepsList.add(userRecipeStep);
 
         }
 
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(STEP_INFO_BUNDLE,recipeStepsList);
+        bundle.putParcelableArrayList(STEP_INFO_BUNDLE, userRecipeStepsList);
 
         listener.onAddCookingStepFragmentInteraction(bundle);
 
