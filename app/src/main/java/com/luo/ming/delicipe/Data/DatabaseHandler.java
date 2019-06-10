@@ -5,20 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 import android.util.Log;
 
-import static android.content.ContentValues.TAG;
 import com.luo.ming.delicipe.Helpers.Constants;
 import com.luo.ming.delicipe.Models.Ingredient;
-import com.luo.ming.delicipe.Models.Recipe;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -40,23 +32,50 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return INSTANCE;
     }
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 
         Log.d("dbhandler","onCreate has been called");
 
         // create shopping list table from ingredient list
-        String CREATE_SHOPPINGLIST_TABLE ="CREATE TABLE " + Constants.TABLE_SHOPPINGLIST_NAME + "("
+        String CREATE_SHOPPINGLIST_TABLE ="CREATE TABLE " + Constants.TABLE_SHOPPING_LIST_NAME + "("
                 + Constants.KEY_INGREDIENT_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + Constants.KEY_COUNT + " DOUBLE,"
-                + Constants.KEY_UNIT + " TEXT,"+ Constants.KEY_ITEMNAME + " TEXT"+ " );";
+                + Constants.KEY_UNIT + " TEXT,"+ Constants.KEY_ITEM_NAME + " TEXT"+ " );";
+
+        String CREATE_USER_COVER_TABLE = "CREATE TABLE " + Constants.TABLE_USER_RECIPE_COVER + "("
+                + Constants.KEY_COVER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + Constants.KEY_COVER_IMAGE_URI + " TEXT,"
+                + Constants.KEY_COVER_NAME + " TEXT NOT NULL," + Constants.KEY_COVER_COOKING_TIME + " INTEGER,"
+                + Constants.KEY_COVER_SERVING_SIZE + " INTEGER," + Constants.KEY_COVER_COMMENT + " TEXT" +");";
+
+        String CREATE_USER_INGREDIENT_TABLE = "CREATE TABLE " + Constants.TABLE_USER_INGREDIENT + "("
+                + Constants.KEY_USER_INGREDIENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + Constants.KEY_USER_INGREDIENT_UNIT + " TEXT,"
+                + Constants.KEY_USER_INGREDIENT_NAME + " TEXT," + Constants.KEY_USER_INGREDIENT_AMOUNT + " FLOAT,"
+                + Constants.KEY_USER_INGREDIENT_COVER_ID + " INTEGER,"
+                + " FOREIGN KEY (" + Constants.KEY_USER_INGREDIENT_COVER_ID + ") REFERENCES " + Constants.TABLE_USER_RECIPE_COVER
+                + " (" + Constants.KEY_COVER_ID + "));";
+
+        String CREATE_USER_COOKING_STEP_TABLE = "CREATE TABLE " + Constants.TABLE_USER_STEP + "("
+                + Constants.KEY_USER_STEP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + Constants.KEY_USER_STEP_IMAGE_URI + " TEXT,"
+                + Constants.KEY_USER_STEP_TEXT + " TEXT," + Constants.KEY_USER_STEP_COVER_ID + " INTEGER,"
+                + " FOREIGN KEY (" + Constants.KEY_USER_STEP_COVER_ID + ") REFERENCES " + Constants.TABLE_USER_RECIPE_COVER
+                + " (" + Constants.KEY_COVER_ID + "));";
+
+
 
         db.execSQL(CREATE_SHOPPINGLIST_TABLE);
+        db.execSQL(CREATE_USER_COVER_TABLE);
+        db.execSQL(CREATE_USER_INGREDIENT_TABLE);
+        db.execSQL(CREATE_USER_COOKING_STEP_TABLE);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_SHOPPINGLIST_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_SHOPPING_LIST_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_USER_RECIPE_COVER);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_USER_INGREDIENT);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_USER_STEP);
         onCreate(db);
 
     }
@@ -69,8 +88,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 ContentValues values = new ContentValues();
                 values.put(Constants.KEY_COUNT, ingredients.get(i).getCount());
                 values.put(Constants.KEY_UNIT,ingredients.get(i).getUnit());
-                values.put(Constants.KEY_ITEMNAME,ingredients.get(i).getIngredient());
-                db.insert(Constants.TABLE_SHOPPINGLIST_NAME, null, values);
+                values.put(Constants.KEY_ITEM_NAME,ingredients.get(i).getIngredient());
+                db.insert(Constants.TABLE_SHOPPING_LIST_NAME, null, values);
             }
         }
     }
@@ -80,8 +99,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ArrayList<Ingredient> ingredientList = new ArrayList<>();
 
-        Cursor cursor = db.query(Constants.TABLE_SHOPPINGLIST_NAME, new String[] {
-                Constants.KEY_INGREDIENT_ITEM_ID,Constants.KEY_COUNT,Constants.KEY_UNIT,Constants.KEY_ITEMNAME}, null, null, null, null, null );
+        Cursor cursor = db.query(Constants.TABLE_SHOPPING_LIST_NAME, new String[] {
+                Constants.KEY_INGREDIENT_ITEM_ID,Constants.KEY_COUNT,Constants.KEY_UNIT,Constants.KEY_ITEM_NAME}, null, null, null, null, null );
 
         if (cursor.moveToFirst()) {
             do {
@@ -91,7 +110,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 ingredient.setCount(Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.KEY_COUNT))));
                 //Log.d("database",ingredient.getItemName());
                 ingredient.setUnit(cursor.getString(cursor.getColumnIndex(Constants.KEY_UNIT)));
-                ingredient.setIngredient(cursor.getString(cursor.getColumnIndex(Constants.KEY_ITEMNAME)));
+                ingredient.setIngredient(cursor.getString(cursor.getColumnIndex(Constants.KEY_ITEM_NAME)));
 
                 ingredientList.add(ingredient);
 
@@ -103,7 +122,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void deleteShoppingItem(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(Constants.TABLE_SHOPPINGLIST_NAME, Constants.KEY_INGREDIENT_ITEM_ID + " = ?",
+        db.delete(Constants.TABLE_SHOPPING_LIST_NAME, Constants.KEY_INGREDIENT_ITEM_ID + " = ?",
                 new String[] {String.valueOf(id)});
 
         db.close();
@@ -117,10 +136,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(Constants.KEY_COUNT, ingredient.getCount());
         values.put(Constants.KEY_UNIT, ingredient.getUnit());
-        values.put(Constants.KEY_ITEMNAME, ingredient.getIngredient());//get system time
+        values.put(Constants.KEY_ITEM_NAME, ingredient.getIngredient());//get system time
 
         //update row
-        return db.update(Constants.TABLE_SHOPPINGLIST_NAME, values, Constants.KEY_INGREDIENT_ITEM_ID + "=?", new String[] { ingredient.getID()} );
+        return db.update(Constants.TABLE_SHOPPING_LIST_NAME, values, Constants.KEY_INGREDIENT_ITEM_ID + "=?", new String[] { ingredient.getID()} );
     }
 
 
