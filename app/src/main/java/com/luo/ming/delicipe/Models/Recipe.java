@@ -18,7 +18,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static android.support.constraint.Constraints.TAG;
 
 public class Recipe  {
 

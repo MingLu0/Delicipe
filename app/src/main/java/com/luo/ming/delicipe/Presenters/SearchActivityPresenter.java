@@ -1,6 +1,6 @@
 package com.luo.ming.delicipe.Presenters;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.content.Context;
 import java.util.List;

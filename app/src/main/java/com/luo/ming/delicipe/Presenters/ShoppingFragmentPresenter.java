@@ -1,15 +1,11 @@
 package com.luo.ming.delicipe.Presenters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 
-import com.luo.ming.delicipe.Data.DatabaseHandler;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Ingredients;
-import com.luo.ming.delicipe.Views.ShoppingListRecyclerViewAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShoppingFragmentPresenter {
 

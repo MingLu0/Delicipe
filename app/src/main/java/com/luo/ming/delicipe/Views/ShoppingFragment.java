@@ -1,15 +1,13 @@
 package com.luo.ming.delicipe.Views;
 
-import android.content.Context;
 import android.graphics.Canvas;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.luo.ming.delicipe.Data.DatabaseHandler;
 import com.luo.ming.delicipe.Helpers.SwipeController;
 import com.luo.ming.delicipe.Helpers.SwipeControllerActions;
 import com.luo.ming.delicipe.Models.Ingredient;
-import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
 import com.luo.ming.delicipe.Presenters.ShoppingFragmentPresenter;
 import com.luo.ming.delicipe.R;
-import com.luo.ming.delicipe.Views.ShoppingListRecyclerViewAdapter;
 
 
 public class ShoppingFragment extends Fragment implements ShoppingFragmentPresenter.View {
