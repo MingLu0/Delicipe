@@ -72,15 +72,18 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
         @Override
         public void setRowViewContent(UserRecipeCover userRecipeCover) {
 
-            Log.d("UserRecipeFragmentViewAdapter", userRecipeCover.getImageUri());
-            Log.d("UserRecipeFragmentViewAdapter",userRecipeCover.getCoverName());
+//            Log.d("RecipeViewAdapter", userRecipeCover.getImageUri());
+            Log.d("RecipeViewAdapter",userRecipeCover.getCoverName());
 
+//            Uri imageUri = Uri.parse(userRecipeCover.getImageUri());
+//
+//            Picasso.with(context)
+//                    .load(imageUri)
+//                    .fit()
+//                    .into(coverImage);
 
-            Uri imageUri = Uri.parse(userRecipeCover.getImageUri());
-            coverImage.setImageURI(imageUri);
 
             coverName.setText(userRecipeCover.getCoverName());
-          //  coverName.setText("sample");
 
         }
     }

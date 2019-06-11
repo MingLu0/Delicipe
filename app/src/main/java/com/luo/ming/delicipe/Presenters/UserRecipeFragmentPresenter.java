@@ -2,6 +2,7 @@ package com.luo.ming.delicipe.Presenters;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 
@@ -47,6 +48,7 @@ public class UserRecipeFragmentPresenter {
         @Override
         protected Void doInBackground(Void... voids) {
             userRecipeCoverList = userRecipeCover.getAllRecipeCoversFromDB(context);
+            Log.d("RecipeFragmentPresenter","retrived usercover list");
             return null;
         }
 

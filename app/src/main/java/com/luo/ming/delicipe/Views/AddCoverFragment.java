@@ -135,6 +135,10 @@ public class AddCoverFragment extends Fragment {
             bundle.putParcelable(COVER_INFO_BUNDLE_TAG, userRecipeCover);
             listener.onAddCoverFragmentInteraction(bundle);
 
+            Toast.makeText(getActivity(),"Your recipe has been saved",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(),TabbedActivity.class);
+            startActivity(intent);
+
         } else {
 
             //todo check why need to check null if there's notifyDataSetHasChanged in add step
