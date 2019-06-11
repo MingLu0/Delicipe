@@ -22,7 +22,6 @@ public class UserRecipe {
 
         db = DatabaseHandler.getDataBase(context);
         db.saveRecipeCover(userRecipeCover);
-
         int recipeCoverID = db.getUserRecipeCoverID(userRecipeCover.getCoverName());
         db.saveRecipeIngredients(ingredientList,recipeCoverID);
         db.saveRecipeSteps(userRecipeStepList, recipeCoverID);

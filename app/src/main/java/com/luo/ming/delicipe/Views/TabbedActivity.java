@@ -180,7 +180,7 @@ public class TabbedActivity extends AppCompatActivity{
         public Fragment getItem(int position) {
 
             switch(position){
-                case 0: return new SearchFragment();
+                case 0: return new UserRecipeFragment();
                 case 1: return new FavouritesFragment();
                 case 2: return new ShoppingFragment();
                 default: return null;

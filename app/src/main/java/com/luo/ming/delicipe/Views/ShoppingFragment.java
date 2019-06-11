@@ -93,23 +93,6 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
                 swipeController.onDraw(c);
             }
         });
-
-
-
-
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-       // mListener = null;
     }
 
 

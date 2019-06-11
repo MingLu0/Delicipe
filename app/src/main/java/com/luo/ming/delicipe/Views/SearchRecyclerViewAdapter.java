@@ -62,8 +62,8 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
         public ViewHolder(View itemView, final Context cxt) {
             super(itemView);
             context = cxt;
-            recipeImage = (ImageView) itemView.findViewById(R.id.thumbnail);
-            txtRecipeTitle = (TextView) itemView.findViewById(R.id.title);
+            recipeImage = (ImageView) itemView.findViewById(R.id.recipe_cover_image);
+            txtRecipeTitle = (TextView) itemView.findViewById(R.id.recipe_cover_title);
             txtRecipePublisher = (TextView) itemView.findViewById(R.id.source);
 
 

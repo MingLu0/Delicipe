@@ -70,7 +70,9 @@ public class AddCoverFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                //Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent pickPhoto = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
 
                 startActivityForResult(pickPhoto,1);
             }
@@ -134,7 +136,12 @@ public class AddCoverFragment extends Fragment {
             listener.onAddCoverFragmentInteraction(bundle);
 
         } else {
-            Toast.makeText(getActivity(),"Please enter a recipe name", Toast.LENGTH_SHORT).show();
+
+            //todo check why need to check null if there's notifyDataSetHasChanged in add step
+            if(getActivity()!=null){
+                Toast.makeText(getActivity(),"Please enter a recipe name", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
 

@@ -13,12 +13,9 @@ import java.util.List;
 
 public class ShoppingFragmentPresenter {
 
-    private RecyclerView recyclerView;
-    private ShoppingListRecyclerViewAdapter recyclerViewAdapter;
     private Context context;
     private Ingredients ingredientsObj;
     private ArrayList<Ingredient>ingredients;
-    private ShoppingRowView rowView;
     private View view;
 
 

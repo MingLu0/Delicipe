@@ -19,15 +19,12 @@ import com.luo.ming.delicipe.R;
 
 public class SearchActivity extends AppCompatActivity implements SearchActivityPresenter.View{
 
-    private SearchView searchView;
     private RecyclerView recyclerView;
     private SearchRecyclerViewAdapter searchRecyclerViewAdapter;
     private SearchActivityPresenter presenter;
-    private  Context cxt;
-
     private String mQuery;
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = SearchActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +33,6 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        cxt = this.getApplicationContext();
-
 
         recyclerView = findViewById(R.id.search_recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -56,8 +50,6 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
         presenter.getRecipesList();
 
         searchRecyclerViewAdapter.notifyDataSetChanged();
-
-        //handleIntent(getIntent());
 
     }
 
@@ -122,22 +114,6 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
 
         return true;
     }
-
-
-    //TODO GOOGLE DOUCMENTATION BELOW DOES NOT WORK
-
-//    @Override
-//    protected void onNewIntent(Intent intent) {
-//        handleIntent(intent);
-//    }
-//
-//    public void handleIntent(Intent intent){
-//        if(Intent.ACTION_SEARCH.equals(intent.getAction())){
-//            String query = intent.getStringExtra(SearchManager.QUERY);
-//
-//            Log.d("searchactivity query",query);
-//        }
-//    }
 
 
 }

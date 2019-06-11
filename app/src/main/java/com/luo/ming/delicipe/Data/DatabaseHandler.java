@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.luo.ming.delicipe.Helpers.Constants;
 import com.luo.ming.delicipe.Models.Ingredient;
+import com.luo.ming.delicipe.Models.UserRecipe;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Models.UserRecipeStep;
@@ -223,5 +224,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("Database",String.valueOf(coverID));
 
         return coverID;
+    }
+
+    public ArrayList<UserRecipeCover> getAllUserRecipeCovers() {
+
+        ArrayList<UserRecipeCover> userRecipeCoversList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(Constants.TABLE_USER_RECIPE_COVER, new String[]{Constants.KEY_COVER_ID,
+        Constants.KEY_COVER_IMAGE_URI, Constants.KEY_COVER_NAME, Constants.KEY_COVER_COMMENT,
+        Constants.KEY_COVER_COOKING_TIME, Constants.KEY_COVER_SERVING_SIZE},null,null,null,null,null);
+
+        if(cursor.moveToFirst()){
+            do {
+
+                UserRecipeCover userRecipeCover = new UserRecipeCover();
+
+                userRecipeCover.setCoverID(cursor.getString(cursor.getColumnIndex(Constants.KEY_COVER_ID)));
+                userRecipeCover.setImageUri(cursor.getString(cursor.getColumnIndex(Constants.KEY_COVER_IMAGE_URI)));
+                userRecipeCover.setCoverName(cursor.getString(cursor.getColumnIndex(Constants.KEY_COVER_NAME)));
+                userRecipeCover.setCookingTime(cursor.getInt(cursor.getColumnIndex(Constants.KEY_COVER_COOKING_TIME)));
+                userRecipeCover.setServingSize(cursor.getInt(cursor.getColumnIndex(Constants.KEY_COVER_SERVING_SIZE)));
+                userRecipeCover.setComment(cursor.getString(cursor.getColumnIndex(Constants.KEY_COVER_COMMENT)));
+
+                userRecipeCoversList.add(userRecipeCover);
+
+            } while (cursor.moveToNext());
+        }
+
+        return userRecipeCoversList;
+
     }
 }
