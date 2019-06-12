@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class UserRecipeCover implements Parcelable {
 
-    private String imageUri;
+    private byte[] imageBytes;
     private String coverName;
     private String comment;
     private String coverID;
@@ -31,8 +31,8 @@ public class UserRecipeCover implements Parcelable {
     public UserRecipeCover() {
     }
 
-    public UserRecipeCover(String imageUri, String coverName, int cookingTime, int servingSize, String comment) {
-        this.imageUri = imageUri;
+    public UserRecipeCover(byte[] imageBytes, String coverName, int cookingTime, int servingSize, String comment) {
+        this.imageBytes = imageBytes;
         this.coverName = coverName;
         this.cookingTime = cookingTime;
         this.servingSize = servingSize;
@@ -50,8 +50,8 @@ public class UserRecipeCover implements Parcelable {
     }
 
 
-    public void setImageUri(String imageUri) {
-        this.imageUri = imageUri;
+    public void setImageBytes(byte[] imageBytes) {
+        this.imageBytes = imageBytes;
     }
 
     public void setCoverName(String coverName) {
@@ -70,8 +70,8 @@ public class UserRecipeCover implements Parcelable {
         this.comment = comment;
     }
 
-    public String getImageUri() {
-        return imageUri;
+    public byte[] getImageBytes() {
+        return imageBytes;
     }
 
     public String getCoverName() {
@@ -92,7 +92,7 @@ public class UserRecipeCover implements Parcelable {
 
     protected UserRecipeCover(Parcel in) {
 
-        imageUri = in.readString();
+        imageBytes = in.createByteArray();
         coverName = in.readString();
         cookingTime = in.readInt();
         servingSize = in.readInt();
@@ -120,7 +120,7 @@ public class UserRecipeCover implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
-        dest.writeString(imageUri);
+        dest.writeByteArray(imageBytes);
         dest.writeInt(cookingTime);
         dest.writeInt(servingSize);
         dest.writeString(coverName);

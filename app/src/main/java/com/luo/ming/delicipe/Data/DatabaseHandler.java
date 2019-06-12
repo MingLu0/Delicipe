@@ -49,7 +49,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + Constants.KEY_UNIT + " TEXT,"+ Constants.KEY_ITEM_NAME + " TEXT"+ " );";
 
         String CREATE_USER_COVER_TABLE = "CREATE TABLE " + Constants.TABLE_USER_RECIPE_COVER + "("
-                + Constants.KEY_COVER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + Constants.KEY_COVER_IMAGE_URI + " TEXT,"
+                + Constants.KEY_COVER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + Constants.KEY_COVER_IMAGE_BYTES + " BLOB,"
                 + Constants.KEY_COVER_NAME + " TEXT NOT NULL," + Constants.KEY_COVER_COOKING_TIME + " INTEGER,"
                 + Constants.KEY_COVER_SERVING_SIZE + " INTEGER," + Constants.KEY_COVER_COMMENT + " TEXT" +");";
 
@@ -152,7 +152,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put(Constants.KEY_COVER_IMAGE_URI, userRecipeCover.getImageUri());
+        values.put(Constants.KEY_COVER_IMAGE_BYTES, userRecipeCover.getImageBytes());
         values.put(Constants.KEY_COVER_NAME, userRecipeCover.getCoverName());
         values.put(Constants.KEY_COVER_COOKING_TIME, userRecipeCover.getCookingTime());
         values.put(Constants.KEY_COVER_SERVING_SIZE, userRecipeCover.getServingSize());
@@ -195,7 +195,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
                 values.put(Constants.KEY_USER_STEP_COVER_ID, coverID);
-                values.put(Constants.KEY_USER_STEP_IMAGE_URI, userRecipeStepList.get(i).getImageUri());
+                values.put(Constants.KEY_COVER_IMAGE_BYTES, userRecipeStepList.get(i).getImageUri());
                 values.put(Constants.KEY_USER_STEP_TEXT, userRecipeStepList.get(i).getStepText());
 
                 db.insert(Constants.TABLE_USER_STEP, null,values);
@@ -233,7 +233,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(Constants.TABLE_USER_RECIPE_COVER, new String[]{Constants.KEY_COVER_ID,
-        Constants.KEY_COVER_IMAGE_URI, Constants.KEY_COVER_NAME, Constants.KEY_COVER_COMMENT,
+        Constants.KEY_COVER_IMAGE_BYTES, Constants.KEY_COVER_NAME, Constants.KEY_COVER_COMMENT,
         Constants.KEY_COVER_COOKING_TIME, Constants.KEY_COVER_SERVING_SIZE},null,null,null,null,null);
 
         if(cursor.moveToFirst()){
@@ -242,7 +242,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 UserRecipeCover userRecipeCover = new UserRecipeCover();
 
                 userRecipeCover.setCoverID(cursor.getString(cursor.getColumnIndex(Constants.KEY_COVER_ID)));
-                userRecipeCover.setImageUri(cursor.getString(cursor.getColumnIndex(Constants.KEY_COVER_IMAGE_URI)));
+                userRecipeCover.setImageBytes(cursor.getBlob(1));
                 userRecipeCover.setCoverName(cursor.getString(cursor.getColumnIndex(Constants.KEY_COVER_NAME)));
                 userRecipeCover.setCookingTime(cursor.getInt(cursor.getColumnIndex(Constants.KEY_COVER_COOKING_TIME)));
                 userRecipeCover.setServingSize(cursor.getInt(cursor.getColumnIndex(Constants.KEY_COVER_SERVING_SIZE)));

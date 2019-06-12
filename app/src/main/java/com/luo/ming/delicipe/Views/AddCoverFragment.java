@@ -3,6 +3,8 @@ package com.luo.ming.delicipe.Views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +21,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.luo.ming.delicipe.Helpers.BitmapUtility;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.R;
+
+import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -37,6 +43,9 @@ public class AddCoverFragment extends Fragment {
     public final static String COVER_INFO_BUNDLE_TAG= "com.luo.ming.delicipe.Views.AddCoverFragment";
 
     private EditText name_text,cooking_time_text,serving_size_text,comment_text;
+
+    private Bitmap bitmap;
+    private byte[] imageBytes;
 
 
 
@@ -87,7 +96,29 @@ public class AddCoverFragment extends Fragment {
             case 1:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = data.getData();
-                    imageUri = selectedImage.toString();
+
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),selectedImage);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+//                    BitmapFactory.Options options = new BitmapFactory.Options();
+//
+//                    options.inSampleSize= 2;
+//
+//                   bitmap = BitmapFactory.decodeFile(selectedImage.toString(),options);
+
+                   imageBytes = BitmapUtility.convertBitmapToBytes(bitmap);
+
+                   Log.d("AddCoverFragment",String.valueOf(imageBytes.length));
+
+
+
+                   // imageUri = selectedImage.toString();
                     coverImage.setImageURI(selectedImage);
                     coverImage.setAdjustViewBounds(true);
                     addBtn.setVisibility(View.INVISIBLE);
@@ -130,7 +161,7 @@ public class AddCoverFragment extends Fragment {
 
             String name = name_text.getText().toString();
 
-            userRecipeCover = new UserRecipeCover(imageUri,name,cookingTime,servingSize,comment);
+            userRecipeCover = new UserRecipeCover(imageBytes,name,cookingTime,servingSize,comment);
             Bundle bundle = new Bundle();
             bundle.putParcelable(COVER_INFO_BUNDLE_TAG, userRecipeCover);
             listener.onAddCoverFragmentInteraction(bundle);

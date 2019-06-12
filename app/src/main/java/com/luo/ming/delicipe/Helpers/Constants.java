@@ -2,7 +2,7 @@ package com.luo.ming.delicipe.Helpers;
 
 public class Constants {
 
-    public static final int DB_VERSION = 6;
+    public static final int DB_VERSION = 9;
     public static final String DB_NAME = "delicipeDB";
 
     //Table names
@@ -22,13 +22,12 @@ public class Constants {
 
     //User Recipe Cover Table columns
     public static final String KEY_COVER_ID = "coverId";
-    public static final String KEY_COVER_IMAGE_URI = "coverImageUri";
     public static final String KEY_COVER_NAME = "coverName";
     public static final String KEY_COVER_COOKING_TIME = "coverCookingTime";
     public static final String KEY_COVER_SERVING_SIZE = "coverServingSize";
     public static final String KEY_COVER_COMMENT = "coverComment";
-    public static final String KEY_COVER_STEP_TB_ID = "coverStepTbId";
-    public static final String KEY_COVER_INGREDIENT_TB_ID = "coverIngredientTbId";
+    public static final String KEY_COVER_IMAGE_BYTES = "coverImageBytes";
+
 
     //User Ingredient Table columns
     public static final String KEY_USER_INGREDIENT_ID = "userIngredientId";

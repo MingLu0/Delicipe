@@ -4,6 +4,9 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.luo.ming.delicipe.Helpers.BitmapUtility;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Presenters.UserRecipeFragmentPresenter;
 import com.luo.ming.delicipe.R;
+import com.squareup.picasso.Picasso;
 
 public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserRecipeFragmentViewAdapter.ViewHolder>{
 
@@ -47,7 +53,7 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
 
     @Override
     public int getItemCount() {
-        Log.d("UserRecipeFragmentViewAdapter", String.valueOf(presenter.getItemRowsCount()));
+        Log.d("UserRecipeViewAdapter", String.valueOf(presenter.getItemRowsCount()));
         return presenter.getItemRowsCount();
     }
 
@@ -70,16 +76,14 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
         public void setRowViewContent(UserRecipeCover userRecipeCover) {
 
 //            Log.d("RecipeViewAdapter", userRecipeCover.getImageUri());
-            Log.d("RecipeViewAdapter",userRecipeCover.getCoverName());
-
-//            Uri imageUri = Uri.parse(userRecipeCover.getImageUri());
+//            Log.d("RecipeViewAdapter",userRecipeCover.getCoverName());
 //
-//            Picasso.with(context)
-//                    .load(imageUri)
-//                    .fit()
-//                    .into(coverImage);
+            Bitmap bitmap = BitmapUtility.covertBytesToBitmap(userRecipeCover.getImageBytes());
 
-
+            Glide.with(context)
+                    .load(userRecipeCover.getImageBytes())
+                    .into(coverImage);
+            
             coverName.setText(userRecipeCover.getCoverName());
 
         }
