@@ -41,6 +41,7 @@
             </androidx.appcompat.widget.Toolbar>
 
             <com.google.android.material.tabs.TabLayout
+                style = "@style/Widget.MaterialComponents.TabLayout.Colored"
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

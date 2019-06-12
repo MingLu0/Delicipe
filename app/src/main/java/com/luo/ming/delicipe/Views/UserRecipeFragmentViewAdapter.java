@@ -83,7 +83,7 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
             Glide.with(context)
                     .load(userRecipeCover.getImageBytes())
                     .into(coverImage);
-            
+
             coverName.setText(userRecipeCover.getCoverName());
 
         }
