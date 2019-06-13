@@ -77,7 +77,13 @@
         <activity
             android:name=".Views.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Views.SearchActivity">
+
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.luo.ming.delicipe.Views.SearchActivity" />
+        </activity>
     </application>
 
 </manifest>

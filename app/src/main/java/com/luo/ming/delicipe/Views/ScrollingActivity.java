@@ -6,6 +6,8 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
     private ImageView recipeImg;
     private ImageView personImg;
+    private ImageView toolbarimage;
     private List<String> ingredients;
     private ScrollingActivityPresenter presenter;
     private ImageButton btnCart;
@@ -37,15 +40,19 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     private ImageButton btnMinus;
     private TextView txtServing;
     private static int newServing;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+         toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         presenter = new ScrollingActivityPresenter(this,this);
+
+
 
 
         recipeImg = (ImageView)findViewById(R.id.imgRecipe);
@@ -54,6 +61,9 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         btnPlus = (ImageButton)findViewById(R.id.btnPlus);
         btnMinus = (ImageButton)findViewById(R.id.btnMinus);
         txtServing = (TextView)findViewById(R.id.txtServing);
+        toolbarimage = findViewById(R.id.toolbarimageview);
+
+
 
 
         newServing = 4;
@@ -98,6 +108,8 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
             }
         });
 
+       // getSupportActionBar().setTitle("Kale Market Salad");
+
     }
 
 
@@ -106,11 +118,19 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     @Override
     public void displayRecipePhoto(String imageLink) {
 
+//        Picasso.with(this)
+//                .load(imageLink)
+//                .error(R.drawable.ic_launcher_foreground)
+//                .fit()
+//                .into(recipeImg);
+
         Picasso.with(this)
                 .load(imageLink)
                 .error(R.drawable.ic_launcher_foreground)
                 .fit()
-                .into(recipeImg);
+                .into(toolbarimage);
+
+
 
     }
 
@@ -121,7 +141,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
         for(int i=0;i<ingredients.size();i++){
             LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row,null);
+            ConstraintLayout row = (ConstraintLayout) inflater.inflate(R.layout.table_row,null);
             TextView textCount = (TextView)row.findViewById(R.id.count);
             TextView textUnit = (TextView)row.findViewById(R.id.unit);
             TextView textIngredient = (TextView)row.findViewById(R.id.ingredient);
@@ -151,6 +171,18 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     public void updateServingSize(int newSergving) {
 
         txtServing.setText(String.valueOf(newSergving));
+
+    }
+
+    @Override
+    public void displayRecipeTitle(String recipeTitle) {
+
+
+
+//        getSupportActionBar().setTitle(recipeTitle);
+//        Log.d("ScrollingActivitytitle",recipeTitle);
+
+        toolbar.setTitle(recipeTitle);
 
     }
 

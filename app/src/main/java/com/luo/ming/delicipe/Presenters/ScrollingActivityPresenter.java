@@ -56,12 +56,14 @@ public class ScrollingActivityPresenter {
 
     }
 
+
     public void getRecipe(){
         recipe.getRecipeObj(url, context, new VolleyCallBack() {
             @Override
             public void onSuccess() {
                 getRecipePhoto();
                 getTableLayout();
+                displayRecipeTitle();
 
             }
         });
@@ -70,8 +72,14 @@ public class ScrollingActivityPresenter {
     public void getRecipePhoto(){
 
         String imageLink = recipe.getImageLink();
+
         view.displayRecipePhoto(imageLink);
 
+    }
+
+    public void displayRecipeTitle(){
+        String recipeTitle = recipe.getTitle();
+        view.displayRecipeTitle(recipeTitle);
     }
 
     public void getTableLayout(){
@@ -107,6 +115,7 @@ public class ScrollingActivityPresenter {
         void popupToast(String text);
         void updateCountInTableLayout(ArrayList<Ingredient> ingredients);
         void updateServingSize(int newSergving);
+        void displayRecipeTitle(String recipeTitle);
 
 
     }
