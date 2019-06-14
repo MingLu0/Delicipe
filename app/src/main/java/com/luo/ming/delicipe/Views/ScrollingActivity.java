@@ -69,9 +69,12 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         newServing = 4;
 
         Intent intent = getIntent();
-        String recipeID = intent.getStringExtra("recipeID");
+        String recipeID = intent.getStringExtra(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE);
+        String recipeTitle = intent.getStringExtra(SearchRecyclerViewAdapter.RECIPE_TITLE_MESSAGE);
         presenter.setUrl(recipeID);
         Log.d("ScrollingActivity",recipeID);
+
+        getSupportActionBar().setTitle(recipeTitle);
 
         presenter.getRecipe();
 

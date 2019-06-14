@@ -20,6 +20,8 @@ import com.squareup.picasso.Picasso;
 public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>{
 
     private final SearchActivityPresenter presenter;
+    public static final String RECIPE_ID_MESSAGE = "package com.luo.ming.delicipe.Views.Recipe.ID";
+    public static final String RECIPE_TITLE_MESSAGE = "package com.luo.ming.delicipe.Views.Recipe.TITLE";
 
     private Context context;
 
@@ -80,19 +82,11 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
 
 
                     //send the recipe id to the next page
-                    intent.putExtra("recipeID",recipe.getID());
-                   // intent.putExtra("ingredients",recipe.getIngredients());
+                    intent.putExtra(RECIPE_ID_MESSAGE,recipe.getID());
+                    intent.putExtra(RECIPE_TITLE_MESSAGE,recipe.getTitle());
 
                     context.startActivity(intent);
-                    //send the source of the activity to the next page for certain action
-                  //  intent.putExtra("activity", "FROM_RECIPE_SEARCH");
-                  //  Log.i("recipeID", recipe.getID());
-//                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//                    try {
-//                        pendingIntent.send();
-//                    } catch (PendingIntent.CanceledException e) {
-//                        e.printStackTrace();
-//                    }
+
                 }
             });
 

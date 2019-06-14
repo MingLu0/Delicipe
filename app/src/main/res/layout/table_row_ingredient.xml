@@ -47,15 +47,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:background="@android:color/transparent"
                 android:ems="8"
                 android:hint="ingredient name"
                 android:inputType="textMultiLine"
                 app:layout_constraintBottom_toBottomOf="@+id/text_unit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toEndOf="@+id/spinner_unit"
                 app:layout_constraintTop_toTopOf="@+id/text_unit" />
 
@@ -78,15 +74,11 @@
                 android:layout_width="29dp"
                 android:layout_height="23dp"
 
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/ic_action_delete"
                 app:layout_constraintBottom_toBottomOf="@+id/text_ingredient_name"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.9"
-                app:layout_constraintStart_toEndOf="@+id/text_ingredient_name"
                 app:layout_constraintTop_toTopOf="@+id/text_ingredient_name" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

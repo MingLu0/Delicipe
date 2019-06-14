@@ -4,7 +4,6 @@ package com.luo.ming.delicipe.Views;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,9 +20,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.luo.ming.delicipe.Helpers.BitmapUtility;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -36,7 +38,7 @@ public class AddCoverFragment extends Fragment {
 
 
     private String imageUri;
-    private ImageView coverImage;
+    private ImageView coverImageButton;
     private Button addBtn;
     private OnAddCoverFragmentInteractionListener listener;
     private UserRecipeCover userRecipeCover;
@@ -44,9 +46,11 @@ public class AddCoverFragment extends Fragment {
 
     private EditText name_text,cooking_time_text,serving_size_text,comment_text;
 
+    private TextInputLayout coverNameInputLayout;
+    private TextInputEditText coverNameEditText;
+
     private Bitmap bitmap;
     private byte[] imageBytes;
-
 
 
     public AddCoverFragment() {
@@ -65,23 +69,22 @@ public class AddCoverFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        name_text = view.findViewById(R.id.text_recipe_name);
         cooking_time_text = view.findViewById(R.id.text_cooking_time);
         serving_size_text = view.findViewById(R.id.text_serving_size);
         comment_text = view.findViewById(R.id.text_comment);
+        coverNameInputLayout = view.findViewById(R.id.input_layout_recipe_name);
+        coverNameEditText = view.findViewById(R.id.input_text_recipe_name);
 
 
 
-        coverImage = view.findViewById(R.id.imageCover);
-        addBtn = view.findViewById(R.id.addImageButton);
+        coverImageButton = view.findViewById(R.id.imageCover);
 
-        addBtn.setOnClickListener(new View.OnClickListener() {
+        coverImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 Intent pickPhoto = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
 
                 startActivityForResult(pickPhoto,1);
             }
@@ -106,22 +109,15 @@ public class AddCoverFragment extends Fragment {
                     }
 
 
-//                    BitmapFactory.Options options = new BitmapFactory.Options();
-//
-//                    options.inSampleSize= 2;
-//
-//                   bitmap = BitmapFactory.decodeFile(selectedImage.toString(),options);
-
                    imageBytes = BitmapUtility.convertBitmapToBytes(bitmap);
 
                    Log.d("AddCoverFragment",String.valueOf(imageBytes.length));
 
+                    Picasso.with(getActivity())
+                            .load(selectedImage)
+                            .fit()
+                            .into(coverImageButton);
 
-
-                   // imageUri = selectedImage.toString();
-                    coverImage.setImageURI(selectedImage);
-                    coverImage.setAdjustViewBounds(true);
-                    addBtn.setVisibility(View.INVISIBLE);
                 }
         }
 
@@ -157,9 +153,9 @@ public class AddCoverFragment extends Fragment {
             comment = comment_text.getText().toString();
         }
 
-        if(!TextUtils.isEmpty(name_text.getText())){
+        if(!TextUtils.isEmpty(coverNameEditText.getText())){
 
-            String name = name_text.getText().toString();
+            String name = coverNameEditText.getText().toString();
 
             userRecipeCover = new UserRecipeCover(imageBytes,name,cookingTime,servingSize,comment);
             Bundle bundle = new Bundle();
@@ -175,6 +171,7 @@ public class AddCoverFragment extends Fragment {
             //todo check why need to check null if there's notifyDataSetHasChanged in add step
             if(getActivity()!=null){
                 Toast.makeText(getActivity(),"Please enter a recipe name", Toast.LENGTH_SHORT).show();
+                coverNameInputLayout.setError("Please enter a recipe name");
             }
 
         }
