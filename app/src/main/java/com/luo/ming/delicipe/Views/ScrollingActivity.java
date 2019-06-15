@@ -66,6 +66,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
 
 
+
         newServing = 4;
 
         Intent intent = getIntent();
@@ -75,6 +76,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         Log.d("ScrollingActivity",recipeID);
 
         getSupportActionBar().setTitle(recipeTitle);
+        //getSupportActionBar().setHideOnContentScrollEnabled(true);
 
         presenter.getRecipe();
 
@@ -142,14 +144,30 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
         for(int i=0;i<ingredients.size();i++){
             LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            ConstraintLayout row = (ConstraintLayout) inflater.inflate(R.layout.table_row,null);
-            TextView textCount = (TextView)row.findViewById(R.id.count);
-            TextView textUnit = (TextView)row.findViewById(R.id.unit);
-            TextView textIngredient = (TextView)row.findViewById(R.id.ingredient);
+//            ConstraintLayout row = (ConstraintLayout) inflater.inflate(R.layout.table_row,null);
+//            TextView textCount = (TextView)row.findViewById(R.id.count);
+//            TextView textUnit = (TextView)row.findViewById(R.id.unit);
+//            TextView textIngredient = (TextView)row.findViewById(R.id.ingredient);
+//
+//            textCount.setText(String.valueOf(ingredients.get(i).getCount()));
+//            textUnit.setText(ingredients.get(i).getUnit());
+//            textIngredient.setText(ingredients.get(i).getIngredient());
+//
+//            tableLayout.addView(row,i);
 
-            textCount.setText(String.valueOf(ingredients.get(i).getCount()));
-            textUnit.setText(ingredients.get(i).getUnit());
-            textIngredient.setText(ingredients.get(i).getIngredient());
+            LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_ingredient_api,null);
+//            TextView textCount = (TextView)row.findViewById(R.id.count);
+//            TextView textUnit = (TextView)row.findViewById(R.id.unit);
+//            TextView textIngredient = (TextView)row.findViewById(R.id.ingredient);
+
+             TextView itemName = (TextView)row.findViewById(R.id.text_ingredient_item);
+
+             itemName.setText(ingredients.get(i).getIngredientItem());
+
+
+//            textCount.setText(String.valueOf(ingredients.get(i).getCount()));
+//            textUnit.setText(ingredients.get(i).getUnit());
+//            textIngredient.setText(ingredients.get(i).getIngredient());
 
             tableLayout.addView(row,i);
 

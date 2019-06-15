@@ -16,6 +16,16 @@ public class Ingredient {
     private String ingredient;
     private IngredientClassHelper _helper;
     private String ID;
+    private String ingredientItem;
+
+    public String getIngredientItem() {
+        return ingredientItem;
+    }
+
+    public void setIngredientItem(String ingredientItem) {
+        this.ingredientItem = stripParentheses(ingredientItem);
+    }
+
     private DatabaseHandler db;
 
 
@@ -51,6 +61,8 @@ public class Ingredient {
         this.ingredient = ingredient;
     }
 
+    public Ingredient() {
+    }
 
     public Ingredient parseIngredient(String ingredient){
 

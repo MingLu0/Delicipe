@@ -134,11 +134,11 @@ public class Recipe  {
                     JSONArray jArray = recipeObj.getJSONArray("ingredients");
 
                     ArrayList<Ingredient>ingredientList = new ArrayList<Ingredient>();
-                    Ingredient newIngredient = new Ingredient();
+
                     for(int j=0;j<jArray.length();j++){
                         if(!Character.isUpperCase(jArray.getString(j).toCharArray()[0])&&!jArray.getString(j).contains("___")){
-
-                            newIngredient= newIngredient.parseIngredient(jArray.getString(j));
+                            Ingredient newIngredient = new Ingredient();
+                            newIngredient.setIngredientItem(jArray.getString(j));
                             ingredientList.add(newIngredient);
                             Log.d("recipeModel",jArray.getString(j));
 
@@ -171,8 +171,6 @@ public class Recipe  {
 
         queue.add(request);
         Log.d("recipeModel","request added ");
-
-
 
     }
 
