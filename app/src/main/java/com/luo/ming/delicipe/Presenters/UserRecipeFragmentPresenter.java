@@ -61,7 +61,6 @@ public class UserRecipeFragmentPresenter {
     }
 
 
-
     public interface View{
 
         void notifyDataSetHasChanged();

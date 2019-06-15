@@ -10,7 +10,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,9 +41,18 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     private TableLayout tableLayout;
     private ImageButton btnPlus;
     private ImageButton btnMinus;
-    private TextView txtServing;
+    private TextView txtServing,textTitle;
     private static int newServing;
     private Toolbar toolbar;
+    private CheckBox checkBox;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_scrolling,menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,34 +61,25 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
          toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         presenter = new ScrollingActivityPresenter(this,this);
 
 
-
-
-        recipeImg = (ImageView)findViewById(R.id.imgRecipe);
         btnCart = (ImageButton)findViewById(R.id.btnCart);
         tableLayout = (TableLayout)findViewById(R.id.table_main);
-        btnPlus = (ImageButton)findViewById(R.id.btnPlus);
-        btnMinus = (ImageButton)findViewById(R.id.btnMinus);
         txtServing = (TextView)findViewById(R.id.txtServing);
         toolbarimage = findViewById(R.id.toolbarimageview);
-
-
-
+        textTitle = findViewById(R.id.text_recipe_title);
+        checkBox = (CheckBox) findViewById(R.id.checkBox);
 
 
         newServing = 4;
 
         Intent intent = getIntent();
         String recipeID = intent.getStringExtra(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE);
-        String recipeTitle = intent.getStringExtra(SearchRecyclerViewAdapter.RECIPE_TITLE_MESSAGE);
         presenter.setUrl(recipeID);
         Log.d("ScrollingActivity",recipeID);
-
-        getSupportActionBar().setTitle(recipeTitle);
-        //getSupportActionBar().setHideOnContentScrollEnabled(true);
 
         presenter.getRecipe();
 
@@ -87,28 +90,23 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
             }
         });
 
-        btnPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ++newServing;
-                Log.d("serving plus",String.valueOf(newServing));
-                presenter.updateIngredientCount(newServing);
-                presenter.updateServing(newServing);
-            }
-        });
+        checkBox.setChecked(false);
 
-        btnMinus.setOnClickListener(new View.OnClickListener() {
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                --newServing;
-                if(newServing>=1){
-                    Log.d("serving minus",String.valueOf(newServing));
-                    presenter.updateIngredientCount(newServing);
-                    presenter.updateServing(newServing);
+
+                Boolean checked = ((CheckBox)v).isChecked();
+                if(checked){
+                    checkBox.setButtonDrawable(R.drawable.ic_action_favourited_button);
+
+                    Toast.makeText(getApplication(), "This recipe has been saved", Toast.LENGTH_SHORT).show();
+
                 } else {
-                    Log.d("serving minus",String.valueOf(newServing));
-                    newServing =1;
-                    //presenter.updateServing(newServing);
+                    checkBox.setButtonDrawable(R.drawable.ic_action_favourite);
+
+                    Toast.makeText(getApplication(), "This recipe has been unsaved", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -116,16 +114,9 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     }
 
 
-
-
     @Override
     public void displayRecipePhoto(String imageLink) {
 
-//        Picasso.with(this)
-//                .load(imageLink)
-//                .error(R.drawable.ic_launcher_foreground)
-//                .fit()
-//                .into(recipeImg);
 
         Picasso.with(this)
                 .load(imageLink)
@@ -144,30 +135,12 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
         for(int i=0;i<ingredients.size();i++){
             LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            ConstraintLayout row = (ConstraintLayout) inflater.inflate(R.layout.table_row,null);
-//            TextView textCount = (TextView)row.findViewById(R.id.count);
-//            TextView textUnit = (TextView)row.findViewById(R.id.unit);
-//            TextView textIngredient = (TextView)row.findViewById(R.id.ingredient);
-//
-//            textCount.setText(String.valueOf(ingredients.get(i).getCount()));
-//            textUnit.setText(ingredients.get(i).getUnit());
-//            textIngredient.setText(ingredients.get(i).getIngredient());
-//
-//            tableLayout.addView(row,i);
 
             LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_ingredient_api,null);
-//            TextView textCount = (TextView)row.findViewById(R.id.count);
-//            TextView textUnit = (TextView)row.findViewById(R.id.unit);
-//            TextView textIngredient = (TextView)row.findViewById(R.id.ingredient);
 
-             TextView itemName = (TextView)row.findViewById(R.id.text_ingredient_item);
+             TextView itemName = row.findViewById(R.id.text_ingredient_item);
 
              itemName.setText(ingredients.get(i).getIngredientItem());
-
-
-//            textCount.setText(String.valueOf(ingredients.get(i).getCount()));
-//            textUnit.setText(ingredients.get(i).getUnit());
-//            textIngredient.setText(ingredients.get(i).getIngredient());
 
             tableLayout.addView(row,i);
 
@@ -180,7 +153,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
         for(int i=0;i<ingredients.size();i++){
             TableRow row = (TableRow)tableLayout.getChildAt(i);
-            TextView txtCount = (TextView)row.findViewById(R.id.count);
+            TextView txtCount = row.findViewById(R.id.count);
             txtCount.setText(String.valueOf(ingredients.get(i).getCount()));
         }
 
@@ -196,12 +169,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     @Override
     public void displayRecipeTitle(String recipeTitle) {
 
-
-
-//        getSupportActionBar().setTitle(recipeTitle);
-//        Log.d("ScrollingActivitytitle",recipeTitle);
-
-        toolbar.setTitle(recipeTitle);
+        textTitle.setText(recipeTitle);
 
     }
 

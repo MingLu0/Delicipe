@@ -4,7 +4,8 @@
     tools:context="com.luo.ming.delicipe.Views.ScrollingActivity">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="10"
+        android:icon="@drawable/button_favourite"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 </menu>

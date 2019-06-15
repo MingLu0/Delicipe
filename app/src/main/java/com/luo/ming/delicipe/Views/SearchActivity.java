@@ -27,6 +27,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
     private SearchActivityPresenter presenter;
     private String mQuery;
     private CoordinatorLayout coordinatorLayout;
+    private SearchView searchView;
 
     private static final String LOG_TAG = SearchActivity.class.getSimpleName();
 

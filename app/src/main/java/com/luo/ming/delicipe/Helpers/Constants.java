@@ -12,6 +12,7 @@ public class Constants {
     public static final String TABLE_USER_RECIPE_COVER = "userRecipeCoverTB";
     public static final String TABLE_USER_INGREDIENT = "userIngredientTB";
     public static final String TABLE_USER_STEP ="userStepTB";
+    public static final String TABLE_FAVOURITE_RECIPE = "favouriteRecipeTB";
 
     //Ingredient Shopping List Table columns
     public static final String KEY_INGREDIENT_ITEM_ID = "id";
@@ -41,6 +42,13 @@ public class Constants {
     public static final String KEY_USER_STEP_COVER_ID = "userStepCoverId";
     public static final String KEY_USER_STEP_IMAGE_URI = "userStepImageUri";
     public static final String KEY_USER_STEP_TEXT = "userStepText";
+
+    //Favourite Recipe Table Columns
+    public static final String KEY_RECIPE_ID = "favouriteRecipeID";
+    public static final String KEY_RECIPE_IMAGE = "favouriteRecipeImage";
+    public static final String KEY_RECIPE_NAME = "favouriteRecipeName";
+    public static final String KEY_RECIPE_SERVING = "favouriteRecipeServing";
+
 
 
 
