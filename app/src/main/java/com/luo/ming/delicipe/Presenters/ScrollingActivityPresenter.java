@@ -66,6 +66,11 @@ public class ScrollingActivityPresenter {
                 displayRecipeTitle();
 
             }
+
+            @Override
+            public void onFailure() {
+
+            }
         });
     }
 

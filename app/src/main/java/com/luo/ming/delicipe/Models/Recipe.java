@@ -211,7 +211,11 @@ public class Recipe  {
 
                     }
 
-                    callBack.onSuccess();
+                    if(!recipeList.isEmpty()){
+                        callBack.onSuccess();
+                    } else {
+                        callBack.onFailure();
+                    }
 
                 }catch (JSONException e) {
                     e.printStackTrace();

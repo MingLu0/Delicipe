@@ -93,6 +93,13 @@ public class SearchActivityPresenter implements VolleyCallBack {
         view.refreshRecipeList();
     }
 
+    @Override
+    public void onFailure() {
+
+        view.displayInputErrorSnackBar();
+
+    }
+
 
     // interface view for each recipe row
     public interface RecipeRowView{
@@ -105,6 +112,8 @@ public class SearchActivityPresenter implements VolleyCallBack {
     public interface View{
         void refreshRecipeList();
         void setRecyclerViewAdapter();
+        void displayInputErrorSnackBar();
+
     }
 
 }

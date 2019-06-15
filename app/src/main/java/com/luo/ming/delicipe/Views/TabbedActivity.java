@@ -101,6 +101,9 @@ public class TabbedActivity extends AppCompatActivity{
 
         searchView.setQueryHint("search recipe");
 
+        searchView.setIconified(false);
+
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
