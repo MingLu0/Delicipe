@@ -1,6 +1,7 @@
 package com.luo.ming.delicipe.Models;
 
 import android.content.Context;
+import android.media.MediaRouter;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -17,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Recipe  {
@@ -107,6 +109,8 @@ public class Recipe  {
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
+        List<Recipe> recipeList = new ArrayList<>();
+
         final JsonObjectRequest request =
                 new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -171,6 +175,76 @@ public class Recipe  {
 
 
     }
+
+    //get a list of recipes from the API server based on user input
+    public List<Recipe> getRecipes(String url,Context context, final VolleyCallBack callBack) {
+        Log.d("getrecipe","getrecipecalled");
+
+        final ArrayList<Recipe>recipeList = new ArrayList<>();
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+
+        final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("recipe onresponse","onresponse has been called");
+                try{
+
+                    Log.d("jsonrequest","jsonreuqestcalled");
+                    JSONArray recipesArray = response.getJSONArray("recipes");
+
+                    Log.d("recipesArray",recipesArray.toString());
+                    for (int i = 0; i < recipesArray.length(); i++) {
+
+                        JSONObject recipeObj = recipesArray.getJSONObject(i);
+
+                        Recipe recipe = new Recipe();
+                        recipe.setImageLink(recipeObj.getString("image_url"));
+                        recipe.setTitle(recipeObj.getString("title"));
+                        Log.d("titile",recipe.getTitle());
+                        Log.d("imageLink",recipe.getImageLink());
+                        recipe.setPublisher(recipeObj.getString("publisher"));
+                        recipe.setID(recipeObj.getString("recipe_id"));
+                        recipeList.add(recipe);
+                        Log.d("request",String.valueOf(recipeList.size()));
+
+                    }
+
+                    callBack.onSuccess();
+
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
+
+        new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("ERROR", "Error occurred ", error);
+            }
+        };
+
+        queue.add(request);
+
+
+
+        return recipeList;
+
+    }
+
+
 
     public void addIngredientToDB(Context context,ArrayList<Ingredient>ingredients){
         db = DatabaseHandler.getDataBase(context);

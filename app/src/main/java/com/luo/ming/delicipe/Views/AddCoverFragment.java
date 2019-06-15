@@ -108,7 +108,6 @@ public class AddCoverFragment extends Fragment {
                         e.printStackTrace();
                     }
 
-
                    imageBytes = BitmapUtility.convertBitmapToBytes(bitmap);
 
                    Log.d("AddCoverFragment",String.valueOf(imageBytes.length));

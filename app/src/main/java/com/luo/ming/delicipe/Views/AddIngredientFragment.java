@@ -65,7 +65,6 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         tableLayout = view.findViewById(R.id.tableLayout_ingredient);
 
         presenter = new AddIngredientFragmentPresenter(this,getActivity());
@@ -75,7 +74,6 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
         addIngredientBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 presenter.displayTableLayout();
             }

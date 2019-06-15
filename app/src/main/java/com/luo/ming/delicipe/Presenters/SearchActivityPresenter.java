@@ -1,6 +1,8 @@
 package com.luo.ming.delicipe.Presenters;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.AsyncTask;
 import android.util.Log;
 import android.content.Context;
 import java.util.List;
@@ -16,16 +18,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
+import com.luo.ming.delicipe.Helpers.VolleyCallBack;
 import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Views.SearchRecyclerViewAdapter;
 
-public class SearchActivityPresenter {
+public class SearchActivityPresenter implements VolleyCallBack {
 
     private  List<Recipe> recipeList;
     private String url;
     private View view;
     private Recipe recipe;
-    private RequestQueue queue;
     private Context context;
     private RecyclerView recyclerView;
     private SearchRecyclerViewAdapter recipeRecyclerViewAdapter;
@@ -55,7 +57,7 @@ public class SearchActivityPresenter {
 
         this.view = view;
         this.context = context;
-        queue = Volley.newRequestQueue(context);
+        this.recipe = new Recipe();
         recipeList = new ArrayList<>();
 
     }
@@ -78,78 +80,19 @@ public class SearchActivityPresenter {
         return recipeList.size();
     }
 
-    //
-    public void getRecipesList(){
-        this.recipeList = getRecipes(url);
-        Log.d("recipeListSize",String.valueOf(recipeList.size()));
-    }
+    public void getRecipesList() {
 
-    //get a list of recipes from the API server based on user input
-    public List<Recipe> getRecipes(String url) {
-        Log.d("getrecipe","getrecipecalled");
         recipeList.clear();
-
-        final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("recipe onresponse","onresponse has been called");
-                try{
-
-                    Log.d("jsonrequest","jsonreuqestcalled");
-                    JSONArray recipesArray = response.getJSONArray("recipes");
-
-                    Log.d("recipesArray",recipesArray.toString());
-                    for (int i = 0; i < recipesArray.length(); i++) {
-
-                        JSONObject recipeObj = recipesArray.getJSONObject(i);
-
-                        Recipe recipe = new Recipe();
-                        recipe.setImageLink(recipeObj.getString("image_url"));
-                        recipe.setTitle(recipeObj.getString("title"));
-                        Log.d("titile",recipe.getTitle());
-                        Log.d("imageLink",recipe.getImageLink());
-                        recipe.setPublisher(recipeObj.getString("publisher"));
-                        recipe.setID(recipeObj.getString("recipe_id"));
-
-
-                        recipeList.add(recipe);
-                        //set recycler view adapter
-                        view.setRecyclerViewAdapter();
-
-                    }
-
-                    // notify the adapter that the data has been changed
-                    view.refreshRecipeList();
-
-
-                }catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError arg0) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-
-        new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("ERROR", "Error occurred ", error);
-            }
-        };
-
-        queue.add(request);
-        Log.d("request","request added ");
-
-        return recipeList;
+        recipeList = recipe.getRecipes(url,context,this);
 
     }
+
+    @Override
+    public void onSuccess() {
+        view.setRecyclerViewAdapter();
+        view.refreshRecipeList();
+    }
+
 
     // interface view for each recipe row
     public interface RecipeRowView{

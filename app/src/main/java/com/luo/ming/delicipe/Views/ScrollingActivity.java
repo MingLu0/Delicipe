@@ -111,8 +111,6 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
             }
         });
 
-       // getSupportActionBar().setTitle("Kale Market Salad");
-
     }
 
 

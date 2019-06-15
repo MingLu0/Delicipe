@@ -80,7 +80,6 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
                     //the next recipe page
                     Intent intent = new Intent(context, ScrollingActivity.class);
 
-
                     //send the recipe id to the next page
                     intent.putExtra(RECIPE_ID_MESSAGE,recipe.getID());
                     intent.putExtra(RECIPE_TITLE_MESSAGE,recipe.getTitle());

@@ -26,6 +26,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
 
     private static final String LOG_TAG = SearchActivity.class.getSimpleName();
 
+    //todo backbutton on the recipe page will crash the app after another search
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,14 +76,9 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
 
         inflater.inflate(R.menu.menu_search,menu);
 
-        //TODO SEARCHABLE NOT WORKING YET
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =
                 (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
+
 
         searchView.setIconifiedByDefault(false);
         searchView.setQueryHint("search recipe");
@@ -113,6 +109,13 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
 
 
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+
     }
 
 
