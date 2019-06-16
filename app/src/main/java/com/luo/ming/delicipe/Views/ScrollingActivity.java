@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -52,6 +53,18 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_scrolling,menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int ID = item.getItemId();
+
+        switch(ID){
+            case android.R.id.home :
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
