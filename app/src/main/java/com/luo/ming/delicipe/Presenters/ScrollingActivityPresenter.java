@@ -57,6 +57,16 @@ public class ScrollingActivityPresenter {
 
     }
 
+    public ScrollingActivityPresenter(View view, Context context, Recipe recipe){
+
+        this.view = view;
+        this.context = context;
+        this.recipe = recipe;
+        ingredients = recipe.getIngredients();
+
+
+    }
+
     public void saveFavouriteRecipe(){
 
         new saveFavouriteRecipeTask(recipe,context).execute();
@@ -128,6 +138,10 @@ public class ScrollingActivityPresenter {
 
     }
 
+    public void displayFavouriteButton(Boolean bool){
+        view.displayFavouriteButton(bool);
+    }
+
     public void updateIngredientCount(int newServing){
 
         ingredients=recipe.updateIngredientCount(newServing);
@@ -148,6 +162,7 @@ public class ScrollingActivityPresenter {
         void updateCountInTableLayout(ArrayList<Ingredient> ingredients);
         void updateServingSize(int newSergving);
         void displayRecipeTitle(String recipeTitle);
+        void displayFavouriteButton(Boolean bool);
 
 
     }

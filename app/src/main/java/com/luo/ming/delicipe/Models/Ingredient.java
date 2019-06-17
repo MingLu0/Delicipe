@@ -5,12 +5,13 @@ import android.content.Context;
 import com.luo.ming.delicipe.Data.DatabaseHandler;
 import com.luo.ming.delicipe.Helpers.IngredientClassHelper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class Ingredient {
+public class Ingredient implements Serializable {
     private double count;
     private String unit;
     private String ingredient;

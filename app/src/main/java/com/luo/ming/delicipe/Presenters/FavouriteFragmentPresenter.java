@@ -39,7 +39,10 @@ public class FavouriteFragmentPresenter {
 
     }
 
+    public Recipe getRecipeObjAtPosition(int layoutPosition) {
 
+        return recipeList.get(layoutPosition);
+    }
 
 
     public class getRecipesFromDB extends AsyncTask<Void,Void,Void>{

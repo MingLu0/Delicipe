@@ -1,7 +1,6 @@
 package com.luo.ming.delicipe.Models;
 
 import android.content.Context;
-import android.media.MediaRouter;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -11,18 +10,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.luo.ming.delicipe.Data.DatabaseHandler;
-import com.luo.ming.delicipe.Helpers.Constants;
 import com.luo.ming.delicipe.Helpers.VolleyCallBack;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Recipe  {
+public class Recipe implements Serializable {
 
     private String ID;
     private String title;
@@ -57,7 +56,6 @@ public class Recipe  {
     public int getCookingTime() {
         return cookingTime;
     }
-
     public int getServings() {
         return servings;
     }
@@ -116,9 +114,6 @@ public class Recipe  {
     public void getRecipeObj(String url, Context context, final VolleyCallBack callBack) {
         Log.d("recipeModel","getRecipeObj called");
 
-
-        Log.d("recipeModel",url);
-
         RequestQueue queue = Volley.newRequestQueue(context);
 
         List<Recipe> recipeList = new ArrayList<>();
@@ -163,7 +158,6 @@ public class Recipe  {
                     Log.d("recipeModel",String.valueOf(getIngredients().size()));
 
                     setCookingTime();
-
                     setServings();
 
                     callBack.onSuccess();

@@ -1,6 +1,7 @@
 package com.luo.ming.delicipe.Views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Presenters.FavouriteFragmentPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
@@ -19,6 +21,7 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
 
     private Context context;
     private FavouriteFragmentPresenter presenter;
+    public static final String FAVOURITE_RECYCLER_VIEW_MESSAGE = "package com.luo.ming.delicipe.Views.FavouritesRecyclerAdapter";
 
     public FavouritesRecyclerViewAdapter(Context context, FavouriteFragmentPresenter presenter) {
         this.context = context;
@@ -51,12 +54,30 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
         TextView txtRecipeTitle;
        // Context context;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             recipeImage = (ImageView) itemView.findViewById(R.id.recipe_cover_image);
             txtRecipeTitle = (TextView) itemView.findViewById(R.id.recipe_cover_title);
             txtRecipePublisher = (TextView) itemView.findViewById(R.id.source);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+
+                    Recipe recipe = presenter.getRecipeObjAtPosition(position);
+
+                    Intent intent = new Intent(context,ScrollingActivity.class);
+
+                    intent.putExtra(FAVOURITE_RECYCLER_VIEW_MESSAGE,recipe);
+
+                    context.startActivity(intent);
+
+                }
+            });
+
+
 
         }
 

@@ -4,9 +4,10 @@ import android.content.Context;
 
 import com.luo.ming.delicipe.Data.DatabaseHandler;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Ingredients {
+public class Ingredients implements Serializable {
 
     private DatabaseHandler db;
 

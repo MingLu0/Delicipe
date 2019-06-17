@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.luo.ming.delicipe.Models.Ingredient;
+import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Presenters.ScrollingActivityPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
@@ -76,7 +77,6 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        presenter = new ScrollingActivityPresenter(this,this);
 
 
         btnCart = (ImageButton)findViewById(R.id.btnCart);
@@ -86,15 +86,29 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         textTitle = findViewById(R.id.text_recipe_title);
         checkBox = (CheckBox) findViewById(R.id.checkBox);
 
-
         newServing = 4;
 
         Intent intent = getIntent();
         String recipeID = intent.getStringExtra(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE);
-        presenter.setUrl(recipeID);
-        Log.d("ScrollingActivity",recipeID);
+        Recipe recipe = (Recipe) intent.getSerializableExtra(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE);
 
-        presenter.getRecipe();
+        if(recipeID != null){
+
+            presenter = new ScrollingActivityPresenter(this,this);
+            presenter.setUrl(recipeID);
+            Log.d("ScrollingActivity",recipeID);
+            presenter.getRecipe();
+            presenter.displayFavouriteButton(false);
+
+
+        } else if (recipe != null){
+            presenter = new ScrollingActivityPresenter(this,this,recipe);
+            presenter.displayRecipeTitle();
+            presenter.getRecipePhoto();
+            presenter.getTableLayout();
+            presenter.displayFavouriteButton(true);
+        }
+
 
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,9 +116,6 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
                 presenter.saveAllIngredients();
             }
         });
-
-        checkBox.setChecked(false);
-
 
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +196,19 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     public void displayRecipeTitle(String recipeTitle) {
 
         textTitle.setText(recipeTitle);
+
+    }
+
+    @Override
+    public void displayFavouriteButton(Boolean bool) {
+
+        checkBox.setChecked(bool);
+
+        if(bool){
+            checkBox.setButtonDrawable(R.drawable.ic_action_favourited_button);
+        } else {
+            checkBox.setButtonDrawable(R.drawable.ic_action_favourite);
+        }
 
     }
 
