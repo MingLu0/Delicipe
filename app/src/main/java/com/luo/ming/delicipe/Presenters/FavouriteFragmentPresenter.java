@@ -2,6 +2,7 @@ package com.luo.ming.delicipe.Presenters;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Views.FavouritesRecyclerViewAdapter;
@@ -19,6 +20,7 @@ public class FavouriteFragmentPresenter {
         this.context = context;
         this.view = view;
         new getRecipesFromDB().execute();
+        Log.d("FavouriteFragment", "presenter constructor called");
     }
 
     public void onBindRecipeRowViewAtPosition(int position, FavouritesRecyclerViewAdapter.ViewHolder holder) {
@@ -53,6 +55,7 @@ public class FavouriteFragmentPresenter {
 
             Recipe recipe = new Recipe();
 
+
             recipeList = recipe.getFavouriteRecipesFromDB(context);
 
             return null;
@@ -62,7 +65,10 @@ public class FavouriteFragmentPresenter {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            view.setRecyclerViewAdapter();
             view.refreshRecipeList();
+            Log.d("FavouriteFragment", "onpostexecute  called");
+
         }
     }
 

@@ -127,12 +127,14 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
                     presenter.saveFavouriteRecipe();
 
-                    Toast.makeText(getApplication(), "This recipe has been saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), "Recipe Saved!", Toast.LENGTH_SHORT).show();
 
                 } else {
                     checkBox.setButtonDrawable(R.drawable.ic_action_favourite);
 
-                    Toast.makeText(getApplication(), "This recipe has been unsaved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), "Recipe Unsaved!", Toast.LENGTH_SHORT).show();
+
+                    presenter.unSaveFavouriteRecipe();
                 }
             }
         });

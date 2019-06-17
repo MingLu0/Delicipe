@@ -3,23 +3,14 @@ package com.luo.ming.delicipe.Presenters;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.content.Context;
-import java.util.List;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import com.luo.ming.delicipe.Helpers.VolleyCallBack;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
-import com.luo.ming.delicipe.R;
 
 public class ScrollingActivityPresenter {
 
@@ -69,27 +60,45 @@ public class ScrollingActivityPresenter {
 
     public void saveFavouriteRecipe(){
 
-        new saveFavouriteRecipeTask(recipe,context).execute();
+        new saveUnsaveFavouriteRecipeTask(recipe,context,true).execute();
     }
 
-    public static class saveFavouriteRecipeTask extends AsyncTask<Void,Void,Void>{
+    public void unSaveFavouriteRecipe() {
+        new saveUnsaveFavouriteRecipeTask(recipe,context,false).execute();
+    }
+
+    public static class saveUnsaveFavouriteRecipeTask extends AsyncTask<Void,Void,Void>{
 
         private Recipe recipe;
         private Context context;
+        private Boolean save;
 
-        public saveFavouriteRecipeTask(Recipe recipe, Context context) {
+        public saveUnsaveFavouriteRecipeTask(Recipe recipe, Context context, Boolean save){
 
             this.recipe = recipe;
             this.context = context;
+            this.save = save;
 
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
 
-            recipe.saveFavouriteRecipeToDB(context);
+            if(save){
+                recipe.saveFavouriteRecipeToDB(context);
+                return null;
+            }
+
+            recipe.unsaveFavouriteRecipetoDB(context);
 
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
         }
     }
 

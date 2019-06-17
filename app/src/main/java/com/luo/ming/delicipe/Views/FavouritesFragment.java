@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ public class FavouritesFragment extends Fragment implements FavouriteFragmentPre
     private FavouriteFragmentPresenter presenter;
 
     public FavouritesFragment() {
+
+        Log.d("FavouriteFragment","constructor called");
         // Required empty public constructor
     }
 
@@ -33,12 +36,16 @@ public class FavouritesFragment extends Fragment implements FavouriteFragmentPre
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d("FavouriteFragment","oncreate called");
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.d("FavouriteFragment","oncreateview called");
+
         return inflater.inflate(R.layout.fragment_favourites, container, false);
     }
 
@@ -57,6 +64,9 @@ public class FavouritesFragment extends Fragment implements FavouriteFragmentPre
 
         recyclerView.getAdapter().notifyDataSetChanged();
 
+        Log.d("FavouriteFragment","onviewcreated called");
+
+
     }
 
     @Override
@@ -73,7 +83,16 @@ public class FavouritesFragment extends Fragment implements FavouriteFragmentPre
 
     }
 
-    /**
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        presenter = new FavouriteFragmentPresenter(getActivity(), this);
+        adapter = new FavouritesRecyclerViewAdapter(getActivity(),presenter);
+
+        Log.d("FavouriteFragment","onresume called");
+    }
+/**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that

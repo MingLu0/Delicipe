@@ -255,10 +255,7 @@ public class Recipe implements Serializable {
 
     }
 
-    public void saveFavouriteRecipeToDB(Context context){
-        db = DatabaseHandler.getDataBase(context);
-        db.saveFavouriteRecipe(this);
-    }
+
 
 
 
@@ -310,5 +307,16 @@ public class Recipe implements Serializable {
         Boolean bool = db.checkIfRecipeSaved(this.ID);
 
         return bool;
+    }
+
+    public void saveFavouriteRecipeToDB(Context context){
+        db = DatabaseHandler.getDataBase(context);
+        db.saveFavouriteRecipe(this);
+    }
+
+    public void unsaveFavouriteRecipetoDB(Context context) {
+
+        db = DatabaseHandler.getDataBase(context);
+        db.unsaveFavouriteRecipe(this.ID);
     }
 }

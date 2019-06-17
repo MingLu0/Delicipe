@@ -146,14 +146,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return ingredientList;
     }
 
-    public void deleteShoppingItem(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(Constants.TABLE_SHOPPING_LIST_NAME, Constants.KEY_INGREDIENT_ITEM_ID + " = ?",
-                new String[] {String.valueOf(id)});
 
-        db.close();
-
-    }
 
     //Updated Shopping
     public int updateShoppingListItem(Ingredient ingredient) {
@@ -388,11 +381,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(Constants.TABLE_FAVOURITE_RECIPE, null, whereClause, new String[]{id}, null, null, null);
 
         if(cursor.moveToFirst()){
+            db.close();
             return true;
         }
+        db.close();
         return false;
     }
 
+    public void deleteShoppingItem(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Constants.TABLE_SHOPPING_LIST_NAME, Constants.KEY_INGREDIENT_ITEM_ID + " = ?",
+                new String[] {String.valueOf(id)});
+
+        db.close();
+
+    }
+
+    public void unsaveFavouriteRecipe(String id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Constants.TABLE_FAVOURITE_RECIPE, Constants.KEY_FAVOURITE_RECIPE_ID_API + " = ?",
+                new String[]{id});
+
+        db.delete(Constants.TABLE_FAVOURITE_RECIPE_INGREDIENTS, Constants.KEY_FAVOURITE_RECIPE_INGREDIENT_ID_API
+        + " = ?", new String[]{id});
+
+        db.close();
+
+    }
 
 
 }
