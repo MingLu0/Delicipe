@@ -36,7 +36,7 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
     public SearchRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.single_view,viewGroup,false);
         Log.d("onCreateViewHolder","onCreateViewHolder has been called");
-        return new ViewHolder(view,context);
+        return new ViewHolder(view);
     }
 
     //bind the data with the viewholder in each row
@@ -61,9 +61,8 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
         TextView txtRecipeTitle;
 
 
-        public ViewHolder(View itemView, final Context cxt) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            context = cxt;
             recipeImage = (ImageView) itemView.findViewById(R.id.recipe_cover_image);
             txtRecipeTitle = (TextView) itemView.findViewById(R.id.recipe_cover_title);
             txtRecipePublisher = (TextView) itemView.findViewById(R.id.source);

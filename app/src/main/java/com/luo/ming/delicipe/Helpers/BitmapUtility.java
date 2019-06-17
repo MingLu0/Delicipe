@@ -9,7 +9,7 @@ public class BitmapUtility {
 
     public static byte[] convertBitmapToBytes(Bitmap bitmap){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,30,stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,20,stream);
         return stream.toByteArray();
     }
 

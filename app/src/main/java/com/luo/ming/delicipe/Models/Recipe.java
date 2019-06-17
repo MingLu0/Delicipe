@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.luo.ming.delicipe.Data.DatabaseHandler;
+import com.luo.ming.delicipe.Helpers.Constants;
 import com.luo.ming.delicipe.Helpers.VolleyCallBack;
 
 import org.json.JSONArray;
@@ -78,8 +79,11 @@ public class Recipe  {
         this.publisher = publisher;
     }
     public void setSourceURL(String sourceURL) {
-        // Swapping http with https so web page is found and displayed
+        // Swapping http with https so image is found and displayed
         this.sourceURL = sourceURL.replace("http","https");
+        if(this.sourceURL.contains("httpss")){
+            this.sourceURL = this.sourceURL.replace("httpss","https");
+        }
     }
 
     public void setIngredients(ArrayList<Ingredient> ingredients) {
@@ -97,8 +101,16 @@ public class Recipe  {
         this.cookingTime = 15*periods;
     }
 
+    public void setCookingTime(int cookingTime){
+        this.cookingTime = cookingTime;
+    }
+
     public void setServings() {
         this.servings = 4;
+    }
+
+    public void setServings (int size){
+        servings = size;
     }
 
     public void getRecipeObj(String url, Context context, final VolleyCallBack callBack) {
@@ -128,8 +140,9 @@ public class Recipe  {
                     Log.d("recipeModel",getTitle());
                     setPublisher(recipeObj.getString("publisher"));
                     Log.d("recipeModel",getPublisher());
-                    setSourceURL("source_url");
+                    setSourceURL(recipeObj.getString("source_url"));
                     Log.d("recipeModel",getSourceURL());
+                    setID(recipeObj.getString("recipe_id"));
 
                     JSONArray jArray = recipeObj.getJSONArray("ingredients");
 
@@ -206,6 +219,7 @@ public class Recipe  {
                         Log.d("imageLink",recipe.getImageLink());
                         recipe.setPublisher(recipeObj.getString("publisher"));
                         recipe.setID(recipeObj.getString("recipe_id"));
+                        recipe.setSourceURL(recipeObj.getString("source_url"));
                         recipeList.add(recipe);
                         Log.d("request",String.valueOf(recipeList.size()));
 
@@ -246,6 +260,11 @@ public class Recipe  {
 
     }
 
+    public void saveFavouriteRecipeToDB(Context context){
+        db = DatabaseHandler.getDataBase(context);
+        db.saveFavouriteRecipe(this);
+    }
+
 
 
     public void addIngredientToDB(Context context,ArrayList<Ingredient>ingredients){
@@ -278,4 +297,14 @@ public class Recipe  {
 
     }
 
+    public ArrayList<Recipe> getFavouriteRecipesFromDB(Context context) {
+
+        ArrayList<Recipe>recipes = new ArrayList<>();
+
+        db = DatabaseHandler.getDataBase(context);
+
+        recipes = db.getFavouriteRecipes();
+
+        return recipes;
+    }
 }

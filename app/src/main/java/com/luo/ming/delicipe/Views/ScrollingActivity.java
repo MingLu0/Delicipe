@@ -114,6 +114,8 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
                 if(checked){
                     checkBox.setButtonDrawable(R.drawable.ic_action_favourited_button);
 
+                    presenter.saveFavouriteRecipe();
+
                     Toast.makeText(getApplication(), "This recipe has been saved", Toast.LENGTH_SHORT).show();
 
                 } else {

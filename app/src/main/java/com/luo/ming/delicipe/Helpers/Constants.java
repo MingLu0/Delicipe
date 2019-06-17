@@ -2,17 +2,17 @@ package com.luo.ming.delicipe.Helpers;
 
 public class Constants {
 
-    public static final int DB_VERSION = 9;
+    public static final int DB_VERSION = 17;
     public static final String DB_NAME = "delicipeDB";
 
     //Table names
-    public static final String TABLE_FAVORITE_RECIPE = "favoriteRecipeTB";
     public static final String TABLE_SHOPPING_LIST_NAME = "shoppingListTB";
     public static final String TABLE_INGREDIENT = "ingredientTB";
     public static final String TABLE_USER_RECIPE_COVER = "userRecipeCoverTB";
     public static final String TABLE_USER_INGREDIENT = "userIngredientTB";
     public static final String TABLE_USER_STEP ="userStepTB";
     public static final String TABLE_FAVOURITE_RECIPE = "favouriteRecipeTB";
+    public static final String TABLE_FAVOURITE_RECIPE_INGREDIENTS = "favouriteRecipeIngredientsTB";
 
     //Ingredient Shopping List Table columns
     public static final String KEY_INGREDIENT_ITEM_ID = "id";
@@ -44,16 +44,20 @@ public class Constants {
     public static final String KEY_USER_STEP_TEXT = "userStepText";
 
     //Favourite Recipe Table Columns
-    public static final String KEY_RECIPE_ID = "favouriteRecipeID";
-    public static final String KEY_RECIPE_IMAGE = "favouriteRecipeImage";
-    public static final String KEY_RECIPE_NAME = "favouriteRecipeName";
-    public static final String KEY_RECIPE_SERVING = "favouriteRecipeServing";
+    public static final String KEY_FAVOURITE_RECIPE_ID = "favouriteRecipeID";
+    public static final String KEY_FAVOURITE_RECIPE_ID_API = "favouriteRecipeIDAPI";
+    public static final String KEY_FAVOURITE_RECIPE_IMAGE = "favouriteRecipeImage";
+    public static final String KEY_FAVOURITE_RECIPE_NAME = "favouriteRecipeName";
+    public static final String KEY_FAVOURITE_RECIPE_SERVING = "favouriteRecipeServing";
+    public static final String KEY_FAVOURITE_RECIPE_COOKING_TIME = "favouriteRecipeCookingTime";
+    public static final String KEY_FAVOURITE_RECIPE_SOURCE_URL = "favouriteRecipeSourceURL";
+    public static final String KEY_FAVOURITE_RECIPE_PUBLISHER = "favouriteRecipePublisher";
 
 
-
-
-
-
+    //Favourite Recipe Ingredient Table Columns
+    public static final String KEY_FAVOURITE_RECIPE_INGREDIENT_ID = "favouriteRecipeIngredientID";
+    public static final String KEY_FAVOURITE_RECIPE_INGREDIENT_ID_API = "favouriteRecipeIngredientIDAPI";
+    public static final String KEY_FAVOURITE_RECIPE_INGREDIENT_NAME = "favouriteRecipeIngredientName";
 
 
 }

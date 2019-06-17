@@ -1,5 +1,6 @@
 package com.luo.ming.delicipe.Presenters;
 
+import android.os.AsyncTask;
 import android.util.Log;
 import android.content.Context;
 import java.util.List;
@@ -54,6 +55,32 @@ public class ScrollingActivityPresenter {
         ingredients = new ArrayList<>();
 
 
+    }
+
+    public void saveFavouriteRecipe(){
+
+        new saveFavouriteRecipeTask(recipe,context).execute();
+    }
+
+    public static class saveFavouriteRecipeTask extends AsyncTask<Void,Void,Void>{
+
+        private Recipe recipe;
+        private Context context;
+
+        public saveFavouriteRecipeTask(Recipe recipe, Context context) {
+
+            this.recipe = recipe;
+            this.context = context;
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            recipe.saveFavouriteRecipeToDB(context);
+
+            return null;
+        }
     }
 
 

@@ -10,12 +10,14 @@ import android.util.Log;
 
 import com.luo.ming.delicipe.Helpers.Constants;
 import com.luo.ming.delicipe.Models.Ingredient;
+import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Models.UserRecipe;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Models.UserRecipeStep;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -41,8 +43,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        Log.d("dbhandler","onCreate has been called");
-
         // create shopping list table from ingredient list
         String CREATE_SHOPPINGLIST_TABLE ="CREATE TABLE " + Constants.TABLE_SHOPPING_LIST_NAME + "("
                 + Constants.KEY_INGREDIENT_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + Constants.KEY_COUNT + " DOUBLE,"
@@ -62,14 +62,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_USER_COOKING_STEP_TABLE = "CREATE TABLE " + Constants.TABLE_USER_STEP + "("
                 + Constants.KEY_USER_STEP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + Constants.KEY_USER_STEP_IMAGE_URI + " TEXT,"
-                + Constants.KEY_USER_STEP_TEXT + " TEXT," + Constants.KEY_USER_STEP_COVER_ID + " INTEGER,"
+                + Constants.KEY_USER_STEP_TEXT + " TEXT," + Constants.KEY_USER_STEP_COVER_ID + " INTEGER, "
                 + " FOREIGN KEY (" + Constants.KEY_USER_STEP_COVER_ID + ") REFERENCES " + Constants.TABLE_USER_RECIPE_COVER
                 + " (" + Constants.KEY_COVER_ID + "));";
+
+        String CREATE_FAVOURITE_RECIPE_TABLE = "CREATE TABLE " + Constants.TABLE_FAVOURITE_RECIPE + "("
+                + Constants.KEY_FAVOURITE_RECIPE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + Constants.KEY_FAVOURITE_RECIPE_IMAGE + " TEXT, "
+                + Constants.KEY_FAVOURITE_RECIPE_ID_API + " TEXT NOT NULL, "
+                + Constants.KEY_FAVOURITE_RECIPE_NAME + " TEXT, "
+                + Constants.KEY_FAVOURITE_RECIPE_SERVING + " INTEGER, "
+                + Constants.KEY_FAVOURITE_RECIPE_SOURCE_URL + " TEXT, "
+                + Constants.KEY_FAVOURITE_RECIPE_PUBLISHER + " TEXT, "
+                + Constants.KEY_FAVOURITE_RECIPE_COOKING_TIME + " INTEGER " + ");";
+
+        String CREATE_FAVOURITE_RECIPE_INGREDIENTS_TABLE = "CREATE TABLE "
+                + Constants.TABLE_FAVOURITE_RECIPE_INGREDIENTS + "("
+                + Constants.KEY_FAVOURITE_RECIPE_INGREDIENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Constants.KEY_FAVOURITE_RECIPE_INGREDIENT_NAME + " TEXT, "
+                + Constants.KEY_FAVOURITE_RECIPE_INGREDIENT_ID_API + " TEXT NOT NULL "
+                + ");";
 
         db.execSQL(CREATE_SHOPPINGLIST_TABLE);
         db.execSQL(CREATE_USER_COVER_TABLE);
         db.execSQL(CREATE_USER_INGREDIENT_TABLE);
         db.execSQL(CREATE_USER_COOKING_STEP_TABLE);
+        db.execSQL(CREATE_FAVOURITE_RECIPE_TABLE);
+        db.execSQL(CREATE_FAVOURITE_RECIPE_INGREDIENTS_TABLE);
 
     }
 
@@ -79,6 +98,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_USER_RECIPE_COVER);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_USER_INGREDIENT);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_USER_STEP);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_FAVOURITE_RECIPE);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_FAVOURITE_RECIPE_INGREDIENTS);
         onCreate(db);
 
     }
@@ -111,7 +132,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 ingredient.setID(cursor.getString(cursor.getColumnIndex(Constants.KEY_INGREDIENT_ITEM_ID)));
                 Log.d("setID",cursor.getString(cursor.getColumnIndex(Constants.KEY_INGREDIENT_ITEM_ID)));
                 ingredient.setCount(Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.KEY_COUNT))));
-                //Log.d("database",ingredient.getItemName());
                 ingredient.setUnit(cursor.getString(cursor.getColumnIndex(Constants.KEY_UNIT)));
                 ingredient.setIngredient(cursor.getString(cursor.getColumnIndex(Constants.KEY_ITEM_NAME)));
 
@@ -206,6 +226,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public void saveFavouriteRecipe(Recipe recipe) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+
+        ContentValues recipeValues = new ContentValues();
+        recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_IMAGE, recipe.getImageLink());
+        recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_NAME, recipe.getTitle());
+        recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_COOKING_TIME, recipe.getCookingTime());
+        recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_SERVING,recipe.getServings());
+        recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_SOURCE_URL,recipe.getSourceURL());
+        recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_ID_API, recipe.getID());
+
+        db.insert(Constants.TABLE_FAVOURITE_RECIPE,null,recipeValues);
+
+        ArrayList<Ingredient> ingredients = recipe.getIngredients();
+
+        if(ingredients != null){
+
+            for(int i=0;i<ingredients.size();i++){
+
+                ContentValues ingredientValues = new ContentValues();
+                ingredientValues.put(Constants.KEY_FAVOURITE_RECIPE_INGREDIENT_NAME, ingredients.get(i).getIngredientItem());
+                ingredientValues.put(Constants.KEY_FAVOURITE_RECIPE_INGREDIENT_ID_API,recipe.getID());
+            }
+        }
+
+        db.close();
+
+
+    }
+
     public int getUserRecipeCoverID(String coverName) {
 
         int coverID = -1;
@@ -223,6 +276,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Log.d("Database",String.valueOf(coverID));
 
+        db.close();
         return coverID;
     }
 
@@ -253,7 +307,70 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        db.close();
         return userRecipeCoversList;
+
+    }
+
+
+    public ArrayList<Recipe> getFavouriteRecipes() {
+
+        ArrayList<Recipe>recipeList = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query(Constants.TABLE_FAVOURITE_RECIPE, new String[]{Constants.KEY_FAVOURITE_RECIPE_ID,
+        Constants.KEY_FAVOURITE_RECIPE_ID_API, Constants.KEY_FAVOURITE_RECIPE_NAME, Constants.KEY_FAVOURITE_RECIPE_IMAGE,
+        Constants.KEY_FAVOURITE_RECIPE_SOURCE_URL, Constants.KEY_FAVOURITE_RECIPE_COOKING_TIME,
+        Constants.KEY_FAVOURITE_RECIPE_SERVING, Constants.KEY_FAVOURITE_RECIPE_PUBLISHER}, null,null,null,null,null);
+
+        if(cursor.moveToFirst()){
+
+            do{
+
+                Recipe recipe = new Recipe();
+
+                recipe.setID(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_ID_API)));
+                recipe.setSourceURL(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_SOURCE_URL)));
+                recipe.setCookingTime(cursor.getInt(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_COOKING_TIME)));
+                recipe.setImageLink(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_IMAGE)));
+                recipe.setIngredients(getIngredientsForRecipe(recipe.getID()));
+                recipe.setPublisher(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_PUBLISHER)));
+                recipe.setServings(cursor.getInt(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_SERVING)));
+                recipe.setTitle(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_NAME)));
+                recipeList.add(recipe);
+
+
+            }while(cursor.moveToNext());
+        }
+
+
+        return recipeList;
+
+    }
+
+    public ArrayList<Ingredient> getIngredientsForRecipe(String id){
+
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+        String whereClause = Constants.KEY_FAVOURITE_RECIPE_INGREDIENT_ID_API+" = ?";
+
+        Cursor cursor = db.query(Constants.TABLE_FAVOURITE_RECIPE_INGREDIENTS, new String[]{
+                Constants.KEY_FAVOURITE_RECIPE_INGREDIENT_NAME} , whereClause, new String[]{id}, null,null,null);
+
+        if(cursor.moveToFirst()){
+
+            do{
+
+                Ingredient ingredient = new Ingredient();
+                ingredient.setIngredientItem(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_INGREDIENT_NAME)));
+                ingredients.add(ingredient);
+
+            }while(cursor.moveToNext());
+        }
+
+        return ingredients;
 
     }
 }
