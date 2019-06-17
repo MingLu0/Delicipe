@@ -239,6 +239,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_SERVING,recipe.getServings());
         recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_SOURCE_URL,recipe.getSourceURL());
         recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_ID_API, recipe.getID());
+        recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_PUBLISHER, recipe.getPublisher());
 
         db.insert(Constants.TABLE_FAVOURITE_RECIPE,null,recipeValues);
 
@@ -251,11 +252,48 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 ContentValues ingredientValues = new ContentValues();
                 ingredientValues.put(Constants.KEY_FAVOURITE_RECIPE_INGREDIENT_NAME, ingredients.get(i).getIngredientItem());
                 ingredientValues.put(Constants.KEY_FAVOURITE_RECIPE_INGREDIENT_ID_API,recipe.getID());
+                db.insert(Constants.TABLE_FAVOURITE_RECIPE_INGREDIENTS,null,ingredientValues);
             }
         }
 
         db.close();
 
+
+    }
+
+    public ArrayList<Recipe> getFavouriteRecipes() {
+
+        ArrayList<Recipe>recipeList = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query(Constants.TABLE_FAVOURITE_RECIPE, new String[]{Constants.KEY_FAVOURITE_RECIPE_ID,
+                Constants.KEY_FAVOURITE_RECIPE_ID_API, Constants.KEY_FAVOURITE_RECIPE_NAME, Constants.KEY_FAVOURITE_RECIPE_IMAGE,
+                Constants.KEY_FAVOURITE_RECIPE_SOURCE_URL, Constants.KEY_FAVOURITE_RECIPE_COOKING_TIME,
+                Constants.KEY_FAVOURITE_RECIPE_SERVING, Constants.KEY_FAVOURITE_RECIPE_PUBLISHER}, null,null,null,null,null);
+
+        if(cursor.moveToFirst()){
+
+            do{
+
+                Recipe recipe = new Recipe();
+
+                recipe.setID(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_ID_API)));
+                recipe.setSourceURL(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_SOURCE_URL)));
+                recipe.setCookingTime(cursor.getInt(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_COOKING_TIME)));
+                recipe.setImageLink(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_IMAGE)));
+                recipe.setIngredients(getIngredientsForRecipe(recipe.getID()));
+                recipe.setPublisher(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_PUBLISHER)));
+                recipe.setServings(cursor.getInt(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_SERVING)));
+                recipe.setTitle(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_NAME)));
+                recipeList.add(recipe);
+
+
+            }while(cursor.moveToNext());
+        }
+
+
+        return recipeList;
 
     }
 
@@ -313,41 +351,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<Recipe> getFavouriteRecipes() {
 
-        ArrayList<Recipe>recipeList = new ArrayList<>();
-
-        SQLiteDatabase db = getReadableDatabase();
-
-        Cursor cursor = db.query(Constants.TABLE_FAVOURITE_RECIPE, new String[]{Constants.KEY_FAVOURITE_RECIPE_ID,
-        Constants.KEY_FAVOURITE_RECIPE_ID_API, Constants.KEY_FAVOURITE_RECIPE_NAME, Constants.KEY_FAVOURITE_RECIPE_IMAGE,
-        Constants.KEY_FAVOURITE_RECIPE_SOURCE_URL, Constants.KEY_FAVOURITE_RECIPE_COOKING_TIME,
-        Constants.KEY_FAVOURITE_RECIPE_SERVING, Constants.KEY_FAVOURITE_RECIPE_PUBLISHER}, null,null,null,null,null);
-
-        if(cursor.moveToFirst()){
-
-            do{
-
-                Recipe recipe = new Recipe();
-
-                recipe.setID(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_ID_API)));
-                recipe.setSourceURL(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_SOURCE_URL)));
-                recipe.setCookingTime(cursor.getInt(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_COOKING_TIME)));
-                recipe.setImageLink(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_IMAGE)));
-                recipe.setIngredients(getIngredientsForRecipe(recipe.getID()));
-                recipe.setPublisher(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_PUBLISHER)));
-                recipe.setServings(cursor.getInt(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_SERVING)));
-                recipe.setTitle(cursor.getString(cursor.getColumnIndex(Constants.KEY_FAVOURITE_RECIPE_NAME)));
-                recipeList.add(recipe);
-
-
-            }while(cursor.moveToNext());
-        }
-
-
-        return recipeList;
-
-    }
 
     public ArrayList<Ingredient> getIngredientsForRecipe(String id){
 
