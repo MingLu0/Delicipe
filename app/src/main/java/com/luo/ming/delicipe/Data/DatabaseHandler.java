@@ -16,7 +16,9 @@ import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Models.UserRecipeStep;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -74,6 +76,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + Constants.KEY_FAVOURITE_RECIPE_SERVING + " INTEGER, "
                 + Constants.KEY_FAVOURITE_RECIPE_SOURCE_URL + " TEXT, "
                 + Constants.KEY_FAVOURITE_RECIPE_PUBLISHER + " TEXT, "
+                + Constants.KEY_FAVOURITE_RECIPE_CREATED_TIME + " DATE, "
                 + Constants.KEY_FAVOURITE_RECIPE_COOKING_TIME + " INTEGER " + ");";
 
         String CREATE_FAVOURITE_RECIPE_INGREDIENTS_TABLE = "CREATE TABLE "
@@ -230,8 +233,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-
-
         ContentValues recipeValues = new ContentValues();
         recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_IMAGE, recipe.getImageLink());
         recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_NAME, recipe.getTitle());
@@ -240,6 +241,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_SOURCE_URL,recipe.getSourceURL());
         recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_ID_API, recipe.getID());
         recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_PUBLISHER, recipe.getPublisher());
+        recipeValues.put(Constants.KEY_FAVOURITE_RECIPE_CREATED_TIME,new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
         db.insert(Constants.TABLE_FAVOURITE_RECIPE,null,recipeValues);
 
@@ -270,7 +272,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(Constants.TABLE_FAVOURITE_RECIPE, new String[]{Constants.KEY_FAVOURITE_RECIPE_ID,
                 Constants.KEY_FAVOURITE_RECIPE_ID_API, Constants.KEY_FAVOURITE_RECIPE_NAME, Constants.KEY_FAVOURITE_RECIPE_IMAGE,
                 Constants.KEY_FAVOURITE_RECIPE_SOURCE_URL, Constants.KEY_FAVOURITE_RECIPE_COOKING_TIME,
-                Constants.KEY_FAVOURITE_RECIPE_SERVING, Constants.KEY_FAVOURITE_RECIPE_PUBLISHER}, null,null,null,null,null);
+                Constants.KEY_FAVOURITE_RECIPE_SERVING, Constants.KEY_FAVOURITE_RECIPE_PUBLISHER}, null,null,null,null,Constants.KEY_FAVOURITE_RECIPE_CREATED_TIME+ " DESC");
 
         if(cursor.moveToFirst()){
 

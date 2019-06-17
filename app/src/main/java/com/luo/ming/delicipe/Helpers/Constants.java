@@ -2,7 +2,7 @@ package com.luo.ming.delicipe.Helpers;
 
 public class Constants {
 
-    public static final int DB_VERSION = 17;
+    public static final int DB_VERSION = 19;
     public static final String DB_NAME = "delicipeDB";
 
     //Table names
@@ -52,6 +52,7 @@ public class Constants {
     public static final String KEY_FAVOURITE_RECIPE_COOKING_TIME = "favouriteRecipeCookingTime";
     public static final String KEY_FAVOURITE_RECIPE_SOURCE_URL = "favouriteRecipeSourceURL";
     public static final String KEY_FAVOURITE_RECIPE_PUBLISHER = "favouriteRecipePublisher";
+    public static final String KEY_FAVOURITE_RECIPE_CREATED_TIME = "favouriteRecipeCreatedTime";
 
 
     //Favourite Recipe Ingredient Table Columns
