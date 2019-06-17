@@ -46,26 +46,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         // create shopping list table from ingredient list
-        String CREATE_SHOPPINGLIST_TABLE ="CREATE TABLE " + Constants.TABLE_SHOPPING_LIST_NAME + "("
-                + Constants.KEY_INGREDIENT_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + Constants.KEY_COUNT + " DOUBLE,"
-                + Constants.KEY_UNIT + " TEXT,"+ Constants.KEY_ITEM_NAME + " TEXT"+ " );";
+        String CREATE_SHOPPINGLIST_TABLE ="CREATE TABLE "
+                + Constants.TABLE_SHOPPING_LIST_NAME + "("
+                + Constants.KEY_INGREDIENT_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Constants.KEY_ITEM_NAME + " TEXT"+ " );";
 
         String CREATE_USER_COVER_TABLE = "CREATE TABLE " + Constants.TABLE_USER_RECIPE_COVER + "("
-                + Constants.KEY_COVER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + Constants.KEY_COVER_IMAGE_BYTES + " BLOB,"
-                + Constants.KEY_COVER_NAME + " TEXT NOT NULL," + Constants.KEY_COVER_COOKING_TIME + " INTEGER,"
-                + Constants.KEY_COVER_SERVING_SIZE + " INTEGER," + Constants.KEY_COVER_COMMENT + " TEXT" +");";
+                + Constants.KEY_COVER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Constants.KEY_COVER_IMAGE_BYTES + " BLOB,"
+                + Constants.KEY_COVER_NAME + " TEXT NOT NULL,"
+                + Constants.KEY_COVER_COOKING_TIME + " INTEGER,"
+                + Constants.KEY_COVER_SERVING_SIZE + " INTEGER,"
+                + Constants.KEY_COVER_COMMENT + " TEXT" +");";
 
-        String CREATE_USER_INGREDIENT_TABLE = "CREATE TABLE " + Constants.TABLE_USER_INGREDIENT + "("
-                + Constants.KEY_USER_INGREDIENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + Constants.KEY_USER_INGREDIENT_UNIT + " TEXT,"
-                + Constants.KEY_USER_INGREDIENT_NAME + " TEXT," + Constants.KEY_USER_INGREDIENT_AMOUNT + " FLOAT,"
+        String CREATE_USER_INGREDIENT_TABLE = "CREATE TABLE "
+                + Constants.TABLE_USER_INGREDIENT + "("
+                + Constants.KEY_USER_INGREDIENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Constants.KEY_USER_INGREDIENT_UNIT + " TEXT,"
+                + Constants.KEY_USER_INGREDIENT_NAME + " TEXT,"
+                + Constants.KEY_USER_INGREDIENT_AMOUNT + " FLOAT,"
                 + Constants.KEY_USER_INGREDIENT_COVER_ID + " INTEGER,"
-                + " FOREIGN KEY (" + Constants.KEY_USER_INGREDIENT_COVER_ID + ") REFERENCES " + Constants.TABLE_USER_RECIPE_COVER
+                + " FOREIGN KEY (" + Constants.KEY_USER_INGREDIENT_COVER_ID + ") REFERENCES "
+                + Constants.TABLE_USER_RECIPE_COVER
                 + " (" + Constants.KEY_COVER_ID + "));";
 
-        String CREATE_USER_COOKING_STEP_TABLE = "CREATE TABLE " + Constants.TABLE_USER_STEP + "("
-                + Constants.KEY_USER_STEP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + Constants.KEY_USER_STEP_IMAGE_URI + " TEXT,"
-                + Constants.KEY_USER_STEP_TEXT + " TEXT," + Constants.KEY_USER_STEP_COVER_ID + " INTEGER, "
-                + " FOREIGN KEY (" + Constants.KEY_USER_STEP_COVER_ID + ") REFERENCES " + Constants.TABLE_USER_RECIPE_COVER
+        String CREATE_USER_COOKING_STEP_TABLE = "CREATE TABLE "
+                + Constants.TABLE_USER_STEP + "("
+                + Constants.KEY_USER_STEP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Constants.KEY_USER_STEP_IMAGE_URI + " TEXT,"
+                + Constants.KEY_USER_STEP_TEXT + " TEXT,"
+                + Constants.KEY_USER_STEP_COVER_ID + " INTEGER, "
+                + " FOREIGN KEY (" + Constants.KEY_USER_STEP_COVER_ID + ") REFERENCES "
+                + Constants.TABLE_USER_RECIPE_COVER
                 + " (" + Constants.KEY_COVER_ID + "));";
 
         String CREATE_FAVOURITE_RECIPE_TABLE = "CREATE TABLE " + Constants.TABLE_FAVOURITE_RECIPE + "("
@@ -107,15 +119,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void addIngredient(ArrayList<Ingredient>ingredients) {
+    public void addIngredients(ArrayList<Ingredient>ingredients) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         if (ingredients != null) {
             for (int i = 0; i < ingredients.size(); i++) {
                 ContentValues values = new ContentValues();
-                values.put(Constants.KEY_COUNT, ingredients.get(i).getCount());
-                values.put(Constants.KEY_UNIT,ingredients.get(i).getUnit());
-                values.put(Constants.KEY_ITEM_NAME,ingredients.get(i).getIngredient());
+                values.put(Constants.KEY_ITEM_NAME,ingredients.get(i).getIngredientItem());
                 db.insert(Constants.TABLE_SHOPPING_LIST_NAME, null, values);
             }
         }
@@ -127,16 +137,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<Ingredient> ingredientList = new ArrayList<>();
 
         Cursor cursor = db.query(Constants.TABLE_SHOPPING_LIST_NAME, new String[] {
-                Constants.KEY_INGREDIENT_ITEM_ID,Constants.KEY_COUNT,Constants.KEY_UNIT,Constants.KEY_ITEM_NAME}, null, null, null, null, null );
+               Constants.KEY_ITEM_NAME}, null, null, null, null, null );
 
         if (cursor.moveToFirst()) {
             do {
                 Ingredient ingredient = new Ingredient();
-                ingredient.setID(cursor.getString(cursor.getColumnIndex(Constants.KEY_INGREDIENT_ITEM_ID)));
-                Log.d("setID",cursor.getString(cursor.getColumnIndex(Constants.KEY_INGREDIENT_ITEM_ID)));
-                ingredient.setCount(Double.parseDouble(cursor.getString(cursor.getColumnIndex(Constants.KEY_COUNT))));
-                ingredient.setUnit(cursor.getString(cursor.getColumnIndex(Constants.KEY_UNIT)));
-                ingredient.setIngredient(cursor.getString(cursor.getColumnIndex(Constants.KEY_ITEM_NAME)));
+                ingredient.setIngredientItem(cursor.getString(cursor.getColumnIndex(Constants.KEY_ITEM_NAME)));
 
                 ingredientList.add(ingredient);
 

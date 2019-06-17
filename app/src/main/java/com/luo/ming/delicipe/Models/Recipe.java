@@ -2,7 +2,6 @@ package com.luo.ming.delicipe.Models;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.CheckBox;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -261,7 +260,7 @@ public class Recipe implements Serializable {
 
     public void addIngredientToDB(Context context,ArrayList<Ingredient>ingredients){
         db = DatabaseHandler.getDataBase(context);
-        db.addIngredient(ingredients);
+        db.addIngredients(ingredients);
     }
 
     public ArrayList<Ingredient> updateIngredientCount(int newServing){

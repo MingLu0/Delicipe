@@ -83,6 +83,7 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
                     intent.putExtra(RECIPE_ID_MESSAGE,recipe.getID());
                     intent.putExtra(RECIPE_TITLE_MESSAGE,recipe.getTitle());
 
+                    //TODO android.util.AndroidRuntimeException: Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?
                     context.startActivity(intent);
 
                 }

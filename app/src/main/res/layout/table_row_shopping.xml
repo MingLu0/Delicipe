@@ -27,37 +27,14 @@
                 android:layout_margin="10dp" />
 
             <TextView
-                android:id="@+id/txt_count"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/chk_selected"
-                android:layout_weight="0.5"
-                android:padding="1dp"
-                android:text="@string/shopping_row_count_placeholder"
-                android:textSize="16dp" />
-
-            <TextView
-                android:id="@+id/txt_unit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/txt_count"
-                android:layout_weight="0.5"
-                android:padding="2dp"
-                android:text="@string/shopping_row_unit_placeholder"
-                android:textSize="16dp" />
-
-            <TextView
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:id="@+id/txt_item"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/txt_unit"
                 android:layout_weight="2"
                 android:padding="5dp"
                 android:text="@string/shopping_row_item_placeholder"
                 android:textSize="16dp" />
-
-
-
 
 
         </LinearLayout>

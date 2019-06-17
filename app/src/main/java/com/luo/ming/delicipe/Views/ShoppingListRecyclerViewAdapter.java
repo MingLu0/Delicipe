@@ -31,7 +31,7 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shopping_table_row,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.table_row_shopping,viewGroup,false);
         Log.d("ShoppingListAdapter","onCreateViewHolder has been called");
         return new ViewHolder(view,context);
     }
@@ -54,18 +54,12 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
         private CheckBox btnChk;
         private TextView txtItem;
         private ImageButton btnEdit;
-        private TextView txtCount;
-        private TextView txtUnit;
 
         public ViewHolder(View itemView, final Context cxt){
             super(itemView);
 
             btnChk = (CheckBox)itemView.findViewById(R.id.chk_selected);
             txtItem = (TextView)itemView.findViewById(R.id.txt_item);
-
-            //btnEdit = (ImageButton)itemView.findViewById(R.id.btn_edit);
-            txtCount = (TextView)itemView.findViewById(R.id.txt_count);
-            txtUnit = (TextView)itemView.findViewById(R.id.txt_unit);
 
             btnChk.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -93,9 +87,7 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
 
         @Override
         public void setRowContent(Ingredient ingredient) {
-            txtCount.setText(String.valueOf(ingredient.getCount()));
-            txtUnit.setText(ingredient.getUnit());
-            txtItem.setText(ingredient.getIngredient());
+            txtItem.setText(ingredient.getIngredientItem());
 
         }
 
