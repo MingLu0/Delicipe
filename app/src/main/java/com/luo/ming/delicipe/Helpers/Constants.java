@@ -2,7 +2,7 @@ package com.luo.ming.delicipe.Helpers;
 
 public class Constants {
 
-    public static final int DB_VERSION = 21;
+    public static final int DB_VERSION = 22;
     public static final String DB_NAME = "delicipeDB";
 
     //Table names

@@ -40,7 +40,7 @@ public class ShoppingFragmentPresenter {
         Ingredient deleteItem = ingredients.get(position);
 
         //TODO MIGHT NEED TO CHANGE ID FROM STRING TO INT
-        deleteItem.deleteShoppingItemFromDB(Integer.valueOf(deleteItem.getID()),context);
+        deleteItem.deleteShoppingItemFromDB(deleteItem.getID(),context);
         ingredients.remove(position);
         view.notifyShoppingItemRemoved(position);
 

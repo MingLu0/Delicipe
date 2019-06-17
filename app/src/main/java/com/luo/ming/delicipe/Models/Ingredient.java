@@ -16,7 +16,7 @@ public class Ingredient implements Serializable {
     private String unit;
     private String ingredient;
     private IngredientClassHelper _helper;
-    private String ID;
+    private int ID;
     private String ingredientItem;
 
     public String getIngredientItem() {
@@ -30,11 +30,11 @@ public class Ingredient implements Serializable {
     private DatabaseHandler db;
 
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(int ID) {
         this.ID = ID;
     }
 
@@ -179,7 +179,7 @@ public class Ingredient implements Serializable {
 
     public void updateShoppingItemFromDB(Ingredient ingredient, Context context){
         DatabaseHandler db = new DatabaseHandler(context);
-        db.updateShoppingListItem(ingredient);
+        //db.updateShoppingListItem(ingredient);
     }
 
 

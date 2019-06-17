@@ -137,13 +137,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<Ingredient> ingredientList = new ArrayList<>();
 
         Cursor cursor = db.query(Constants.TABLE_SHOPPING_LIST_NAME, new String[] {
-               Constants.KEY_ITEM_NAME}, null, null, null, null, null );
+               Constants.KEY_INGREDIENT_ITEM_ID,Constants.KEY_ITEM_NAME}, null, null, null, null, null );
 
         if (cursor.moveToFirst()) {
             do {
                 Ingredient ingredient = new Ingredient();
                 ingredient.setIngredientItem(cursor.getString(cursor.getColumnIndex(Constants.KEY_ITEM_NAME)));
-
+                ingredient.setID(cursor.getInt(cursor.getColumnIndex(Constants.KEY_INGREDIENT_ITEM_ID)));
                 ingredientList.add(ingredient);
 
             }while (cursor.moveToNext());
@@ -153,19 +153,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-
-    //Updated Shopping
-    public int updateShoppingListItem(Ingredient ingredient) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(Constants.KEY_COUNT, ingredient.getCount());
-        values.put(Constants.KEY_UNIT, ingredient.getUnit());
-        values.put(Constants.KEY_ITEM_NAME, ingredient.getIngredient());//get system time
-
-        //update row
-        return db.update(Constants.TABLE_SHOPPING_LIST_NAME, values, Constants.KEY_INGREDIENT_ITEM_ID + "=?", new String[] { ingredient.getID()} );
-    }
+//
+//    //Updated Shopping
+//    public int updateShoppingListItem(Ingredient ingredient) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//        values.put(Constants.KEY_COUNT, ingredient.getCount());
+//        values.put(Constants.KEY_UNIT, ingredient.getUnit());
+//        values.put(Constants.KEY_ITEM_NAME, ingredient.getIngredient());//get system time
+//
+//        //update row
+//        return db.update(Constants.TABLE_SHOPPING_LIST_NAME, values, Constants.KEY_INGREDIENT_ITEM_ID + "=?", new String[] { ingredient.getID()} );
+//    }
 
 
     public void saveRecipeCover(UserRecipeCover userRecipeCover) {
