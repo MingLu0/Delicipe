@@ -379,4 +379,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return ingredients;
 
     }
+
+    public Boolean checkIfRecipeSaved(String id) {
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String whereClause = Constants.KEY_FAVOURITE_RECIPE_ID_API+" = ?";
+        Cursor cursor = db.query(Constants.TABLE_FAVOURITE_RECIPE, null, whereClause, new String[]{id}, null, null, null);
+
+        if(cursor.moveToFirst()){
+            return true;
+        }
+        return false;
+    }
+
+
+
 }

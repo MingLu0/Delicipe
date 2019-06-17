@@ -2,6 +2,7 @@ package com.luo.ming.delicipe.Models;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.CheckBox;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -300,5 +301,14 @@ public class Recipe implements Serializable {
         recipes = db.getFavouriteRecipes();
 
         return recipes;
+    }
+
+    public Boolean checkIfRecipeSaved(Context context) {
+
+        db = DatabaseHandler.getDataBase(context);
+
+        Boolean bool = db.checkIfRecipeSaved(this.ID);
+
+        return bool;
     }
 }

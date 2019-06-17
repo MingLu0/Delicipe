@@ -98,7 +98,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
             presenter.setUrl(recipeID);
             Log.d("ScrollingActivity",recipeID);
             presenter.getRecipe();
-            presenter.displayFavouriteButton(false);
+
 
 
         } else if (recipe != null){
@@ -106,7 +106,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
             presenter.displayRecipeTitle();
             presenter.getRecipePhoto();
             presenter.getTableLayout();
-            presenter.displayFavouriteButton(true);
+            presenter.displayFavouriteButton();
         }
 
 
@@ -204,6 +204,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
         checkBox.setChecked(bool);
 
+        //android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.
         if(bool){
             checkBox.setButtonDrawable(R.drawable.ic_action_favourited_button);
         } else {

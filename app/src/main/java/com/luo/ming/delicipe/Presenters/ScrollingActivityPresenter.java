@@ -101,6 +101,7 @@ public class ScrollingActivityPresenter {
                 getRecipePhoto();
                 getTableLayout();
                 displayRecipeTitle();
+                displayFavBtnForAPIRecipes();
 
             }
 
@@ -138,8 +139,43 @@ public class ScrollingActivityPresenter {
 
     }
 
-    public void displayFavouriteButton(Boolean bool){
+    public void displayFavBtnForAPIRecipes(){
+
+       Boolean bool = recipe.checkIfRecipeSaved(context);
         view.displayFavouriteButton(bool);
+    }
+
+    public void displayFavouriteButton(){
+
+        new DisplayFavouriteButtonState(context, view,recipe).execute();
+
+    }
+
+    private static class DisplayFavouriteButtonState extends AsyncTask<Void,Void,Void>{
+
+        Boolean bool;
+        Context context;
+        View view;
+        Recipe recipe;
+
+        public DisplayFavouriteButtonState( Context context, View view, Recipe recipe) {
+            this.context = context;
+            this.view = view;
+            this.recipe = recipe;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            bool = recipe.checkIfRecipeSaved(context);
+            view.displayFavouriteButton(bool);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
     }
 
     public void updateIngredientCount(int newServing){
