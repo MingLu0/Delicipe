@@ -82,10 +82,41 @@ public class ShoppingFragmentPresenter {
     }
 
     public void saveUpdatedItem(Ingredient newIngredient, int position){
-        newIngredient.updateShoppingItemFromDB(newIngredient,context);
-        view.notifyShoppingItemChanged(position,newIngredient);
+
+        new saveUpdatedItemTask(newIngredient,position).execute();
+
 
     }
+
+    public class saveUpdatedItemTask extends AsyncTask<Void,Void,Void>{
+
+        private Ingredient newIngredient;
+        private int position;
+
+        public saveUpdatedItemTask(Ingredient newIngredient, int position) {
+
+            this.newIngredient = newIngredient;
+            this.position = position;
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            newIngredient.updateShoppingItemFromDB(newIngredient,context);
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            view.notifyShoppingItemChanged();
+
+        }
+    }
+
 
 
 
@@ -95,6 +126,7 @@ public class ShoppingFragmentPresenter {
         void setRecyclerViewAdapter();
         void refreshRecyclerViewList();
         void notifyShoppingItemRemoved(int position);
+        void notifyShoppingItemChanged();
         void notifyShoppingItemChanged(int position,Ingredient newIngredient);
         void getEditedItem(Ingredient ingredient,int position);
     }

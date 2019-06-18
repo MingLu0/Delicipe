@@ -101,6 +101,7 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
     public void setRecyclerViewAdapter() {
 
         recyclerView.setAdapter(recyclerViewAdapter);
+
     }
 
     @Override
@@ -117,9 +118,22 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
     }
 
     @Override
+    public void notifyShoppingItemChanged() {
+
+        presenter = new ShoppingFragmentPresenter(getActivity(),this);
+        recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getContext(),presenter);
+        recyclerView.setAdapter(recyclerViewAdapter);
+
+
+
+
+    }
+
+    @Override
     public void notifyShoppingItemChanged(int position,Ingredient newIngredient) {
 
         recyclerViewAdapter.notifyItemChanged(position,newIngredient);
+
 
     }
 
@@ -130,8 +144,6 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
 
         inflater = LayoutInflater.from(getContext());
         final View view = inflater.inflate(R.layout.shopping_edit_popup, null);
-
-
 
         final TextInputLayout editItemNameInputLayout = view.findViewById(R.id.text_input_layout_edit_shopping_item_outlined);
         final TextInputEditText editItemNameInputText = view.findViewById(R.id.text_input_edit_text_edit_shopping_outlined);
@@ -151,7 +163,7 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
 
                     Ingredient newIngredient = new Ingredient();
                     newIngredient.setID(editIngredit.getID());
-                    newIngredient.setIngredient(editItemNameInputText.getText().toString());
+                    newIngredient.setIngredientItem(editItemNameInputText.getText().toString());
                     presenter.saveUpdatedItem(newIngredient,position);
                     dialog.dismiss();
 
@@ -170,7 +182,6 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
 
         presenter = new ShoppingFragmentPresenter(getContext(),this);
         recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getActivity(),presenter);
-
 
     }
 }

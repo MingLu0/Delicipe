@@ -422,6 +422,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+
         values.put(Constants.KEY_ITEM_NAME, ingredient.getIngredientItem());
         db.update(Constants.TABLE_SHOPPING_LIST_NAME, values, Constants.KEY_INGREDIENT_ITEM_ID +
                 " = ?",new String[]{String.valueOf(ingredient.getID())});
