@@ -45,9 +45,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         coordinatorLayout = findViewById(R.id.coordinatorLayout_search_activity);
-
         presenter = new SearchActivityPresenter(this,this);
-
         Intent intent = getIntent();
         String keyword = intent.getStringExtra("keyword");
 
@@ -58,7 +56,6 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
         presenter.getRecipesList();
 
         searchRecyclerViewAdapter.notifyDataSetChanged();
-
 
 
     }

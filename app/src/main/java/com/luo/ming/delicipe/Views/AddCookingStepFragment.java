@@ -94,11 +94,7 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_step,null);
 
-        //final Button addphotoBtn = row.findViewById(R.id.button_add_photo);
-
-       // TextView testStepNum = row.findViewById(R.id.textStepNum);
         int rowCount = tableLayout.getChildCount();
-       // testStepNum.setText("Step "+String.valueOf(rowCount+1));
         tableLayout.addView(row,rowCount);
 
 //        addphotoBtn.setOnClickListener(new View.OnClickListener() {

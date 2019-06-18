@@ -22,12 +22,6 @@ public class UserRecipeFragment extends Fragment implements UserRecipeFragmentPr
     private UserRecipeFragmentViewAdapter adapter;
     private FloatingActionButton addRecipeButton;
 
-
-
-
-
-    //TODO Challenge: Right now, your buttons do not behave intuitively because they do not change their appearance when they are pressed. Android has another type of Drawable called StateListDrawable which allows for a different graphic to be used depending on the state of the object. For this challenge problem, create a Drawable resource that changes the background of the ImageButton to the same color as the border when the state of the ImageButton is "pressed". You should also set the color of the text inside the ImageButton elements to a selector that makes it white when the button is "pressed".
-
     public UserRecipeFragment() {
         // Required empty public constructor
     }
@@ -69,8 +63,6 @@ public class UserRecipeFragment extends Fragment implements UserRecipeFragmentPr
                 startActivity(intent);
             }
         });
-
-
 
     }
 

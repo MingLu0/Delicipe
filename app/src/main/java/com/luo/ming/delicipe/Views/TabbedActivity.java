@@ -104,7 +104,6 @@ public class TabbedActivity extends AppCompatActivity{
         searchView.setIconified(false);
 
 
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -124,13 +123,6 @@ public class TabbedActivity extends AppCompatActivity{
             }
         });
 
-        // Change the label of the menu based on the state of the app.
-        int nightMode = AppCompatDelegate.getDefaultNightMode();
-        if(nightMode == AppCompatDelegate.MODE_NIGHT_YES){
-            menu.findItem(R.id.night_mode).setTitle(R.string.day_mode);
-        } else{
-            menu.findItem(R.id.night_mode).setTitle(R.string.night_mode);
-        }
         return true;
 
     }
@@ -143,29 +135,11 @@ public class TabbedActivity extends AppCompatActivity{
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
 
-            case R.id.night_mode:
-                checkNightMode();
-
-                return true;
         }
 
         return super.onOptionsItemSelected(item);
      }
 
-     public void checkNightMode(){
-        int nightMode = AppCompatDelegate.getDefaultNightMode();
-
-        if(nightMode == AppCompatDelegate.MODE_NIGHT_YES){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
-
-        recreate();
-     }
-
-     
 
     /**
      * A {@link FragmentStatePagerAdapter} that returns a fragment corresponding to

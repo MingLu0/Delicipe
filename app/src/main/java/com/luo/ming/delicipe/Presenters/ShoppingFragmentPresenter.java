@@ -118,8 +118,6 @@ public class ShoppingFragmentPresenter {
 
 
 
-
-
     public interface View{
 
         void setRecyclerViewAdapter();

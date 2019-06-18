@@ -136,8 +136,6 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         CardView row = (CardView) inflater.inflate(R.layout.table_row_shopping,null);
 
-
-
 //
 //
 //        deleteIngredientBtn.setOnClickListener(new View.OnClickListener() {

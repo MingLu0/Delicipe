@@ -34,15 +34,10 @@ import com.squareup.picasso.Picasso;
 
 public class ScrollingActivity extends AppCompatActivity implements ScrollingActivityPresenter.View {
 
-    private ImageView recipeImg;
-    private ImageView personImg;
     private ImageView toolbarimage;
-    private List<String> ingredients;
     private ScrollingActivityPresenter presenter;
     private ImageButton btnCart;
     private TableLayout tableLayout;
-    private ImageButton btnPlus;
-    private ImageButton btnMinus;
     private TextView txtServing,textTitle;
     private static int newServing;
     private Toolbar toolbar;
