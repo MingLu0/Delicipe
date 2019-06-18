@@ -195,8 +195,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 ContentValues values = new ContentValues();
 
                 values.put(Constants.KEY_USER_INGREDIENT_COVER_ID,coverID);
-                values.put(Constants.KEY_USER_INGREDIENT_AMOUNT,ingredientList.get(i).getAmount());
-                values.put(Constants.KEY_USER_INGREDIENT_UNIT,ingredientList.get(i).getUnit());
+//                values.put(Constants.KEY_USER_INGREDIENT_AMOUNT,ingredientList.get(i).getAmount());
+//                values.put(Constants.KEY_USER_INGREDIENT_UNIT,ingredientList.get(i).getUnit());
                 values.put(Constants.KEY_USER_INGREDIENT_NAME, ingredientList.get(i).getName());
 
                 db.insert(Constants.TABLE_USER_INGREDIENT, null,values);

@@ -26,8 +26,8 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
     private ShoppingListRecyclerViewAdapter recyclerViewAdapter;
     private ShoppingFragmentPresenter presenter;
 
-    private AlertDialog.Builder alertDialogBuilder;
-    private AlertDialog dialog;
+    private AlertDialog.Builder inputDialogBuilder;
+    private AlertDialog inputDialog;
     private LayoutInflater inflater;
 
 
@@ -102,7 +102,7 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
     @Override
     public void getEditedItem(final Ingredient editIngredit, final int position) {
 
-        alertDialogBuilder = new AlertDialog.Builder(getContext());
+        inputDialogBuilder = new AlertDialog.Builder(getContext());
 
         inflater = LayoutInflater.from(getContext());
         final View view = inflater.inflate(R.layout.shopping_edit_popup, null);
@@ -113,9 +113,9 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
 
         editItemNameInputText.setText(editIngredit.getIngredientItem());
 
-        alertDialogBuilder.setView(view);
-        dialog = alertDialogBuilder.create();
-        dialog.show();
+        inputDialogBuilder.setView(view);
+        inputDialog = inputDialogBuilder.create();
+        inputDialog.show();
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +127,7 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
                     newIngredient.setID(editIngredit.getID());
                     newIngredient.setIngredientItem(editItemNameInputText.getText().toString());
                     presenter.saveUpdatedItem(newIngredient,position);
-                    dialog.dismiss();
+                    inputDialog.dismiss();
 
                 } else{
                     editItemNameInputLayout.setError("Item name required");

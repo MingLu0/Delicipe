@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -48,6 +49,7 @@ public class AddCoverFragment extends Fragment {
 
     private TextInputLayout name_layout, cooking_time_layout, serving_size_layout, comment_layout;
     private TextInputEditText name_text, cooking_time_text, serving_size_text, comment_text;
+
 
     private byte[] imageBytes;
 

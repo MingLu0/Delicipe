@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Views.ScrollingActivity2"
+    tools:context=".Views.ScrollingActivity"
     tools:showIn="@layout/activity_scrolling2">
 
 
@@ -173,6 +173,8 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:padding="8dp"
+            android:textColor="#FD5523"
+            android:textStyle="italic"
             app:layout_constraintBottom_toTopOf="@+id/editText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

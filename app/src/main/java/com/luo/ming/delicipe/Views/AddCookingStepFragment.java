@@ -94,24 +94,24 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_step,null);
 
-        final Button addphotoBtn = row.findViewById(R.id.button_add_photo);
+        //final Button addphotoBtn = row.findViewById(R.id.button_add_photo);
 
-        TextView testStepNum = row.findViewById(R.id.textStepNum);
+       // TextView testStepNum = row.findViewById(R.id.textStepNum);
         int rowCount = tableLayout.getChildCount();
-        testStepNum.setText("Step "+String.valueOf(rowCount+1));
+       // testStepNum.setText("Step "+String.valueOf(rowCount+1));
         tableLayout.addView(row,rowCount);
 
-        addphotoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                int requestCode = tableLayout.indexOfChild(row);
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto,requestCode);
-            }
-
-
-        });
+//        addphotoBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                int requestCode = tableLayout.indexOfChild(row);
+//                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(pickPhoto,requestCode);
+//            }
+//
+//
+//        });
     }
 
     @Override
@@ -139,15 +139,15 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
 
             View view = tableLayout.getChildAt(i);
 
-            EditText stepText = view.findViewById(R.id.textStep);
+           // EditText stepText = view.findViewById(R.id.textStep);
 
             String step = null;
 
             UserRecipeStep userRecipeStep = null;
 
-            if(!TextUtils.isEmpty(stepText.getText())){
-                step = stepText.getText().toString();
-            }
+//            if(!TextUtils.isEmpty(stepText.getText())){
+//                step = stepText.getText().toString();
+//            }
 
             if(!imageUriList.isEmpty()){
                 userRecipeStep = new UserRecipeStep(imageUriList.get(i),step);

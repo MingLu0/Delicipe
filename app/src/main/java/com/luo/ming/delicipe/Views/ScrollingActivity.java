@@ -179,11 +179,11 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     @Override
     public void updateCountInTableLayout(ArrayList<Ingredient> ingredients) {
 
-        for(int i=0;i<ingredients.size();i++){
-            TableRow row = (TableRow)tableLayout.getChildAt(i);
-            TextView txtCount = row.findViewById(R.id.count);
-            txtCount.setText(String.valueOf(ingredients.get(i).getCount()));
-        }
+//        for(int i=0;i<ingredients.size();i++){
+//            TableRow row = (TableRow)tableLayout.getChildAt(i);
+//            TextView txtCount = row.findViewById(R.id.count);
+//            txtCount.setText(String.valueOf(ingredients.get(i).getCount()));
+//        }
 
     }
 

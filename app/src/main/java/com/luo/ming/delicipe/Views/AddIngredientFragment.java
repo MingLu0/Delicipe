@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -16,7 +18,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Presenters.AddIngredientFragmentPresenter;
 import com.luo.ming.delicipe.R;
@@ -33,6 +40,11 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
     private AddIngredientFragmentPresenter presenter;
     private OnAddIngredientFragmentInteractionListener listener;
     private int rowCount;
+
+    private AlertDialog.Builder inputDialogBuilder;
+    private AlertDialog inputDialog;
+    private LayoutInflater inflater;
+
 
     public static final String INGREDIENT_BUNDLE_TAG = "package com.luo.ming.delicipe." +
             "Views.AddIngredientFragment";
@@ -65,6 +77,7 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         tableLayout = view.findViewById(R.id.tableLayout_ingredient);
 
         presenter = new AddIngredientFragmentPresenter(this,getActivity());
@@ -75,7 +88,44 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
             @Override
             public void onClick(View v) {
 
-                presenter.displayTableLayout();
+                inputDialogBuilder = new AlertDialog.Builder(getContext());
+
+                inflater = LayoutInflater.from(getContext());
+                final View view = inflater.inflate(R.layout.shopping_edit_popup, null);
+
+                final TextInputLayout editItemNameInputLayout = view.findViewById(R.id.text_input_layout_edit_shopping_item_outlined);
+                final TextInputEditText editItemNameInputText = view.findViewById(R.id.text_input_edit_text_edit_shopping_outlined);
+                Button btnSave =  view.findViewById(R.id.edit_saveButton);
+
+                inputDialogBuilder.setView(view);
+                inputDialog = inputDialogBuilder.create();
+                inputDialog.show();
+
+                btnSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(! TextUtils.isEmpty(editItemNameInputText.getText())){
+
+                            LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            CardView row = (CardView) inflater.inflate(R.layout.table_row_shopping,null);
+
+                            TextView itemName = row.findViewById(R.id.txt_item);
+                            itemName.setText(editItemNameInputText.getText());
+
+                            tableLayout.addView(row);
+
+
+
+                            inputDialog.dismiss();
+                           // presenter.displayTableLayout();
+
+                        } else{
+                            editItemNameInputLayout.setError("Item name required");
+                        }
+
+                    }
+                });
             }
         });
     }
@@ -84,32 +134,26 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
     public void displayTableLayout() {
 
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_ingredient,null);
+        CardView row = (CardView) inflater.inflate(R.layout.table_row_shopping,null);
 
-        Spinner spinner = row.findViewById(R.id.spinner_unit);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                getActivity(),R.array.units_array,android.R.layout.simple_spinner_item
-        );
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
 
-        Button deleteIngredientBtn = row.findViewById(R.id.button_delete_ingredient);
-
-        deleteIngredientBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // row is your row, the parent of the clicked button
-                View row = (View) v.getParent();
-                // container contains all the rows, you could keep a variable somewhere else to the container which you can refer to here
-                ViewGroup container = ((ViewGroup)row.getParent());
-                // delete the row and invalidate your view so it gets redrawn
-                container.removeView(row);
-                container.invalidate();
-
-            }
-        });
+//
+//
+//        deleteIngredientBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                // row is your row, the parent of the clicked button
+//                View row = (View) v.getParent();
+//                // container contains all the rows, you could keep a variable somewhere else to the container which you can refer to here
+//                ViewGroup container = ((ViewGroup)row.getParent());
+//                // delete the row and invalidate your view so it gets redrawn
+//                container.removeView(row);
+//                container.invalidate();
+//
+//            }
+//        });
 
         rowCount = tableLayout.getChildCount();
         tableLayout.addView(row,rowCount);
@@ -125,27 +169,18 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
 
         for(int i=0; i<rowCount; i++){
              View row = tableLayout.getChildAt(i);
-             Spinner spinner = row.findViewById(R.id.spinner_unit);
-             EditText textCount = row.findViewById(R.id.text_unit);
-             EditText textIngredientName = row.findViewById(R.id.text_ingredient_name);
+             EditText textIngredientName = row.findViewById(R.id.txt_item);
              Float count = 0.0f;
              String unit = null;
              String ingredientName = null;
-
-             if(!TextUtils.isEmpty(textCount.getText())){
-                 count = Float.valueOf(textCount.getText().toString());
-             }
-
-             if(!TextUtils.isEmpty(spinner.getSelectedItem().toString())){
-                 unit = spinner.getSelectedItem().toString();
-             }
 
              if(!TextUtils.isEmpty(textIngredientName.getText())){
                  ingredientName = textIngredientName.getText().toString();
              }
 
-             UserRecipeIngredient ingredient = new UserRecipeIngredient(count,unit,ingredientName);
-             ingredientList.add(ingredient);
+             //todo finish
+//             UserRecipeIngredient ingredient = new UserRecipeIngredient(count,unit,ingredientName);
+//             ingredientList.add(ingredient);
 
         }
 
