@@ -127,7 +127,6 @@ public class ShoppingFragmentPresenter {
         void refreshRecyclerViewList();
         void notifyShoppingItemRemoved(int position);
         void notifyShoppingItemChanged();
-        void notifyShoppingItemChanged(int position,Ingredient newIngredient);
         void getEditedItem(Ingredient ingredient,int position);
     }
 
