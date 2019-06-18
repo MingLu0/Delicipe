@@ -44,12 +44,11 @@ public class AddCoverFragment extends Fragment {
     private UserRecipeCover userRecipeCover;
     public final static String COVER_INFO_BUNDLE_TAG= "com.luo.ming.delicipe.Views.AddCoverFragment";
 
-    private EditText name_text,cooking_time_text,serving_size_text,comment_text;
+    //private EditText name_text,cooking_time_text,serving_size_text,comment_text;
 
-    private TextInputLayout coverNameInputLayout;
-    private TextInputEditText coverNameEditText;
+    private TextInputLayout name_layout, cooking_time_layout, serving_size_layout, comment_layout;
+    private TextInputEditText name_text, cooking_time_text, serving_size_text, comment_text;
 
-    private Bitmap bitmap;
     private byte[] imageBytes;
 
 
@@ -69,11 +68,16 @@ public class AddCoverFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        cooking_time_text = view.findViewById(R.id.text_cooking_time);
-        serving_size_text = view.findViewById(R.id.text_serving_size);
-        comment_text = view.findViewById(R.id.text_comment);
-        coverNameInputLayout = view.findViewById(R.id.input_layout_recipe_name);
-        coverNameEditText = view.findViewById(R.id.input_text_recipe_name);
+        name_layout = view.findViewById(R.id.input_layout_recipe_name);
+        cooking_time_layout = view.findViewById(R.id.input_layout_cooking_time);
+        serving_size_layout = view.findViewById(R.id.input_layout_servings);
+        comment_layout = view.findViewById(R.id.input_layout_comment) ;
+
+
+        cooking_time_text = view.findViewById(R.id.input_text_cooking_time);
+        serving_size_text = view.findViewById(R.id.input_edit_text_servings);
+        comment_text = view.findViewById(R.id.input_edit_text_comment);
+        name_text = view.findViewById(R.id.input_text_recipe_name);
 
 
 
@@ -152,9 +156,9 @@ public class AddCoverFragment extends Fragment {
             comment = comment_text.getText().toString();
         }
 
-        if(!TextUtils.isEmpty(coverNameEditText.getText())){
+        if(!TextUtils.isEmpty(name_text.getText())){
 
-            String name = coverNameEditText.getText().toString();
+            String name = name_text.getText().toString();
 
             userRecipeCover = new UserRecipeCover(imageBytes,name,cookingTime,servingSize,comment);
             Bundle bundle = new Bundle();
@@ -170,15 +174,12 @@ public class AddCoverFragment extends Fragment {
             //todo check why need to check null if there's notifyDataSetHasChanged in add step
             if(getActivity()!=null){
                 Toast.makeText(getActivity(),"Please enter a recipe name", Toast.LENGTH_SHORT).show();
-                coverNameInputLayout.setError("Please enter a recipe name");
+                name_layout.setError("Please enter a recipe name");
             }
 
         }
 
-
-
     }
-
 
     public interface OnAddCoverFragmentInteractionListener {
 

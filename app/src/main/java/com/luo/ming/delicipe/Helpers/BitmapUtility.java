@@ -9,11 +9,15 @@ public class BitmapUtility {
 
     public static byte[] convertBitmapToBytes(Bitmap bitmap){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,20,stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,30,stream);
         return stream.toByteArray();
     }
 
     public static Bitmap covertBytesToBitmap(byte[] image){
+
+        if(image == null){
+            return null;
+        }
         return BitmapFactory.decodeByteArray(image,0,image.length);
     }
 }

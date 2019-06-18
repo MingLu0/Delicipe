@@ -20,7 +20,6 @@ public class ShoppingFragmentPresenter {
     public ShoppingFragmentPresenter(Context context, View view){
         this.view = view;
         this.context = context;
-
         new getIngredientsFromDB( ).execute();
 
     }

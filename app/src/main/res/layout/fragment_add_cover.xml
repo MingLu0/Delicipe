@@ -32,14 +32,15 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_recipe_name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="350dp"
-                android:layout_height="90dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
+                app:helperText="*Required"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,14 +50,16 @@
                 <com.google.android.material.textfield.TextInputEditText
 
                     android:id="@+id/input_text_recipe_name"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Recipe Name" />
+                    android:hint="Recipe Name*" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_recipe_cooking_time"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/input_layout_cooking_time"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -67,75 +70,52 @@
                 app:layout_constraintVertical_bias="0.01999998">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_text_recipe_cooking_time"
+                    android:id="@+id/input_text_cooking_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
                     android:hint="cooking time mins" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_recipe_servings"
+                android:id="@+id/input_layout_servings"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/input_layout_recipe_cooking_time"
+                app:layout_constraintBottom_toBottomOf="@+id/input_layout_cooking_time"
                 app:layout_constraintEnd_toEndOf="@+id/input_layout_recipe_name"
-                app:layout_constraintTop_toTopOf="@+id/input_layout_recipe_cooking_time">
+                app:layout_constraintTop_toTopOf="@+id/input_layout_cooking_time">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_edit_text_recipe_servings"
+                    android:id="@+id/input_edit_text_servings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
                     android:hint="searvings" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/text_cooking_time"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_comment"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="184dp"
-                android:ems="5"
-                android:hint="cooking time"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline9"
-                app:layout_constraintVertical_bias="1.0"
-                tools:layout_editor_absoluteX="16dp" />
-
-            <EditText
-                android:id="@+id/text_serving_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:ems="5"
-                android:hint="serving size"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toBottomOf="@+id/text_cooking_time"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.4"
-                app:layout_constraintStart_toEndOf="@+id/text_cooking_time"
-                app:layout_constraintTop_toTopOf="@+id/text_cooking_time" />
-
-            <EditText
-                android:id="@+id/text_comment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="What do you think about this recipe?"
-                android:inputType="textMultiLine"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_cooking_time"
-                app:layout_constraintVertical_bias="0.419" />
+                app:layout_constraintEnd_toEndOf="@+id/input_layout_servings"
+                app:layout_constraintStart_toStartOf="@+id/input_layout_cooking_time"
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_servings">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_edit_text_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:hint="What do you think about this recipe?" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline9"
