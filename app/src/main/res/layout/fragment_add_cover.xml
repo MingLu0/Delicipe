@@ -57,57 +57,67 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_cooking_time"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline9"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/input_layout_recipe_name"
+                android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/input_layout_recipe_name"
-                app:layout_constraintVertical_bias="0.01999998">
+                tools:layout_editor_absoluteX="8dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_text_cooking_time"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_cooking_time"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_timer_black_24dp"
-                    android:hint="cooking time (mins)"
-                    android:inputType="number"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="4"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="8dp"
+                    app:helperText="mins">
 
-                    />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_text_cooking_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_timer_black_24dp"
+                        android:hint="cooking time"
+                        android:inputType="number"
 
-            </com.google.android.material.textfield.TextInputLayout>
+                        />
 
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_servings"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/input_layout_cooking_time"
-                app:layout_constraintEnd_toEndOf="@+id/input_layout_recipe_name"
-                app:layout_constraintHorizontal_bias="0.52"
-                app:layout_constraintStart_toEndOf="@+id/input_layout_cooking_time"
-                app:layout_constraintTop_toTopOf="@+id/input_layout_cooking_time">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_edit_text_servings"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_layout_servings"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_person_black_24dp"
-                    android:hint="searvings"
-                    android:inputType="number" />
+                    android:layout_weight="2.8"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="1dp"
+                    app:helperText="persons">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_edit_text_servings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_person_black_24dp"
+                        android:hint="searvings"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_comment"
@@ -115,21 +125,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/input_layout_recipe_name"
                 app:layout_constraintStart_toStartOf="@+id/input_layout_recipe_name"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_servings">
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_edit_text_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="What do you think about this recipe?"
                     android:drawableLeft="@drawable/ic_comment_black_24dp"
+                    android:hint="Your story about this recipe"
                     android:inputType="textMultiLine" />
 
             </com.google.android.material.textfield.TextInputLayout>
