@@ -142,7 +142,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Ingredient ingredient = new Ingredient();
-                ingredient.setIngredientItem(cursor.getString(cursor.getColumnIndex(Constants.KEY_ITEM_NAME)));
+                ingredient.setIngredientItemfromDB(cursor.getString(cursor.getColumnIndex(Constants.KEY_ITEM_NAME)));
                 ingredient.setID(cursor.getInt(cursor.getColumnIndex(Constants.KEY_INGREDIENT_ITEM_ID)));
                 ingredientList.add(ingredient);
 
@@ -417,4 +417,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    public void updateShoppingListItem(Ingredient ingredient) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Constants.KEY_ITEM_NAME, ingredient.getIngredientItem());
+        db.update(Constants.TABLE_SHOPPING_LIST_NAME, values, Constants.KEY_INGREDIENT_ITEM_ID +
+                " = ?",new String[]{String.valueOf(ingredient.getID())});
+
+        db.close();
+
+    }
 }

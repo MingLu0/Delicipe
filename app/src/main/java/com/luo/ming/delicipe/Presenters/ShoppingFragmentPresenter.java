@@ -1,6 +1,7 @@
 package com.luo.ming.delicipe.Presenters;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Ingredients;
@@ -10,19 +11,42 @@ import java.util.ArrayList;
 public class ShoppingFragmentPresenter {
 
     private Context context;
-    private Ingredients ingredientsObj;
+
     private ArrayList<Ingredient>ingredients;
+    private Ingredients ingredientsObj;
     private View view;
 
 
     public ShoppingFragmentPresenter(Context context, View view){
         this.view = view;
         this.context = context;
-        ingredientsObj = new Ingredients();
-        ingredients = new ArrayList<>();
-        ingredients = ingredientsObj.getAllIngredientsFromDB(context);
+
+        new getIngredientsFromDB( ).execute();
 
     }
+
+    private class getIngredientsFromDB extends AsyncTask<Void,Void,Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            ingredientsObj = new Ingredients();
+            ingredients = ingredientsObj.getAllIngredientsFromDB(context);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            view.setRecyclerViewAdapter();
+            view.refreshRecyclerViewList();
+        }
+    }
+
+
 
     public void onBindItemRowViewAtPosition(int position, ShoppingRowView view){
 
@@ -32,19 +56,22 @@ public class ShoppingFragmentPresenter {
     }
 
     public int getItemRowsCount(){
-        return ingredients.size();
+
+        if(ingredients!=null){
+            return ingredients.size();
+        }
+        return 0;
     }
 
     public void deleteShoppingItem(int position) {
 
         Ingredient deleteItem = ingredients.get(position);
-
-        //TODO MIGHT NEED TO CHANGE ID FROM STRING TO INT
         deleteItem.deleteShoppingItemFromDB(deleteItem.getID(),context);
         ingredients.remove(position);
         view.notifyShoppingItemRemoved(position);
-
     }
+
+
 
     public void editShoppingItem(int position){
         Ingredient editItem = ingredients.get(position);
@@ -61,13 +88,15 @@ public class ShoppingFragmentPresenter {
     }
 
 
+
+
     public interface View{
 
+        void setRecyclerViewAdapter();
+        void refreshRecyclerViewList();
         void notifyShoppingItemRemoved(int position);
         void notifyShoppingItemChanged(int position,Ingredient newIngredient);
         void getEditedItem(Ingredient ingredient,int position);
-
-
     }
 
     public interface ShoppingRowView{

@@ -27,6 +27,10 @@ public class Ingredient implements Serializable {
         this.ingredientItem = stripParentheses(ingredientItem);
     }
 
+    public void setIngredientItemfromDB(String ingredientItem){
+        this.ingredientItem = ingredientItem;
+    }
+
     private DatabaseHandler db;
 
 
@@ -179,7 +183,7 @@ public class Ingredient implements Serializable {
 
     public void updateShoppingItemFromDB(Ingredient ingredient, Context context){
         DatabaseHandler db = new DatabaseHandler(context);
-        //db.updateShoppingListItem(ingredient);
+        db.updateShoppingListItem(ingredient);
     }
 
 

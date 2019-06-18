@@ -9,7 +9,7 @@
     card_view:cardUseCompatPadding="false">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical">
@@ -22,8 +22,9 @@
 
             <CheckBox
                 android:id="@+id/chk_selected"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_margin="10dp" />
 
             <TextView
@@ -31,10 +32,19 @@
                 android:id="@+id/txt_item"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="4"
                 android:padding="5dp"
                 android:text="@string/shopping_row_item_placeholder"
                 android:textSize="16dp" />
+
+            <ImageButton
+                android:id="@+id/button_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:padding="5dp"
+                android:background="@drawable/ic_edit_black_24dp"
+                 />
 
 
         </LinearLayout>

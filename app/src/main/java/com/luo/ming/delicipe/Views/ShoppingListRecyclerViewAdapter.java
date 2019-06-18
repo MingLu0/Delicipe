@@ -58,8 +58,9 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
         public ViewHolder(View itemView, final Context cxt){
             super(itemView);
 
-            btnChk = (CheckBox)itemView.findViewById(R.id.chk_selected);
-            txtItem = (TextView)itemView.findViewById(R.id.txt_item);
+            btnChk = itemView.findViewById(R.id.chk_selected);
+            txtItem = itemView.findViewById(R.id.txt_item);
+            btnEdit = itemView.findViewById(R.id.button_edit);
 
             btnChk.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,18 +70,17 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
 
                         presenter.deleteShoppingItem(getAdapterPosition());
 
-
                     }
 
                 }
             });
 
-//            btnEdit.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    presenter.editShoppingItem(getAdapterPosition());
-//                }
-//            });
+            btnEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.editShoppingItem(getAdapterPosition());
+                }
+            });
 
 
         }

@@ -8,6 +8,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
+
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.luo.ming.delicipe.Helpers.SwipeController;
 import com.luo.ming.delicipe.Helpers.SwipeControllerActions;
 import com.luo.ming.delicipe.Models.Ingredient;
@@ -58,7 +62,9 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.shoppingRecyclerView);
+
+
+        recyclerView = view.findViewById(R.id.shoppingRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext())); //?
 
@@ -92,6 +98,18 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
 
 
     @Override
+    public void setRecyclerViewAdapter() {
+
+        recyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    @Override
+    public void refreshRecyclerViewList() {
+
+        recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
     public void notifyShoppingItemRemoved(int position) {
 
         recyclerViewAdapter.notifyItemRemoved(position);
@@ -111,17 +129,15 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
         alertDialogBuilder = new AlertDialog.Builder(getContext());
 
         inflater = LayoutInflater.from(getContext());
-        final View view = inflater.inflate(R.layout.edit_popup, null);
+        final View view = inflater.inflate(R.layout.shopping_edit_popup, null);
 
-        final EditText txtCount = (EditText) view.findViewById(R.id.edit_count);
-        final EditText txtUnit = (EditText) view.findViewById(R.id.edit_unit);
-        final EditText txtItemName = (EditText) view.findViewById(R.id.edit_itemName);
-        final TextView title = (TextView) view.findViewById(R.id.tile);
-        Button btnSave = (Button) view.findViewById(R.id.edit_saveButton);
 
-        txtCount.setText(String.valueOf(editIngredit.getCount()));
-        txtUnit.setText(editIngredit.getUnit());
-        txtItemName.setText(editIngredit.getIngredient());
+
+        final TextInputLayout editItemNameInputLayout = view.findViewById(R.id.text_input_layout_edit_shopping_item_outlined);
+        final TextInputEditText editItemNameInputText = view.findViewById(R.id.text_input_edit_text_edit_shopping_outlined);
+        Button btnSave =  view.findViewById(R.id.edit_saveButton);
+
+        editItemNameInputText.setText(editIngredit.getIngredientItem());
 
         alertDialogBuilder.setView(view);
         dialog = alertDialogBuilder.create();
@@ -130,19 +146,31 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!txtCount.getText().toString().isEmpty()||!txtItemName.getText().toString().isEmpty()
-                        ||!txtUnit.getText().toString().isEmpty()){
+
+                if(! TextUtils.isEmpty(editItemNameInputText.getText())){
 
                     Ingredient newIngredient = new Ingredient();
                     newIngredient.setID(editIngredit.getID());
-                    newIngredient.setCount(Double.valueOf(txtCount.getText().toString()));
-                    newIngredient.setUnit(txtUnit.getText().toString());
-                    newIngredient.setIngredient(txtItemName.getText().toString());
+                    newIngredient.setIngredient(editItemNameInputText.getText().toString());
                     presenter.saveUpdatedItem(newIngredient,position);
                     dialog.dismiss();
+
+                } else{
+                    editItemNameInputLayout.setError("Item name required");
                 }
+
             }
         });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        presenter = new ShoppingFragmentPresenter(getContext(),this);
+        recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(getActivity(),presenter);
+
 
     }
 }
