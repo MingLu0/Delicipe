@@ -46,12 +46,10 @@ public class UserRecipeFragment extends Fragment implements UserRecipeFragmentPr
         addRecipeButton = view.findViewById(R.id.addRecipe);
 
         presenter = new UserRecipeFragmentPresenter(getActivity(),this );
-
         adapter = new UserRecipeFragmentViewAdapter(presenter,getActivity());
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         recyclerView.setAdapter(adapter);
 
         recyclerView.getAdapter().notifyDataSetChanged();

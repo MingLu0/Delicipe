@@ -408,10 +408,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Constants.TABLE_FAVOURITE_RECIPE, Constants.KEY_FAVOURITE_RECIPE_ID_API + " = ?",
                 new String[]{id});
-
         db.delete(Constants.TABLE_FAVOURITE_RECIPE_INGREDIENTS, Constants.KEY_FAVOURITE_RECIPE_INGREDIENT_ID_API
         + " = ?", new String[]{id});
-
         db.close();
 
     }
@@ -420,14 +418,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void updateShoppingListItem(Ingredient ingredient) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
-
         values.put(Constants.KEY_ITEM_NAME, ingredient.getIngredientItem());
         db.update(Constants.TABLE_SHOPPING_LIST_NAME, values, Constants.KEY_INGREDIENT_ITEM_ID +
                 " = ?",new String[]{String.valueOf(ingredient.getID())});
-
         db.close();
 
+    }
+
+    public Boolean checkIfUserRecipeNameExists(Context context, String coverName) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String whereClause = Constants.KEY_COVER_NAME+" = ?";
+
+        Cursor cursor = db.query(Constants.TABLE_USER_RECIPE_COVER, new String[]{
+                Constants.KEY_COVER_NAME} , whereClause, new String[]{coverName}, null,null,null);
+
+        if(!cursor.moveToFirst()){
+            return false;
+        }
+
+        return true;
     }
 }

@@ -25,6 +25,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.luo.ming.delicipe.Helpers.BitmapUtility;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
+import com.luo.ming.delicipe.Presenters.AddCoverFragmentPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
 
@@ -35,7 +36,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddCoverFragment extends Fragment {
+public class AddCoverFragment extends Fragment implements AddCoverFragmentPresenter.FragmentView{
 
 
     private String imageUri;
@@ -44,8 +45,7 @@ public class AddCoverFragment extends Fragment {
     private OnAddCoverFragmentInteractionListener listener;
     private UserRecipeCover userRecipeCover;
     public final static String COVER_INFO_BUNDLE_TAG= "com.luo.ming.delicipe.Views.AddCoverFragment";
-
-    //private EditText name_text,cooking_time_text,serving_size_text,comment_text;
+    private AddCoverFragmentPresenter presenter;
 
     private TextInputLayout name_layout, cooking_time_layout, serving_size_layout, comment_layout;
     private TextInputEditText name_text, cooking_time_text, serving_size_text, comment_text;
@@ -81,8 +81,6 @@ public class AddCoverFragment extends Fragment {
         comment_text = view.findViewById(R.id.input_edit_text_comment);
         name_text = view.findViewById(R.id.input_text_recipe_name);
 
-
-
         coverImageButton = view.findViewById(R.id.imageCover);
 
         coverImageButton.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +93,8 @@ public class AddCoverFragment extends Fragment {
                 startActivityForResult(pickPhoto,1);
             }
         });
+
+        presenter = new AddCoverFragmentPresenter(getActivity(), this);
     }
 
     @Override
@@ -139,49 +139,61 @@ public class AddCoverFragment extends Fragment {
         }
     }
 
-    public void saveCoverPageInfo(){
 
-        int cookingTime = 0;
-        int servingSize = 0;
+    public void sendDataFromFragmentToActivity(){
 
-        String comment = null;
+        userRecipeCover = presenter.getCoverInfoFromInput();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(COVER_INFO_BUNDLE_TAG, userRecipeCover);
+        listener.onAddCoverFragmentInteraction(bundle);
+    }
 
-        if (!TextUtils.isEmpty(cooking_time_text.getText())){
-            cookingTime = Integer.valueOf(cooking_time_text.getText().toString());
-        }
+    @Override
+    public byte[] getUserImage() {
+        return imageBytes;
+    }
 
-        if(!TextUtils.isEmpty(serving_size_text.getText())){
-            servingSize = Integer.valueOf(serving_size_text.getText().toString());
-        }
-
-        if(!TextUtils.isEmpty(comment_text.getText())){
-            comment = comment_text.getText().toString();
-        }
+    @Override
+    public String getCoverName() {
 
         if(!TextUtils.isEmpty(name_text.getText())){
-
-            String name = name_text.getText().toString();
-
-            userRecipeCover = new UserRecipeCover(imageBytes,name,cookingTime,servingSize,comment);
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(COVER_INFO_BUNDLE_TAG, userRecipeCover);
-            listener.onAddCoverFragmentInteraction(bundle);
-
-            Toast.makeText(getActivity(),"Your recipe has been saved",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(),TabbedActivity.class);
-            startActivity(intent);
-
-        } else {
-
-            //todo check why need to check null if there's notifyDataSetHasChanged in add step
-            if(getActivity()!=null){
-                Toast.makeText(getActivity(),"Please enter a recipe name", Toast.LENGTH_SHORT).show();
-                name_layout.setError("Please enter a recipe name");
-            }
-
+            return name_text.getText().toString().trim();
         }
 
+        name_text.setError("Recipe name is a must");
+        return null;
     }
+
+    @Override
+    public int getCookingTime() {
+        if(!TextUtils.isEmpty(cooking_time_text.getText())) {
+            return Integer.valueOf(cooking_time_text.getText().toString());
+        }
+        return 0;
+    }
+
+    @Override
+    public int getServingSize() {
+        if(!TextUtils.isEmpty(serving_size_text.getText())){
+            return Integer.valueOf(serving_size_text.getText().toString());
+        }
+        return 0;
+
+    }
+
+    @Override
+    public String getComment() {
+        if(!TextUtils.isEmpty(comment_text.getText())){
+            return comment_text.getText().toString().trim();
+        }
+        return null;
+    }
+
+    @Override
+    public void showNameExistsError() {
+        name_text.setError("Name already exists, please enter another one");
+    }
+
 
     public interface OnAddCoverFragmentInteractionListener {
 

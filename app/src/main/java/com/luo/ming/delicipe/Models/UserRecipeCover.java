@@ -126,4 +126,14 @@ public class UserRecipeCover implements Parcelable {
         dest.writeString(coverName);
         dest.writeString(comment);
     }
+
+    public Boolean checkIfNameAlreadyExists(Context context) {
+
+        db = DatabaseHandler.getDataBase(context);
+
+        Boolean bool = db.checkIfUserRecipeNameExists(context, this.getCoverName());
+
+        return bool;
+    }
+
 }

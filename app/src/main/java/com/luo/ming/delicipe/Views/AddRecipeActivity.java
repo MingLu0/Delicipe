@@ -7,12 +7,15 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.luo.ming.delicipe.Models.UserRecipe;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
@@ -54,18 +57,20 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
 
         switch (item.getItemId()){
             case R.id.save_recipe:
-                addCoverFragment.saveCoverPageInfo();
+                addCoverFragment.sendDataFromFragmentToActivity();
                 addIngredientFragment.saveIngredientListInfo();
 
                 if(addCookingStepFragment!=null){
                     addCookingStepFragment.saveCookingStepInfo();
                 }
 
-
                 if(userRecipeCover != null){
-
                      userRecipe = new UserRecipe(userRecipeCover,ingredientList,userRecipeStepList);
                      userRecipe.saveUserRecipeToDatabase(this);
+
+                     Intent intent = new Intent(this, TabbedActivity.class);
+                     startActivity(intent);
+                    Toast.makeText(this,"Recipe has been saved", Toast.LENGTH_SHORT).show();
                 }
         }
 
@@ -142,7 +147,6 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
 //        Log.d("AddRecipeActivity", userRecipeCover.getCoverName());
 //        Log.d("AddRecipeActivity",String.valueOf(userRecipeCover.getCookingTime()));
 //        Log.d("AddRecipeActivity",String.valueOf(userRecipeCover.getServingSize()));
-
 
     }
 
