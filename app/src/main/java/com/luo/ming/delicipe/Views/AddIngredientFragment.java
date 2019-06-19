@@ -33,7 +33,8 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddIngredientFragment extends Fragment implements AddIngredientFragmentPresenter.View {
+public class AddIngredientFragment extends Fragment implements AddIngredientFragmentPresenter.View,
+IngredientInputDialog.OnButtonStateClickedListener{
 
     private Button addIngredientBtn;
     private TableLayout tableLayout;
@@ -88,47 +89,14 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
             @Override
             public void onClick(View v) {
 
-                inputDialogBuilder = new AlertDialog.Builder(getContext());
+                IngredientInputDialog dialog=new IngredientInputDialog(getContext());
 
-                inflater = LayoutInflater.from(getContext());
-                final View view = inflater.inflate(R.layout.shopping_edit_popup, null);
-
-                final TextInputLayout editItemNameInputLayout = view.findViewById(R.id.text_input_layout_edit_shopping_item_outlined);
-                final TextInputEditText editItemNameInputText = view.findViewById(R.id.text_input_edit_text_edit_shopping_outlined);
-                Button btnSave =  view.findViewById(R.id.edit_saveButton);
-
-                inputDialogBuilder.setView(view);
-                inputDialog = inputDialogBuilder.create();
-                inputDialog.show();
-
-                btnSave.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if(! TextUtils.isEmpty(editItemNameInputText.getText())){
-
-                            LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                            CardView row = (CardView) inflater.inflate(R.layout.table_row_shopping,null);
-
-                            TextView itemName = row.findViewById(R.id.txt_item);
-                            itemName.setText(editItemNameInputText.getText());
-
-                            tableLayout.addView(row);
-
-
-
-                            inputDialog.dismiss();
-                           // presenter.displayTableLayout();
-
-                        } else{
-                            editItemNameInputLayout.setError("Item name required");
-                        }
-
-                    }
-                });
+                dialog.setListener(AddIngredientFragment.this);
+                
             }
         });
     }
+
 
     @Override
     public void displayTableLayout() {
@@ -136,8 +104,7 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         CardView row = (CardView) inflater.inflate(R.layout.table_row_shopping,null);
 
-//
-//
+
 //        deleteIngredientBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -155,6 +122,19 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
 
         rowCount = tableLayout.getChildCount();
         tableLayout.addView(row,rowCount);
+
+    }
+
+    @Override
+    public void addIngredientToLayout(String item ) {
+
+        LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        CardView row = (CardView) inflater.inflate(R.layout.table_row_shopping,null);
+
+        TextView itemName = row.findViewById(R.id.txt_item);
+        itemName.setText(item);
+
+        tableLayout.addView(row);
 
     }
 
@@ -189,6 +169,18 @@ public class AddIngredientFragment extends Fragment implements AddIngredientFrag
         listener.onAddIngredientFragmentInteraction(bundle);
 
 
+
+    }
+
+    @Override
+    public void onSaveClicked(String item) {
+
+        presenter.addIngredient(item);
+
+    }
+
+    @Override
+    public void onCancelClicked() {
 
     }
 

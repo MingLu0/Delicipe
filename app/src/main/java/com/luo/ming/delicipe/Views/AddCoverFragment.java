@@ -160,7 +160,7 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
             return name_text.getText().toString().trim();
         }
 
-        name_text.setError("Recipe name is a must");
+        name_layout.setError("Recipe name is a must");
         return null;
     }
 
@@ -191,7 +191,7 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
 
     @Override
     public void showNameExistsError() {
-        name_text.setError("Name already exists, please enter another one");
+        name_layout.setError("Name already exists, please enter another one");
     }
 
 
