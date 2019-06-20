@@ -12,18 +12,11 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Presenters.AddIngredientFragmentPresenter;
 import com.luo.ming.delicipe.R;
@@ -34,7 +27,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class AddIngredientFragment extends Fragment implements AddIngredientFragmentPresenter.View,
-IngredientInputDialog.OnButtonStateClickedListener{
+IngredientInputDialogView.OnButtonStateClickedListener{
 
     private Button addIngredientBtn;
     private TableLayout tableLayout;
@@ -80,19 +73,16 @@ IngredientInputDialog.OnButtonStateClickedListener{
 
 
         tableLayout = view.findViewById(R.id.tableLayout_ingredient);
-
         presenter = new AddIngredientFragmentPresenter(this,getActivity());
-
         addIngredientBtn = view.findViewById(R.id.button_add_ingredient);
-
         addIngredientBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                IngredientInputDialog dialog=new IngredientInputDialog(getContext());
+                IngredientInputDialogView dialog=new IngredientInputDialogView(getContext());
 
                 dialog.setListener(AddIngredientFragment.this);
-                
+
             }
         });
     }

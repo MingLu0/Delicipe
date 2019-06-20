@@ -16,7 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.luo.ming.delicipe.R;
 
-public class IngredientInputDialog extends LinearLayout {
+public class IngredientInputDialogView extends LinearLayout {
 
     private AlertDialog.Builder inputDialogBuilder;
     private AlertDialog inputDialog;
@@ -30,18 +30,18 @@ public class IngredientInputDialog extends LinearLayout {
 
 
 
-    public IngredientInputDialog(Context context) {
+    public IngredientInputDialogView(Context context) {
         super(context);
 
         initView(context);
     }
 
-    public IngredientInputDialog(Context context, @Nullable AttributeSet attrs) {
+    public IngredientInputDialogView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initView(context);
     }
 
-    public IngredientInputDialog(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public IngredientInputDialogView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
     }
