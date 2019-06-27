@@ -5,15 +5,15 @@ import android.os.Parcelable;
 
 public class UserRecipeStep implements Parcelable {
 
-    private String imageUri;
+    private byte[] imageBytes;
     private String stepText;
 
-    public String getImageUri() {
-        return imageUri;
+    public byte[] getImageBytes() {
+        return imageBytes;
     }
 
-    public void setImageUri(String imageUri) {
-        this.imageUri = imageUri;
+    public void setImageBytes(byte[] imageBytes) {
+        this.imageBytes = imageBytes;
     }
 
     public String getStepText() {
@@ -24,14 +24,14 @@ public class UserRecipeStep implements Parcelable {
         this.stepText = stepText;
     }
 
-    public UserRecipeStep(String imageUri, String stepText) {
-        this.imageUri = imageUri;
+    public UserRecipeStep(byte[] imageBytes, String stepText) {
+        this.imageBytes = imageBytes;
         this.stepText = stepText;
     }
 
     protected UserRecipeStep(Parcel in) {
 
-        imageUri = in.readString();
+        imageBytes = in.createByteArray();
         stepText = in.readString();
     }
 
@@ -55,7 +55,7 @@ public class UserRecipeStep implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
-        dest.writeString(imageUri);
+        dest.writeByteArray(imageBytes);
         dest.writeString(stepText);
 
     }

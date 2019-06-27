@@ -3,7 +3,10 @@ package com.luo.ming.delicipe.Presenters;
 import android.content.Context;
 import android.text.Editable;
 
+import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Views.AddIngredientFragment;
+
+import java.util.ArrayList;
 
 public class AddIngredientFragmentPresenter {
 
@@ -25,9 +28,16 @@ public class AddIngredientFragmentPresenter {
 
     }
 
+    public ArrayList<UserRecipeIngredient> getAllIngredientsFromTB() {
+
+        ArrayList<UserRecipeIngredient>ingredients = view.getIngredientsFromTableLayout();
+        return ingredients;
+    }
+
 
     public interface View {
         void displayTableLayout();
         void addIngredientToLayout(String item);
+        ArrayList<UserRecipeIngredient>getIngredientsFromTableLayout();
     }
 }

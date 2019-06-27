@@ -140,13 +140,7 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
     }
 
 
-    public void sendDataFromFragmentToActivity(){
 
-        userRecipeCover = presenter.getCoverInfoFromInput();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(COVER_INFO_BUNDLE_TAG, userRecipeCover);
-        listener.onAddCoverFragmentInteraction(bundle);
-    }
 
     @Override
     public byte[] getUserImage() {
@@ -194,6 +188,13 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
         name_layout.setError("Name already exists, please enter another one");
     }
 
+    public void sendDataBackToActivity(){
+
+        userRecipeCover = presenter.getCoverInfoFromInput();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(COVER_INFO_BUNDLE_TAG, userRecipeCover);
+        listener.onAddCoverFragmentInteraction(bundle);
+    }
 
     public interface OnAddCoverFragmentInteractionListener {
 

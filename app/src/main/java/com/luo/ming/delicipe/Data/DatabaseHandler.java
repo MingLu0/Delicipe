@@ -42,6 +42,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -217,7 +218,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
                 values.put(Constants.KEY_USER_STEP_COVER_ID, coverID);
-                values.put(Constants.KEY_COVER_IMAGE_BYTES, userRecipeStepList.get(i).getImageUri());
+                values.put(Constants.KEY_COVER_IMAGE_BYTES, userRecipeStepList.get(i).getImageBytes());
                 values.put(Constants.KEY_USER_STEP_TEXT, userRecipeStepList.get(i).getStepText());
 
                 db.insert(Constants.TABLE_USER_STEP, null,values);

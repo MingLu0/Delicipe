@@ -57,11 +57,11 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
 
         switch (item.getItemId()){
             case R.id.save_recipe:
-                addCoverFragment.sendDataFromFragmentToActivity();
-                addIngredientFragment.saveIngredientListInfo();
+                addCoverFragment.sendDataBackToActivity();
+                addIngredientFragment.sendDataBackToActivity();
 
                 if(addCookingStepFragment!=null){
-                    addCookingStepFragment.saveCookingStepInfo();
+                    addCookingStepFragment.sendDataBackToActivity();
                 }
 
                 if(userRecipeCover != null){

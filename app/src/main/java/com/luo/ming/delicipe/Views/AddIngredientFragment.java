@@ -80,7 +80,6 @@ IngredientInputDialogView.OnButtonStateClickedListener{
             public void onClick(View v) {
 
                 IngredientInputDialogView dialog=new IngredientInputDialogView(getContext());
-
                 dialog.setListener(AddIngredientFragment.this);
 
             }
@@ -128,39 +127,28 @@ IngredientInputDialogView.OnButtonStateClickedListener{
 
     }
 
+    @Override
+    public ArrayList<UserRecipeIngredient> getIngredientsFromTableLayout() {
 
-    public void saveIngredientListInfo() {
-
-        ArrayList<UserRecipeIngredient> ingredientList = new ArrayList<UserRecipeIngredient>();
+        ArrayList<UserRecipeIngredient> ingredientList = new ArrayList<>();
 
         rowCount = tableLayout.getChildCount();
 
         for(int i=0; i<rowCount; i++){
-             View row = tableLayout.getChildAt(i);
-             EditText textIngredientName = row.findViewById(R.id.txt_item);
-             Float count = 0.0f;
-             String unit = null;
-             String ingredientName = null;
+            View row = tableLayout.getChildAt(i);
+            TextView textIngredientName = row.findViewById(R.id.txt_item);
+            String ingredientName = null;
 
-             if(!TextUtils.isEmpty(textIngredientName.getText())){
-                 ingredientName = textIngredientName.getText().toString();
-             }
+            if(!TextUtils.isEmpty(textIngredientName.getText())){
+                ingredientName = textIngredientName.getText().toString();
+            }
 
-             //todo finish
-//             UserRecipeIngredient ingredient = new UserRecipeIngredient(count,unit,ingredientName);
-//             ingredientList.add(ingredient);
-
+            UserRecipeIngredient ingredient = new UserRecipeIngredient(ingredientName);
+            ingredientList.add(ingredient);
         }
-
-        Bundle bundle = new Bundle();
-
-        bundle.putParcelableArrayList(INGREDIENT_BUNDLE_TAG,ingredientList);
-
-        listener.onAddIngredientFragmentInteraction(bundle);
-
-
-
+        return ingredientList;
     }
+
 
     @Override
     public void onSaveClicked(String item) {
@@ -171,6 +159,15 @@ IngredientInputDialogView.OnButtonStateClickedListener{
 
     @Override
     public void onCancelClicked() {
+
+    }
+
+    public void sendDataBackToActivity(){
+
+        ArrayList<UserRecipeIngredient> ingredientList = presenter.getAllIngredientsFromTB();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(INGREDIENT_BUNDLE_TAG,ingredientList);
+        listener.onAddIngredientFragmentInteraction(bundle);
 
     }
 
