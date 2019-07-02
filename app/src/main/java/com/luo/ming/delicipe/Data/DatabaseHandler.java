@@ -295,6 +295,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
 
+        db.close();
         return recipeList;
 
     }
@@ -376,6 +377,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
 
+        db.close();
+
         return ingredients;
 
     }
@@ -437,9 +440,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Constants.KEY_COVER_NAME} , whereClause, new String[]{coverName}, null,null,null);
 
         if(!cursor.moveToFirst()){
+
+            db.close();
             return false;
         }
 
+        db.close();
         return true;
     }
 }

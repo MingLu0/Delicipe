@@ -67,7 +67,6 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
                 if(userRecipeCover != null){
                      userRecipe = new UserRecipe(userRecipeCover,ingredientList,userRecipeStepList);
                      userRecipe.saveUserRecipeToDatabase(this);
-
                      Intent intent = new Intent(this, TabbedActivity.class);
                      startActivity(intent);
                     Toast.makeText(this,"Recipe has been saved", Toast.LENGTH_SHORT).show();

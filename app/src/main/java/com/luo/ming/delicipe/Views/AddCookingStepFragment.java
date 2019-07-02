@@ -105,9 +105,25 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
         final LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_step,null);
 
         ImageView addphotoBtn = row.findViewById(R.id.imageStep);
+        ImageButton deleteButton = row.findViewById(R.id.delete_step_button);
+
+        TextInputLayout stepTextLayout = row.findViewById(R.id.input_layout_step);
+        TextInputEditText stepText = row.findViewById(R.id.input_edit_text_step);
 
         int rowCount = tableLayout.getChildCount();
         tableLayout.addView(row,rowCount);
+
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                View row = (View)v.getParent();
+                ViewGroup viewGroup = (ViewGroup)row.getParent();
+                viewGroup.removeView(row);
+
+            }
+        });
 
         addphotoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +137,7 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
 
         });
     }
+
 
     @Override
     public ArrayList<UserRecipeStep> getStepsFromTableLayout() {
@@ -180,7 +197,6 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
     public void sendDataBackToActivity(){
 
         ArrayList<UserRecipeStep> userRecipeStepsList = presenter.getUserSteps();
-
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(STEP_INFO_BUNDLE, userRecipeStepsList);
         listener.onAddCookingStepFragmentInteraction(bundle);

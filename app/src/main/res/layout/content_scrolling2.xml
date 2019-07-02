@@ -35,15 +35,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:layout_weight="4"
             android:background="@android:color/transparent"
             android:text="60 MINUTES"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintStart_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.22000003" />
+            app:layout_constraintStart_toStartOf="@+id/guideline4" />
 
 
         <ImageView
