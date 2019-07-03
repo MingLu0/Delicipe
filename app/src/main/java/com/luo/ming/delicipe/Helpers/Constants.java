@@ -2,7 +2,7 @@ package com.luo.ming.delicipe.Helpers;
 
 public class Constants {
 
-    public static final int DB_VERSION = 25;
+    public static final int DB_VERSION = 26;
     public static final String DB_NAME = "delicipeDB";
 
     //Table names
@@ -40,7 +40,7 @@ public class Constants {
     //User Cooking Step Table columns
     public static final String KEY_USER_STEP_ID = "userStepId";
     public static final String KEY_USER_STEP_COVER_ID = "userStepCoverId";
-    public static final String KEY_USER_STEP_IMAGE_URI = "userStepImageUri";
+    public static final String KEY_USER_STEP_IMAGE_BYTES = "userStepImageBytes";
     public static final String KEY_USER_STEP_TEXT = "userStepText";
 
     //Favourite Recipe Table Columns

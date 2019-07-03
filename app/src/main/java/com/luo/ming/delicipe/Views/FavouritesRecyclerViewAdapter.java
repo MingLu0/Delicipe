@@ -69,7 +69,6 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
                     Recipe recipe = presenter.getRecipeObjAtPosition(position);
 
                     Intent intent = new Intent(context,ScrollingActivity.class);
-
                     intent.putExtra(FAVOURITE_RECYCLER_VIEW_MESSAGE,recipe);
 
                     context.startActivity(intent);

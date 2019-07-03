@@ -35,6 +35,9 @@ public class UserRecipeStep implements Parcelable {
         stepText = in.readString();
     }
 
+    public UserRecipeStep() {
+    }
+
     public static final Creator<UserRecipeStep> CREATOR = new Creator<UserRecipeStep>() {
         @Override
         public UserRecipeStep createFromParcel(Parcel in) {

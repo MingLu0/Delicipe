@@ -11,12 +11,17 @@ import java.util.ArrayList;
 import com.luo.ming.delicipe.Helpers.VolleyCallBack;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
+import com.luo.ming.delicipe.Models.UserRecipe;
+import com.luo.ming.delicipe.Models.UserRecipeCover;
 
 public class ScrollingActivityPresenter {
 
     private String url;
     private View view;
     private Recipe recipe;
+    private UserRecipe userRecipe;
+    private UserRecipeCover userRecipeCover;
+    private String recipeID;
     private RequestQueue queue;
     private Context context;
     private ArrayList<Ingredient>ingredients;
@@ -54,6 +59,25 @@ public class ScrollingActivityPresenter {
 
 
     }
+
+    public ScrollingActivityPresenter(View view, Context context, String recipeID){
+        this.view = view;
+        this.context =  context;
+        this.recipeID = recipeID;
+        userRecipe = new UserRecipe();
+        userRecipe = userRecipe.getUserRecipeWithID(recipeID,context);
+        userRecipe.toString();
+    }
+
+    public ScrollingActivityPresenter(View view, Context context, UserRecipeCover userRecipeCover){
+        this.view = view;
+        this.context = context;
+        this.userRecipeCover = userRecipeCover;
+
+
+    }
+
+
 
     public void saveFavouriteRecipe(){
 

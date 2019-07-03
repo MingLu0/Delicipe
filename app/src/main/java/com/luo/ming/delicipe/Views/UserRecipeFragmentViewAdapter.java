@@ -5,8 +5,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +16,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.luo.ming.delicipe.Helpers.BitmapUtility;
+import com.luo.ming.delicipe.Models.UserRecipe;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Presenters.UserRecipeFragmentPresenter;
 import com.luo.ming.delicipe.R;
-import com.squareup.picasso.Picasso;
 
 public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserRecipeFragmentViewAdapter.ViewHolder>{
 
     private UserRecipeFragmentPresenter presenter;
     private Context context;
+    public static final String USER_RECIPE_ADPATER_MESSAGE = "package com.luo.ming.delicipe.Views.UserRecipeFragmentViewAdapter";
 
 
     public UserRecipeFragmentViewAdapter(UserRecipeFragmentPresenter presenter, Context context) {
@@ -69,6 +70,16 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
 
             coverImage = itemView.findViewById(R.id.recipe_cover_image);
             coverName = itemView.findViewById(R.id.recipe_cover_title);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    Intent intent = new Intent(context,ScrollingActivity.class);
+                    UserRecipeCover userRecipeCover = presenter.getUserRecipeCover(position);
+                    intent.putExtra(USER_RECIPE_ADPATER_MESSAGE,userRecipeCover.getCoverID());
+                    context.startActivity(intent);
+                }
+            });
 
         }
 

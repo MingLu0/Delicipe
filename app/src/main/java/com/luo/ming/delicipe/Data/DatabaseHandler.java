@@ -42,7 +42,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -63,9 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_USER_INGREDIENT_TABLE = "CREATE TABLE "
                 + Constants.TABLE_USER_INGREDIENT + "("
                 + Constants.KEY_USER_INGREDIENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + Constants.KEY_USER_INGREDIENT_UNIT + " TEXT,"
                 + Constants.KEY_USER_INGREDIENT_NAME + " TEXT,"
-                + Constants.KEY_USER_INGREDIENT_AMOUNT + " FLOAT,"
                 + Constants.KEY_USER_INGREDIENT_COVER_ID + " INTEGER,"
                 + " FOREIGN KEY (" + Constants.KEY_USER_INGREDIENT_COVER_ID + ") REFERENCES "
                 + Constants.TABLE_USER_RECIPE_COVER
@@ -74,7 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_USER_COOKING_STEP_TABLE = "CREATE TABLE "
                 + Constants.TABLE_USER_STEP + "("
                 + Constants.KEY_USER_STEP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + Constants.KEY_USER_STEP_IMAGE_URI + " TEXT,"
+                + Constants.KEY_USER_STEP_IMAGE_BYTES + " BLOB,"
                 + Constants.KEY_USER_STEP_TEXT + " TEXT,"
                 + Constants.KEY_USER_STEP_COVER_ID + " INTEGER, "
                 + " FOREIGN KEY (" + Constants.KEY_USER_STEP_COVER_ID + ") REFERENCES "
@@ -110,6 +107,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_SHOPPING_LIST_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_USER_RECIPE_COVER);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_USER_INGREDIENT);
@@ -196,8 +194,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 ContentValues values = new ContentValues();
 
                 values.put(Constants.KEY_USER_INGREDIENT_COVER_ID,coverID);
-//                values.put(Constants.KEY_USER_INGREDIENT_AMOUNT,ingredientList.get(i).getAmount());
-//                values.put(Constants.KEY_USER_INGREDIENT_UNIT,ingredientList.get(i).getUnit());
                 values.put(Constants.KEY_USER_INGREDIENT_NAME, ingredientList.get(i).getName());
 
                 db.insert(Constants.TABLE_USER_INGREDIENT, null,values);
@@ -218,7 +214,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
                 values.put(Constants.KEY_USER_STEP_COVER_ID, coverID);
-                values.put(Constants.KEY_COVER_IMAGE_BYTES, userRecipeStepList.get(i).getImageBytes());
+                values.put(Constants.KEY_USER_STEP_IMAGE_BYTES, userRecipeStepList.get(i).getImageBytes());
                 values.put(Constants.KEY_USER_STEP_TEXT, userRecipeStepList.get(i).getStepText());
 
                 db.insert(Constants.TABLE_USER_STEP, null,values);
@@ -447,5 +443,85 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.close();
         return true;
+    }
+
+    public ArrayList<UserRecipeIngredient> getRecipeIngredientsWithCoverId(String coverID) {
+
+        ArrayList<UserRecipeIngredient>userIngredientsList = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = Constants.KEY_USER_INGREDIENT_COVER_ID+" = ?";
+
+        Cursor cursor = db.query(Constants.TABLE_USER_INGREDIENT, new String[]{
+                Constants.KEY_USER_INGREDIENT_NAME} , whereClause, new String[]{coverID}, null,null,null);
+
+        if(cursor.moveToFirst()){
+
+            do{
+
+                UserRecipeIngredient ingredient = new UserRecipeIngredient();
+                ingredient.setName(cursor.getString(cursor.getColumnIndex(Constants.KEY_USER_INGREDIENT_NAME)));
+                userIngredientsList.add(ingredient);
+
+            }while(cursor.moveToNext());
+        }
+
+        db.close();
+
+        return userIngredientsList;
+
+    }
+
+    public ArrayList<UserRecipeStep> getRecipeStepsWithCoverId(String coverID) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ArrayList<UserRecipeStep>userRecipeStepList = new ArrayList<>();
+
+        String whereClause = Constants.KEY_USER_STEP_COVER_ID+" = ?";
+
+        Cursor cursor = db.query(Constants.TABLE_USER_STEP, new String[]{
+                Constants.KEY_USER_STEP_TEXT, Constants.KEY_USER_STEP_IMAGE_BYTES} , whereClause, new String[]{coverID}, null,null,null);
+
+        if(cursor.moveToFirst()){
+
+            do{
+
+                UserRecipeStep userRecipeStep = new UserRecipeStep();
+                userRecipeStep.setStepText(cursor.getString(cursor.getColumnIndex(Constants.KEY_USER_STEP_TEXT)));
+                userRecipeStep.setImageBytes(cursor.getBlob(1));
+                userRecipeStepList.add(userRecipeStep);
+
+            }while(cursor.moveToNext());
+        }
+
+        db.close();
+
+
+        return userRecipeStepList;
+    }
+
+    public UserRecipeCover getRecipeCoverWithId(String recipeID) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        UserRecipeCover userRecipeCover = new UserRecipeCover();
+
+        String whereClause = Constants.KEY_COVER_ID+" = ?";
+
+        Cursor cursor = db.query(Constants.TABLE_USER_RECIPE_COVER, new String[]{Constants.KEY_COVER_ID,
+                Constants.KEY_COVER_IMAGE_BYTES, Constants.KEY_COVER_NAME, Constants.KEY_COVER_COMMENT,
+                Constants.KEY_COVER_COOKING_TIME, Constants.KEY_COVER_SERVING_SIZE},whereClause,new String[]{recipeID},null,null,null);
+
+
+        cursor.moveToFirst();
+
+       userRecipeCover.setCoverID(cursor.getString(cursor.getColumnIndex(Constants.KEY_COVER_ID)));
+        userRecipeCover.setImageBytes(cursor.getBlob(1));
+        userRecipeCover.setCoverName(cursor.getString(cursor.getColumnIndex(Constants.KEY_COVER_NAME)));
+        userRecipeCover.setCookingTime(cursor.getInt(cursor.getColumnIndex(Constants.KEY_COVER_COOKING_TIME)));
+        userRecipeCover.setServingSize(cursor.getInt(cursor.getColumnIndex(Constants.KEY_COVER_SERVING_SIZE)));
+        userRecipeCover.setComment(cursor.getString(cursor.getColumnIndex(Constants.KEY_COVER_COMMENT)));
+
+        return userRecipeCover;
+
     }
 }

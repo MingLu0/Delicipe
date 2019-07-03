@@ -28,6 +28,8 @@ import java.util.List;
 
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
+import com.luo.ming.delicipe.Models.UserRecipe;
+import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Presenters.ScrollingActivityPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
@@ -84,25 +86,28 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         newServing = 4;
 
         Intent intent = getIntent();
-        String recipeID = intent.getStringExtra(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE);
-        Recipe recipe = (Recipe) intent.getSerializableExtra(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE);
+        Bundle bundle = intent.getExtras();
 
-        if(recipeID != null){
-
-            presenter = new ScrollingActivityPresenter(this,this);
-            presenter.setUrl(recipeID);
-            Log.d("ScrollingActivity",recipeID);
-            presenter.getRecipe();
-
-
-
-        } else if (recipe != null){
+        if(bundle.containsKey(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE)){
+            Recipe recipe = (Recipe) intent.getSerializableExtra(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE);
             presenter = new ScrollingActivityPresenter(this,this,recipe);
             presenter.displayRecipeTitle();
             presenter.getRecipePhoto();
             presenter.getTableLayout();
             presenter.displayFavouriteButton();
+
+        } else if (bundle.containsKey(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE)){
+            String recipeID = intent.getStringExtra(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE);
+            presenter = new ScrollingActivityPresenter(this,this);
+            presenter.setUrl(recipeID);
+            presenter.getRecipe();
+
+        } else if(bundle.containsKey(UserRecipeFragmentViewAdapter.USER_RECIPE_ADPATER_MESSAGE)){
+            //Bundle userRecipeID = (Bundle) intent.getExtras(UserRecipeFragmentViewAdapter.USER_RECIPE_ADPATER_MESSAGE);
+            String userRecipeID = bundle.getString(UserRecipeFragmentViewAdapter.USER_RECIPE_ADPATER_MESSAGE);
+            presenter = new ScrollingActivityPresenter(this,this,userRecipeID);
         }
+
 
 
         btnCart.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +151,6 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
                 .error(R.drawable.ic_launcher_foreground)
                 .fit()
                 .into(toolbarimage);
-
 
 
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.luo.ming.delicipe.Models.UserRecipe;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class UserRecipeFragmentPresenter {
 
     private Context context;
     private ArrayList<UserRecipeCover>userRecipeCoverList;
+    private ArrayList<UserRecipe>userRecipeList;
     private UserRecipeCover userRecipeCover;
     private View view;
 
@@ -41,6 +43,23 @@ public class UserRecipeFragmentPresenter {
             return 0;
         }
         return userRecipeCoverList.size();
+    }
+
+    public UserRecipe getUserRecipeObject(int position) {
+
+        UserRecipeCover recipeCover = userRecipeCoverList.get(position);
+
+        UserRecipe userRecipe = new UserRecipe();
+
+        userRecipe = userRecipe.getUserRecipeObjFromCoverObj(recipeCover,context);
+
+        return userRecipe;
+
+    }
+
+    public UserRecipeCover getUserRecipeCover(int position) {
+
+        return userRecipeCoverList.get(position);
     }
 
     private class GetAllRecipeCoversTask extends AsyncTask<Void,Void,Void>{
