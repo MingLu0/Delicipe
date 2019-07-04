@@ -1,35 +1,32 @@
 package com.luo.ming.delicipe.Views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import com.bumptech.glide.Glide;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
-import com.luo.ming.delicipe.Models.UserRecipe;
-import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Presenters.ScrollingActivityPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
@@ -39,11 +36,13 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     private ImageView toolbarimage;
     private ScrollingActivityPresenter presenter;
     private ImageButton btnCart;
-    private TableLayout tableLayout;
-    private TextView txtServing,textTitle;
+    private TableLayout ingredientTableLayout,stepsTableLayout;
+    private TextView txtServing,textTitle,textSteps;
     private static int newServing;
     private Toolbar toolbar;
     private CheckBox checkBox;
+    private Button btnGetDirection;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,11 +76,15 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
 
         btnCart = (ImageButton)findViewById(R.id.btnCart);
-        tableLayout = (TableLayout)findViewById(R.id.table_main);
+        ingredientTableLayout = (TableLayout)findViewById(R.id.table_main);
+        stepsTableLayout = findViewById(R.id.table_steps);
         txtServing = (TextView)findViewById(R.id.txtServing);
         toolbarimage = findViewById(R.id.toolbarimageview);
         textTitle = findViewById(R.id.text_recipe_title);
         checkBox = (CheckBox) findViewById(R.id.checkBox);
+        textSteps = findViewById(R.id.txtSteps);
+        btnGetDirection = findViewById(R.id.btnGetDirection);
+
 
         newServing = 4;
 
@@ -90,6 +93,11 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
         if(bundle.containsKey(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE)){
             Recipe recipe = (Recipe) intent.getSerializableExtra(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE);
+            textSteps.setVisibility(View.INVISIBLE);
+            btnGetDirection.setVisibility(View.VISIBLE);
+            checkBox.setVisibility(View.VISIBLE);
+
+
             presenter = new ScrollingActivityPresenter(this,this,recipe);
             presenter.displayRecipeTitle();
             presenter.getRecipePhoto();
@@ -98,6 +106,10 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
         } else if (bundle.containsKey(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE)){
             String recipeID = intent.getStringExtra(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE);
+            textSteps.setVisibility(View.INVISIBLE);
+            btnGetDirection.setVisibility(View.VISIBLE);
+            checkBox.setVisibility(View.VISIBLE);
+
             presenter = new ScrollingActivityPresenter(this,this);
             presenter.setUrl(recipeID);
             presenter.getRecipe();
@@ -105,7 +117,12 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         } else if(bundle.containsKey(UserRecipeFragmentViewAdapter.USER_RECIPE_ADPATER_MESSAGE)){
             //Bundle userRecipeID = (Bundle) intent.getExtras(UserRecipeFragmentViewAdapter.USER_RECIPE_ADPATER_MESSAGE);
             String userRecipeID = bundle.getString(UserRecipeFragmentViewAdapter.USER_RECIPE_ADPATER_MESSAGE);
+
+            textSteps.setVisibility(View.VISIBLE);
+            btnGetDirection.setVisibility(View.INVISIBLE);
+            checkBox.setVisibility(View.INVISIBLE);
             presenter = new ScrollingActivityPresenter(this,this,userRecipeID);
+            presenter.displayUserRecipe();
         }
 
 
@@ -156,9 +173,20 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     }
 
     @Override
+    public void displayRecipePhotoFromBitmap(Bitmap bitmap) {
+        Glide.with(this)
+                .load(bitmap)
+                .error(R.drawable.ic_launcher_foreground)
+                .into(toolbarimage);
+       // toolbarimage.setImageBitmap(bitmap);
+
+
+    }
+
+    @Override
     public void displayTableLayout(ArrayList<Ingredient> ingredients) {
 
-        tableLayout.removeAllViews();
+        ingredientTableLayout.removeAllViews();
 
         for(int i=0;i<ingredients.size();i++){
             LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -169,7 +197,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
              itemName.setText(ingredients.get(i).getIngredientItem());
 
-            tableLayout.addView(row,i);
+            ingredientTableLayout.addView(row,i);
 
         }
 
@@ -179,7 +207,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     public void updateCountInTableLayout(ArrayList<Ingredient> ingredients) {
 
 //        for(int i=0;i<ingredients.size();i++){
-//            TableRow row = (TableRow)tableLayout.getChildAt(i);
+//            TableRow row = (TableRow)ingredientTableLayout.getChildAt(i);
 //            TextView txtCount = row.findViewById(R.id.count);
 //            txtCount.setText(String.valueOf(ingredients.get(i).getCount()));
 //        }
@@ -211,6 +239,13 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         } else {
             checkBox.setButtonDrawable(R.drawable.ic_action_favourite);
         }
+
+    }
+
+    @Override
+    public void displayServingSize(int size) {
+
+        txtServing.setText(String.valueOf(size));
 
     }
 

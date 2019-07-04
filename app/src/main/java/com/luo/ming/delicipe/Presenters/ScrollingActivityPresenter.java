@@ -1,6 +1,8 @@
 package com.luo.ming.delicipe.Presenters;
 
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.provider.SyncStateContract;
 import android.util.Log;
 import android.content.Context;
 
@@ -8,6 +10,7 @@ import com.android.volley.RequestQueue;
 
 import java.util.ArrayList;
 
+import com.luo.ming.delicipe.Helpers.BitmapUtility;
 import com.luo.ming.delicipe.Helpers.VolleyCallBack;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
@@ -66,7 +69,6 @@ public class ScrollingActivityPresenter {
         this.recipeID = recipeID;
         userRecipe = new UserRecipe();
         userRecipe = userRecipe.getUserRecipeWithID(recipeID,context);
-        userRecipe.toString();
     }
 
     public ScrollingActivityPresenter(View view, Context context, UserRecipeCover userRecipeCover){
@@ -86,6 +88,17 @@ public class ScrollingActivityPresenter {
 
     public void unSaveFavouriteRecipe() {
         new saveUnsaveFavouriteRecipeTask(recipe,context,false).execute();
+    }
+
+    public void displayUserRecipe() {
+        displayUserRecipePhoto();
+        displayUserRecipeTitle();
+        displayUserRecipeServing();
+    }
+
+    private void displayUserRecipeServing() {
+        int size = userRecipe.getUserRecipeCover().getServingSize();
+        view.displayServingSize(size);
     }
 
     public static class saveUnsaveFavouriteRecipeTask extends AsyncTask<Void,Void,Void>{
@@ -150,9 +163,19 @@ public class ScrollingActivityPresenter {
 
     }
 
+    public void displayUserRecipePhoto(){
+        Bitmap bitmap = BitmapUtility.covertBytesToBitmap(userRecipe.getUserRecipeCover().getImageBytes());
+        view.displayRecipePhotoFromBitmap(bitmap);
+    }
+
     public void displayRecipeTitle(){
         String recipeTitle = recipe.getTitle();
         view.displayRecipeTitle(recipeTitle);
+    }
+
+    public void displayUserRecipeTitle(){
+        String userRecipeTitle = userRecipe.getUserRecipeCover().getCoverName();
+        view.displayRecipeTitle(userRecipeTitle);
     }
 
     public void getTableLayout(){
@@ -223,6 +246,7 @@ public class ScrollingActivityPresenter {
     public interface View {
 
         void displayRecipePhoto(String imageLink);
+        void displayRecipePhotoFromBitmap(Bitmap bitmap);
         void displayTableLayout(ArrayList<Ingredient>ingredients);
         void popupToast(String text);
         void updateCountInTableLayout(ArrayList<Ingredient> ingredients);
@@ -231,6 +255,7 @@ public class ScrollingActivityPresenter {
         void displayFavouriteButton(Boolean bool);
 
 
+        void displayServingSize(int size);
     }
 
 

@@ -15,6 +15,9 @@ public class UserRecipe implements Parcelable {
     private ArrayList<UserRecipeStep> userRecipeStepList;
     private DatabaseHandler db;
 
+    public UserRecipeCover getUserRecipeCover() {
+        return userRecipeCover;
+    }
 
     public UserRecipe(UserRecipeCover userRecipeCover, ArrayList<UserRecipeIngredient> ingredientList, ArrayList<UserRecipeStep> userRecipeStepList) {
         this.userRecipeCover = userRecipeCover;

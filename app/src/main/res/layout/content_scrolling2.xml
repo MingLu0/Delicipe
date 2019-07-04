@@ -14,6 +14,19 @@
         android:layout_height="wrap_content">
 
 
+        <TableLayout
+            android:id="@+id/table_steps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtSteps">
+
+
+        </TableLayout>
+
         <ImageView
             android:id="@+id/imgClock"
             android:layout_width="wrap_content"
@@ -24,25 +37,25 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
-            app:layout_constraintBottom_toBottomOf="@+id/editText"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCookingTime"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/editText" />
+            app:layout_constraintTop_toTopOf="@+id/txtCookingTime" />
 
-        <EditText
-            android:id="@+id/editText"
+        <TextView
+            android:id="@+id/txtCookingTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_weight="4"
             android:background="@android:color/transparent"
             android:text="60 MINUTES"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@+id/text_recipe_title" />
+            app:layout_constraintTop_toBottomOf="@+id/txtComment"
+            app:layout_constraintVertical_bias="0.0" />
 
 
         <ImageView
@@ -56,11 +69,11 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@drawable/ic_action_person"
-            app:layout_constraintBottom_toBottomOf="@+id/editText"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCookingTime"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.15"
-            app:layout_constraintStart_toEndOf="@+id/editText"
-            app:layout_constraintTop_toTopOf="@+id/editText" />
+            app:layout_constraintStart_toEndOf="@+id/txtCookingTime"
+            app:layout_constraintTop_toTopOf="@+id/txtCookingTime" />
 
         <TextView
             android:id="@+id/txtServing"
@@ -108,7 +121,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
-
         </TableLayout>
 
         <ImageButton
@@ -131,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="125dp" />
+            app:layout_constraintGuide_begin="145dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
@@ -148,7 +160,7 @@
             app:layout_constraintGuide_begin="65dp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnGetDirection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -157,9 +169,12 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:text="Get Direction"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.755"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/table_main" />
+            app:layout_constraintTop_toBottomOf="@+id/table_main"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/text_recipe_title"
@@ -170,11 +185,12 @@
             android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:gravity="center_horizontal"
             android:padding="8dp"
             android:textColor="#FD5523"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -188,10 +204,37 @@
             android:layout_marginRight="8dp"
             android:button="@drawable/button_favourite"
             android:checked="true"
-            app:layout_constraintBottom_toBottomOf="@+id/editText"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCookingTime"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtServing"
-            app:layout_constraintTop_toTopOf="@+id/editText" />
+            app:layout_constraintTop_toTopOf="@+id/txtCookingTime" />
+
+        <TextView
+            android:id="@+id/txtComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_recipe_title" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:id="@+id/txtSteps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Cooking steps"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/table_main"
+            app:layout_constraintVertical_bias="0.93" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
