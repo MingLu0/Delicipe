@@ -2,9 +2,9 @@ package com.luo.ming.delicipe.Presenters;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.provider.SyncStateContract;
 import android.util.Log;
 import android.content.Context;
+import android.view.View;
 
 import com.android.volley.RequestQueue;
 
@@ -16,6 +16,7 @@ import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Models.UserRecipe;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
+import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 
 public class ScrollingActivityPresenter {
 
@@ -60,7 +61,6 @@ public class ScrollingActivityPresenter {
         this.recipe = recipe;
         ingredients = recipe.getIngredients();
 
-
     }
 
     public ScrollingActivityPresenter(View view, Context context, String recipeID){
@@ -79,8 +79,6 @@ public class ScrollingActivityPresenter {
 
     }
 
-
-
     public void saveFavouriteRecipe(){
 
         new saveUnsaveFavouriteRecipeTask(recipe,context,true).execute();
@@ -94,11 +92,33 @@ public class ScrollingActivityPresenter {
         displayUserRecipePhoto();
         displayUserRecipeTitle();
         displayUserRecipeServing();
+        displayCookingTime();
+        displayUserIngredients();
+        view.setIconVisibility(android.view.View.VISIBLE,android.view.View.INVISIBLE,android.view.View.INVISIBLE);
+    }
+
+    private void displayUserIngredients() {
+        ArrayList<UserRecipeIngredient>ingredients = userRecipe.getIngredientList();
+        view.displayUserIngredients(ingredients);
+    }
+
+    private void displayCookingTime() {
+        
+        int cookingTime = userRecipe.getUserRecipeCover().getServingSize();
+        view.displayCookingTime(cookingTime);
     }
 
     private void displayUserRecipeServing() {
         int size = userRecipe.getUserRecipeCover().getServingSize();
         view.displayServingSize(size);
+    }
+
+    public void displayFavouriteRecipe() {
+        view.setIconVisibility(android.view.View.INVISIBLE,android.view.View.VISIBLE,android.view.View.VISIBLE);
+        displayRecipeTitle();
+        getRecipePhoto();
+        displayIngredientsTableLayout();
+        displayFavouriteButton();
     }
 
     public static class saveUnsaveFavouriteRecipeTask extends AsyncTask<Void,Void,Void>{
@@ -137,12 +157,14 @@ public class ScrollingActivityPresenter {
     }
 
 
-    public void getRecipe(){
+    public void displayOnlineRecipe(){
+        view.setIconVisibility(android.view.View.INVISIBLE,android.view.View.VISIBLE,android.view.View.VISIBLE);
+
         recipe.getRecipeObj(url, context, new VolleyCallBack() {
             @Override
             public void onSuccess() {
                 getRecipePhoto();
-                getTableLayout();
+                displayIngredientsTableLayout();
                 displayRecipeTitle();
                 displayFavBtnForAPIRecipes();
 
@@ -178,10 +200,10 @@ public class ScrollingActivityPresenter {
         view.displayRecipeTitle(userRecipeTitle);
     }
 
-    public void getTableLayout(){
+    public void displayIngredientsTableLayout(){
 
         ingredients = recipe.getIngredients();
-        view.displayTableLayout(ingredients);
+        view.displayOnlineIngredients(ingredients);
 
     }
 
@@ -234,7 +256,7 @@ public class ScrollingActivityPresenter {
     public void updateIngredientCount(int newServing){
 
         ingredients=recipe.updateIngredientCount(newServing);
-        view.displayTableLayout(ingredients);
+        view.displayOnlineIngredients(ingredients);
 
     }
 
@@ -247,15 +269,16 @@ public class ScrollingActivityPresenter {
 
         void displayRecipePhoto(String imageLink);
         void displayRecipePhotoFromBitmap(Bitmap bitmap);
-        void displayTableLayout(ArrayList<Ingredient>ingredients);
+        void displayOnlineIngredients(ArrayList<Ingredient>ingredients);
+        void displayUserIngredients(ArrayList<UserRecipeIngredient>ingredients);
         void popupToast(String text);
         void updateCountInTableLayout(ArrayList<Ingredient> ingredients);
         void updateServingSize(int newSergving);
         void displayRecipeTitle(String recipeTitle);
         void displayFavouriteButton(Boolean bool);
-
-
         void displayServingSize(int size);
+        void displayCookingTime(int cookingTime);
+        void setIconVisibility(int a, int b, int c);
     }
 
 

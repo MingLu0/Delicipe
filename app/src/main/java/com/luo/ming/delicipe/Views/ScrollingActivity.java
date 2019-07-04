@@ -27,17 +27,18 @@ import java.util.ArrayList;
 import com.bumptech.glide.Glide;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
+import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Presenters.ScrollingActivityPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
 
 public class ScrollingActivity extends AppCompatActivity implements ScrollingActivityPresenter.View {
 
-    private ImageView toolbarimage;
+    private ImageView toolbarImage;
     private ScrollingActivityPresenter presenter;
     private ImageButton btnCart;
     private TableLayout ingredientTableLayout,stepsTableLayout;
-    private TextView txtServing,textTitle,textSteps;
+    private TextView txtServing,textTitle,textSteps,textCookingTime;
     private static int newServing;
     private Toolbar toolbar;
     private CheckBox checkBox;
@@ -79,11 +80,12 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         ingredientTableLayout = (TableLayout)findViewById(R.id.table_main);
         stepsTableLayout = findViewById(R.id.table_steps);
         txtServing = (TextView)findViewById(R.id.txtServing);
-        toolbarimage = findViewById(R.id.toolbarimageview);
+        toolbarImage = findViewById(R.id.toolbarimageview);
         textTitle = findViewById(R.id.text_recipe_title);
         checkBox = (CheckBox) findViewById(R.id.checkBox);
         textSteps = findViewById(R.id.txtSteps);
         btnGetDirection = findViewById(R.id.btnGetDirection);
+        textCookingTime = findViewById(R.id.txtCookingTime);
 
 
         newServing = 4;
@@ -92,35 +94,23 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         Bundle bundle = intent.getExtras();
 
         if(bundle.containsKey(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE)){
-            Recipe recipe = (Recipe) intent.getSerializableExtra(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE);
-            textSteps.setVisibility(View.INVISIBLE);
-            btnGetDirection.setVisibility(View.VISIBLE);
-            checkBox.setVisibility(View.VISIBLE);
-
+            Recipe recipe = (Recipe) bundle.getSerializable(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE);
 
             presenter = new ScrollingActivityPresenter(this,this,recipe);
-            presenter.displayRecipeTitle();
-            presenter.getRecipePhoto();
-            presenter.getTableLayout();
-            presenter.displayFavouriteButton();
+            presenter.displayFavouriteRecipe();
 
         } else if (bundle.containsKey(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE)){
-            String recipeID = intent.getStringExtra(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE);
-            textSteps.setVisibility(View.INVISIBLE);
-            btnGetDirection.setVisibility(View.VISIBLE);
-            checkBox.setVisibility(View.VISIBLE);
+
+            String recipeID = bundle.getString(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE);
 
             presenter = new ScrollingActivityPresenter(this,this);
             presenter.setUrl(recipeID);
-            presenter.getRecipe();
+            presenter.displayOnlineRecipe();
 
         } else if(bundle.containsKey(UserRecipeFragmentViewAdapter.USER_RECIPE_ADPATER_MESSAGE)){
-            //Bundle userRecipeID = (Bundle) intent.getExtras(UserRecipeFragmentViewAdapter.USER_RECIPE_ADPATER_MESSAGE);
+
             String userRecipeID = bundle.getString(UserRecipeFragmentViewAdapter.USER_RECIPE_ADPATER_MESSAGE);
 
-            textSteps.setVisibility(View.VISIBLE);
-            btnGetDirection.setVisibility(View.INVISIBLE);
-            checkBox.setVisibility(View.INVISIBLE);
             presenter = new ScrollingActivityPresenter(this,this,userRecipeID);
             presenter.displayUserRecipe();
         }
@@ -167,7 +157,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
                 .load(imageLink)
                 .error(R.drawable.ic_launcher_foreground)
                 .fit()
-                .into(toolbarimage);
+                .into(toolbarImage);
 
 
     }
@@ -177,14 +167,14 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         Glide.with(this)
                 .load(bitmap)
                 .error(R.drawable.ic_launcher_foreground)
-                .into(toolbarimage);
-       // toolbarimage.setImageBitmap(bitmap);
+                .into(toolbarImage);
+       // toolbarImage.setImageBitmap(bitmap);
 
 
     }
 
     @Override
-    public void displayTableLayout(ArrayList<Ingredient> ingredients) {
+    public void displayOnlineIngredients(ArrayList<Ingredient> ingredients) {
 
         ingredientTableLayout.removeAllViews();
 
@@ -196,6 +186,26 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
              TextView itemName = row.findViewById(R.id.text_ingredient_item);
 
              itemName.setText(ingredients.get(i).getIngredientItem());
+
+            ingredientTableLayout.addView(row,i);
+
+        }
+
+    }
+
+    @Override
+    public void displayUserIngredients(ArrayList<UserRecipeIngredient> ingredients) {
+
+        ingredientTableLayout.removeAllViews();
+
+        for(int i=0;i<ingredients.size();i++){
+            LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_ingredient_api,null);
+
+            TextView itemName = row.findViewById(R.id.text_ingredient_item);
+
+            itemName.setText(ingredients.get(i).getName());
 
             ingredientTableLayout.addView(row,i);
 
@@ -246,6 +256,22 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     public void displayServingSize(int size) {
 
         txtServing.setText(String.valueOf(size));
+
+    }
+
+    @Override
+    public void displayCookingTime(int cookingTime) {
+
+        textCookingTime.setText(String.valueOf(cookingTime)+"  MINUTES");
+
+    }
+
+    @Override
+    public void setIconVisibility(int a, int b, int c) {
+
+        textSteps.setVisibility(a);
+        btnGetDirection.setVisibility(b);
+        checkBox.setVisibility(c);
 
     }
 
