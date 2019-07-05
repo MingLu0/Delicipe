@@ -57,7 +57,7 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
-            recipeImage = (ImageView) itemView.findViewById(R.id.recipe_cover_image);
+            recipeImage =  itemView.findViewById(R.id.recipe_cover_image);
             txtRecipeTitle = (TextView) itemView.findViewById(R.id.recipe_cover_title);
             txtRecipePublisher = (TextView) itemView.findViewById(R.id.source);
 
@@ -75,9 +75,6 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
 
                 }
             });
-
-
-
         }
 
         //implement reciperowview interface to set the image in each row

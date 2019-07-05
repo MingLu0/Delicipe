@@ -91,10 +91,18 @@ public class ScrollingActivityPresenter {
     public void displayUserRecipe() {
         displayUserRecipePhoto();
         displayUserRecipeTitle();
+        displayComment();
         displayUserRecipeServing();
         displayCookingTime();
         displayUserIngredients();
         view.setIconVisibility(android.view.View.VISIBLE,android.view.View.INVISIBLE,android.view.View.INVISIBLE);
+
+        //displayUserSteps();
+    }
+
+    private void displayComment() {
+        String comment = userRecipe.getUserRecipeCover().getComment();
+        view.displayComment(comment);
     }
 
     private void displayUserIngredients() {
@@ -272,13 +280,14 @@ public class ScrollingActivityPresenter {
         void displayOnlineIngredients(ArrayList<Ingredient>ingredients);
         void displayUserIngredients(ArrayList<UserRecipeIngredient>ingredients);
         void popupToast(String text);
-        void updateCountInTableLayout(ArrayList<Ingredient> ingredients);
+       // void updateCountInTableLayout(ArrayList<Ingredient> ingredients);
         void updateServingSize(int newSergving);
         void displayRecipeTitle(String recipeTitle);
         void displayFavouriteButton(Boolean bool);
         void displayServingSize(int size);
         void displayCookingTime(int cookingTime);
         void setIconVisibility(int a, int b, int c);
+        void displayComment(String comment);
     }
 
 

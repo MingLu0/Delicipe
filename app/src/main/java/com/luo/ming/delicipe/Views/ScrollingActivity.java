@@ -38,7 +38,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     private ScrollingActivityPresenter presenter;
     private ImageButton btnCart;
     private TableLayout ingredientTableLayout,stepsTableLayout;
-    private TextView txtServing,textTitle,textSteps,textCookingTime;
+    private TextView txtServing,textTitle,textSteps,textCookingTime,textComment;
     private static int newServing;
     private Toolbar toolbar;
     private CheckBox checkBox;
@@ -86,6 +86,7 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         textSteps = findViewById(R.id.txtSteps);
         btnGetDirection = findViewById(R.id.btnGetDirection);
         textCookingTime = findViewById(R.id.txtCookingTime);
+        textComment = findViewById(R.id.txtComment);
 
 
         newServing = 4;
@@ -213,16 +214,16 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
     }
 
-    @Override
-    public void updateCountInTableLayout(ArrayList<Ingredient> ingredients) {
-
-//        for(int i=0;i<ingredients.size();i++){
-//            TableRow row = (TableRow)ingredientTableLayout.getChildAt(i);
-//            TextView txtCount = row.findViewById(R.id.count);
-//            txtCount.setText(String.valueOf(ingredients.get(i).getCount()));
-//        }
-
-    }
+//    @Override
+//    public void updateCountInTableLayout(ArrayList<Ingredient> ingredients) {
+//
+////        for(int i=0;i<ingredients.size();i++){
+////            TableRow row = (TableRow)ingredientTableLayout.getChildAt(i);
+////            TextView txtCount = row.findViewById(R.id.count);
+////            txtCount.setText(String.valueOf(ingredients.get(i).getCount()));
+////        }
+//
+//    }
 
     @Override
     public void updateServingSize(int newSergving) {
@@ -273,6 +274,11 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         btnGetDirection.setVisibility(b);
         checkBox.setVisibility(c);
 
+    }
+
+    @Override
+    public void displayComment(String comment) {
+        textComment.setText(comment);
     }
 
     @Override

@@ -93,20 +93,20 @@
 
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Headline"
             android:id="@+id/textView"
+            style="@style/TextAppearance.AppCompat.Headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:text="@string/recipe_ingredient_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
+            app:layout_constraintTop_toBottomOf="@+id/txtCookingTime" />
 
         <TableLayout
             android:id="@+id/table_main"
@@ -136,7 +136,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.07"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
+            app:layout_constraintTop_toBottomOf="@+id/txtCookingTime" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -223,18 +223,16 @@
             app:layout_constraintTop_toBottomOf="@+id/text_recipe_title" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Headline"
             android:id="@+id/txtSteps"
+            style="@style/TextAppearance.AppCompat.Headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="Cooking steps"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/table_main"
-            app:layout_constraintVertical_bias="0.93" />
+            app:layout_constraintTop_toBottomOf="@+id/table_main" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
