@@ -25,9 +25,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import com.bumptech.glide.Glide;
+import com.luo.ming.delicipe.Helpers.BitmapUtility;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
+import com.luo.ming.delicipe.Models.UserRecipeStep;
 import com.luo.ming.delicipe.Presenters.ScrollingActivityPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
@@ -214,6 +216,34 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
 
     }
 
+    @Override
+    public void displayCookingSteps(ArrayList<UserRecipeStep> userRecipeSteps) {
+
+        stepsTableLayout.removeAllViews();
+
+        for(int i=0;i<userRecipeSteps.size();i++){
+
+            LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LinearLayout row = (LinearLayout)inflater.inflate(R.layout.table_row_cooking_step,null);
+
+            TextView stepCount = row.findViewById(R.id.text_step_count);
+            TextView stepText = row.findViewById(R.id.text_step_name);
+            ImageView stepImage = row.findViewById(R.id.image_step);
+
+            stepCount.setText("Step "+String.valueOf(i+1));
+            stepText.setText(userRecipeSteps.get(i).getStepText());
+            byte[]imageBytes = userRecipeSteps.get(i).getImageBytes();
+            Bitmap bitmap = BitmapUtility.covertBytesToBitmap(imageBytes);
+            Glide.with(this)
+                    .load(bitmap)
+                    .into(stepImage);
+
+            stepsTableLayout.addView(row,i);
+
+        }
+
+    }
+
 //    @Override
 //    public void updateCountInTableLayout(ArrayList<Ingredient> ingredients) {
 //
@@ -280,6 +310,8 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
     public void displayComment(String comment) {
         textComment.setText(comment);
     }
+
+
 
     @Override
     public void popupToast(String text) {

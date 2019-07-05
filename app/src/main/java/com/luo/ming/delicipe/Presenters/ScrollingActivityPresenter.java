@@ -17,6 +17,7 @@ import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Models.UserRecipe;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
+import com.luo.ming.delicipe.Models.UserRecipeStep;
 
 public class ScrollingActivityPresenter {
 
@@ -96,8 +97,7 @@ public class ScrollingActivityPresenter {
         displayCookingTime();
         displayUserIngredients();
         view.setIconVisibility(android.view.View.VISIBLE,android.view.View.INVISIBLE,android.view.View.INVISIBLE);
-
-        //displayUserSteps();
+        displayUserSteps();
     }
 
     private void displayComment() {
@@ -108,6 +108,11 @@ public class ScrollingActivityPresenter {
     private void displayUserIngredients() {
         ArrayList<UserRecipeIngredient>ingredients = userRecipe.getIngredientList();
         view.displayUserIngredients(ingredients);
+    }
+    
+    private void displayUserSteps(){
+        ArrayList<UserRecipeStep>userRecipeSteps = userRecipe.getUserRecipeStepList();
+        view.displayCookingSteps(userRecipeSteps);
     }
 
     private void displayCookingTime() {
@@ -288,6 +293,8 @@ public class ScrollingActivityPresenter {
         void displayCookingTime(int cookingTime);
         void setIconVisibility(int a, int b, int c);
         void displayComment(String comment);
+
+        void displayCookingSteps(ArrayList<UserRecipeStep> userRecipeSteps);
     }
 
 
