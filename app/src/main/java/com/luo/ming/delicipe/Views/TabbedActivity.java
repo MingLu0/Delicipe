@@ -69,9 +69,10 @@ public class TabbedActivity extends AppCompatActivity{
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         // Set the text for each tab.
+        tabLayout.addTab(tabLayout.newTab().setText("For You"));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label1));
         tabLayout.addTab(tabLayout.newTab().setText("FAVORITE"));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label3));
+        //tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label3));
         // Set the tabs to fill the entire layout.
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -99,7 +100,7 @@ public class TabbedActivity extends AppCompatActivity{
         androidx.appcompat.widget.SearchView searchView =
                 (androidx.appcompat.widget.SearchView) menu.findItem(R.id.search).getActionView();
 
-        searchView.setQueryHint("search recipe");
+        searchView.setQueryHint("search online recipe");
 
         searchView.setIconified(false);
 
@@ -158,9 +159,11 @@ public class TabbedActivity extends AppCompatActivity{
         public Fragment getItem(int position) {
 
             switch(position){
-                case 0: return new UserRecipeFragment();
-                case 1: return new FavouritesFragment();
-                case 2: return new ShoppingFragment();
+
+                case 0: return new RecommendationFragment();
+                case 1: return new UserRecipeFragment();
+                case 2: return new FavouritesFragment();
+               // case 3: return new ShoppingFragment();
                 default: return null;
             }
 

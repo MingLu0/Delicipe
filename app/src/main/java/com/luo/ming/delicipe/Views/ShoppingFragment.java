@@ -52,8 +52,6 @@ public class ShoppingFragment extends Fragment implements ShoppingFragmentPresen
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
 
-
-
         recyclerView = view.findViewById(R.id.shoppingRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext())); //?

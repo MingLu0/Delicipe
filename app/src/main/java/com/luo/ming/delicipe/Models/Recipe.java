@@ -1,6 +1,7 @@
 package com.luo.ming.delicipe.Models;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -11,12 +12,20 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.luo.ming.delicipe.Data.DatabaseHandler;
 import com.luo.ming.delicipe.Helpers.VolleyCallBack;
+import com.luo.ming.delicipe.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +81,16 @@ public class Recipe implements Serializable {
             this.imageLink = this.imageLink.replace("httpss","https");
         }
     }
+
+    public static String getOnlineImageLink(String imageLink){
+        String imageUrl = imageLink.replace("http","https");
+        if(imageUrl.contains("httpss")){
+            imageUrl = imageUrl.replace("httpss","https");
+            return imageUrl;
+        }
+        return imageUrl;
+    }
+
     public void setPublisher(String publisher){
 
         this.publisher = publisher;
@@ -282,6 +301,8 @@ public class Recipe implements Serializable {
 
     }
 
+
+
     public ArrayList<Recipe> getFavouriteRecipesFromDB(Context context) {
 
         ArrayList<Recipe>recipes = new ArrayList<>();
@@ -292,6 +313,31 @@ public class Recipe implements Serializable {
 
         return recipes;
     }
+
+    public static JSONArray loadRecommendedRecipeJsonArray(Resources resources){
+        StringBuilder stringBuilder = new StringBuilder();
+        InputStream in = resources.openRawResource(R.raw.recipes);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+
+        String line;
+        try{
+            while((line = bufferedReader.readLine())!=null){
+                stringBuilder.append(line);
+            }
+            JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+            return jsonObject.getJSONArray("recipes");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+
 
     public Boolean checkIfRecipeSaved(Context context) {
 

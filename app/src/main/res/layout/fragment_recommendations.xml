@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Views.FragmentRecommendations">
+    tools:context=".Views.RecommendationFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.core.widget.NestedScrollView
@@ -12,6 +12,7 @@
         android:fillViewport="true">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_recommendation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </androidx.core.widget.NestedScrollView>
