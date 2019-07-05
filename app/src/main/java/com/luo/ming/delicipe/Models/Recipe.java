@@ -248,15 +248,9 @@ public class Recipe implements Serializable {
 
         queue.add(request);
 
-
-
         return recipeList;
 
     }
-
-
-
-
 
     public void addIngredientToDB(Context context,ArrayList<Ingredient>ingredients){
         db = DatabaseHandler.getDataBase(context);
