@@ -62,7 +62,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".Views.ScrollingActivity"
+            android:name=".Views.RecipeDisplayActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar">
 

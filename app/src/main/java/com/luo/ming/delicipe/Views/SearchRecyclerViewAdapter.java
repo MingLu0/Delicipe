@@ -77,7 +77,7 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
                     Recipe recipe = presenter.getRecipeList().get(getAdapterPosition());
                     //send the info about the specific view that the user has clicked on to the
                     //the next recipe page
-                    Intent intent = new Intent(context, ScrollingActivity.class);
+                    Intent intent = new Intent(context, RecipeDisplayActivity.class);
 
                     //send the recipe id to the next page
                     intent.putExtra(RECIPE_ID_MESSAGE,recipe.getID());

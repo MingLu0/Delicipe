@@ -130,6 +130,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    public void addUserIngredients(ArrayList<UserRecipeIngredient>ingredients) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (ingredients != null) {
+            for (int i = 0; i < ingredients.size(); i++) {
+                ContentValues values = new ContentValues();
+                values.put(Constants.KEY_ITEM_NAME,ingredients.get(i).getName());
+                db.insert(Constants.TABLE_SHOPPING_LIST_NAME, null, values);
+            }
+        }
+    }
+
     public ArrayList<Ingredient> getAllIngredients() {
         SQLiteDatabase db = this.getReadableDatabase();
 

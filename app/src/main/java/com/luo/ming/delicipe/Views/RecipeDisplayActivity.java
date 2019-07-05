@@ -34,7 +34,7 @@ import com.luo.ming.delicipe.Presenters.ScrollingActivityPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
 
-public class ScrollingActivity extends AppCompatActivity implements ScrollingActivityPresenter.View {
+public class RecipeDisplayActivity extends AppCompatActivity implements ScrollingActivityPresenter.View {
 
     private ImageView toolbarImage;
     private ScrollingActivityPresenter presenter;
@@ -171,9 +171,6 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
                 .load(bitmap)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(toolbarImage);
-       // toolbarImage.setImageBitmap(bitmap);
-
-
     }
 
     @Override
@@ -243,17 +240,6 @@ public class ScrollingActivity extends AppCompatActivity implements ScrollingAct
         }
 
     }
-
-//    @Override
-//    public void updateCountInTableLayout(ArrayList<Ingredient> ingredients) {
-//
-////        for(int i=0;i<ingredients.size();i++){
-////            TableRow row = (TableRow)ingredientTableLayout.getChildAt(i);
-////            TextView txtCount = row.findViewById(R.id.count);
-////            txtCount.setText(String.valueOf(ingredients.get(i).getCount()));
-////        }
-//
-//    }
 
     @Override
     public void updateServingSize(int newSergving) {

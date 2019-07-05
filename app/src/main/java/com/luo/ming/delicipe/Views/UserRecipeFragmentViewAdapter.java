@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.luo.ming.delicipe.Helpers.BitmapUtility;
-import com.luo.ming.delicipe.Models.UserRecipe;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Presenters.UserRecipeFragmentPresenter;
 import com.luo.ming.delicipe.R;
@@ -74,7 +73,7 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    Intent intent = new Intent(context,ScrollingActivity.class);
+                    Intent intent = new Intent(context, RecipeDisplayActivity.class);
                     UserRecipeCover userRecipeCover = presenter.getUserRecipeCover(position);
                     intent.putExtra(USER_RECIPE_ADPATER_MESSAGE,userRecipeCover.getCoverID());
                     context.startActivity(intent);

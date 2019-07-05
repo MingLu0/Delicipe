@@ -99,4 +99,10 @@ public class UserRecipe implements Parcelable {
 
         return this;
     }
+
+    public void addIngredientsToDB(Context context, ArrayList<UserRecipeIngredient> ingredientList) {
+
+        db = DatabaseHandler.getDataBase(context);
+        db.addUserIngredients(ingredientList);
+    }
 }

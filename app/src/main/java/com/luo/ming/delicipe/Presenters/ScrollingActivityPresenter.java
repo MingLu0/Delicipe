@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.content.Context;
-import android.view.View;
 
 import com.android.volley.RequestQueue;
 
@@ -222,8 +221,14 @@ public class ScrollingActivityPresenter {
 
     public void saveAllIngredients(){
 
-        recipe.addIngredientToDB(context,ingredients);
-        view.popupToast("All Ingredients have been saved!");
+        if(this.recipe!=null){
+            recipe.addIngredientToDB(context,ingredients);
+            view.popupToast("All Ingredients have been saved!");
+        } else if(this.userRecipe!=null){
+            userRecipe.addIngredientsToDB(context,userRecipe.getIngredientList());
+            view.popupToast("All Ingredients have been saved!");
+        }
+
 
     }
 
@@ -285,7 +290,6 @@ public class ScrollingActivityPresenter {
         void displayOnlineIngredients(ArrayList<Ingredient>ingredients);
         void displayUserIngredients(ArrayList<UserRecipeIngredient>ingredients);
         void popupToast(String text);
-       // void updateCountInTableLayout(ArrayList<Ingredient> ingredients);
         void updateServingSize(int newSergving);
         void displayRecipeTitle(String recipeTitle);
         void displayFavouriteButton(Boolean bool);
@@ -293,7 +297,6 @@ public class ScrollingActivityPresenter {
         void displayCookingTime(int cookingTime);
         void setIconVisibility(int a, int b, int c);
         void displayComment(String comment);
-
         void displayCookingSteps(ArrayList<UserRecipeStep> userRecipeSteps);
     }
 
