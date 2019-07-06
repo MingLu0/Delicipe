@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/amiri</item>
+        <item>@font/carrois_gothic</item>
+        <item>@font/kaushan_script</item>
+        <item>@font/lobster</item>
+        <item>@font/merriweather</item>
+        <item>@font/merriweather_light</item>
+        <item>@font/roboto</item>
+        <item>@font/roboto_bold</item>
+        <item>@font/rubik</item>
+        <item>@font/shrikhand</item>
+        <item>@font/varela_round</item>
+    </array>
+</resources>

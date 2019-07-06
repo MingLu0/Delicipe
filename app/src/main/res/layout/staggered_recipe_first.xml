@@ -33,16 +33,19 @@
                 android:id="@+id/recipe_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/merriweather"
+                android:text="Title"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="Title" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/recipe_source"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:fontFamily="@font/merriweather"
                 android:text="Source" />
         </LinearLayout>
 

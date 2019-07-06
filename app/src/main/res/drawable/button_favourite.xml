@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/ic_action_favourite" android:state_selected="false"></item>
-    <item android:drawable="@drawable/ic_action_person" android:state_selected="true"></item>
-
+    <item android:state_selected="false" android:drawable="@drawable/ic_action_favourite" />
+    <item android:state_selected="true" android:drawable="@drawable/ic_action_person" />
 </selector>
