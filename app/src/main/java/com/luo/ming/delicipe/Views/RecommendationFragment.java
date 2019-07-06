@@ -59,5 +59,10 @@ public class RecommendationFragment extends Fragment implements RecommendationFr
         StaggeredRecipeRecyclerViewAdapter adapter = new StaggeredRecipeRecyclerViewAdapter(getActivity(),presenter);
         recyclerView.setAdapter(adapter);
 
+        int largePadding = getResources().getDimensionPixelSize(R.dimen.staggered_recipe_spacing_large);
+        int smallPadding = getResources().getDimensionPixelSize(R.dimen.staggered_recipe_spacing_small);
+
+        recyclerView.addItemDecoration(new RecipeItemDecoration(largePadding,smallPadding));
+
     }
 }

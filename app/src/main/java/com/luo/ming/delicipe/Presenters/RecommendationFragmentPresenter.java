@@ -41,6 +41,13 @@ public class RecommendationFragmentPresenter {
         return 0;
     }
 
+    public String getRecipeID(int position) throws JSONException {
+
+        JSONObject jsonObject = recipeJsonArray.getJSONObject(position);
+
+        return jsonObject.getString("recipe_id");
+    }
+
     public interface RowView{
         void setRecipePhoto(String imageLink);
         void setRecipeTitle(String title);

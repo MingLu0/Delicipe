@@ -2,6 +2,7 @@ package com.luo.ming.delicipe.Views;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,20 @@ public class StaggeredRecipeRecyclerViewAdapter extends RecyclerView.Adapter<Sta
             recipeImage = itemView.findViewById(R.id.recipe_image);
             recipeTitle = itemView.findViewById(R.id.recipe_title);
             recipeSource = itemView.findViewById(R.id.recipe_source);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context,RecipeDisplayActivity.class);
+
+                    try {
+                        intent.putExtra(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE,presenter.getRecipeID(getAdapterPosition()));
+                        context.startActivity(intent);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
 
         @Override

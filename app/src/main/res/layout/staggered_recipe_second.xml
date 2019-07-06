@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardPreventCornerOverlap="true"
+    app:cardElevation="0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:contentPaddingTop="15dp">
+    app:contentPaddingTop="10dp">
 
     <LinearLayout
         android:layout_width="188dp"

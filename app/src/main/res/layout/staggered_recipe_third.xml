@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="165dp"
     android:layout_height="match_parent"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardPreventCornerOverlap="true"
+    app:cardElevation="0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:contentPaddingTop="120dp">
+    app:contentPaddingTop="95dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +17,7 @@
         <ImageView
             android:id="@+id/recipe_image"
             android:layout_width="match_parent"
-            android:layout_height="247dp"
+            android:layout_height="230dp"
             android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars" />
 

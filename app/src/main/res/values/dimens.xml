@@ -21,4 +21,6 @@
     <dimen name="app_bar_height">450dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="appbar_padding">16dp</dimen>
+    <dimen name="staggered_recipe_spacing_large">30dp</dimen>
+    <dimen name="staggered_recipe_spacing_small">26dp</dimen>
 </resources>
