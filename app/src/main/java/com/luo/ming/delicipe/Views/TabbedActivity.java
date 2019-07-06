@@ -17,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import com.luo.ming.delicipe.R;
@@ -25,6 +27,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class TabbedActivity extends AppCompatActivity{
@@ -60,6 +63,7 @@ public class TabbedActivity extends AppCompatActivity{
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
