@@ -282,6 +282,10 @@ public class ScrollingActivityPresenter {
         view.updateServingSize(newServing);
     }
 
+    public void displayDirectionsPage(){
+        view.displayDirectionsPage(Recipe.getOnlineUrl(recipe.getSourceURL()));
+    }
+
 
     public interface View {
 
@@ -298,6 +302,7 @@ public class ScrollingActivityPresenter {
         void setIconVisibility(int a, int b, int c);
         void displayComment(String comment);
         void displayCookingSteps(ArrayList<UserRecipeStep> userRecipeSteps);
+        void displayDirectionsPage(String Url);
     }
 
 

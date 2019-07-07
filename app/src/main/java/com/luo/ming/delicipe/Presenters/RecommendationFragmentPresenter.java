@@ -28,7 +28,7 @@ public class RecommendationFragmentPresenter {
     public void onBindViewHolder(StaggeredRecipeRecyclerViewAdapter.ViewHolder holder, int position) throws JSONException {
 
         JSONObject jsonObject= recipeJsonArray.getJSONObject(position);
-        holder.setRecipePhoto(Recipe.getOnlineImageLink(jsonObject.getString("image_url")));
+        holder.setRecipePhoto(Recipe.getOnlineUrl(jsonObject.getString("image_url")));
         holder.setRecipePublisher(jsonObject.getString("publisher"));
         holder.setRecipeTitle(jsonObject.getString("title"));
     }

@@ -2,6 +2,7 @@ package com.luo.ming.delicipe.Views;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.content.Intent;
 
@@ -149,6 +150,13 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
             }
         });
 
+        btnGetDirection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.displayDirectionsPage();
+            }
+        });
+
     }
 
 
@@ -238,6 +246,15 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
             stepsTableLayout.addView(row,i);
 
         }
+
+    }
+
+    @Override
+    public void displayDirectionsPage(String url) {
+
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
 
     }
 

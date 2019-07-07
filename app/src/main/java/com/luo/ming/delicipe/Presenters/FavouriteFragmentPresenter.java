@@ -29,6 +29,7 @@ public class FavouriteFragmentPresenter {
         holder.setRowViewImage(recipe.getImageLink());
         holder.setRowViewPublisher(recipe.getPublisher());
         holder.setRowViewTitle(recipe.getTitle());
+
     }
 
     public int getItemCount() {
@@ -36,9 +37,7 @@ public class FavouriteFragmentPresenter {
         if(recipeList != null){
             return recipeList.size();
         }
-
         return 0;
-
     }
 
     public Recipe getRecipeObjAtPosition(int layoutPosition) {
@@ -83,6 +82,5 @@ public class FavouriteFragmentPresenter {
     public interface View{
         void refreshRecipeList();
         void setRecyclerViewAdapter();
-
     }
 }

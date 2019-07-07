@@ -82,7 +82,7 @@ public class Recipe implements Serializable {
         }
     }
 
-    public static String getOnlineImageLink(String imageLink){
+    public static String getOnlineUrl(String imageLink){
         String imageUrl = imageLink.replace("http","https");
         if(imageUrl.contains("httpss")){
             imageUrl = imageUrl.replace("httpss","https");
