@@ -34,7 +34,7 @@
                 android:fontFamily="@font/merriweather"
                 android:text="Title"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:fontFamily="@font/merriweather"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:text="Source" />
         </LinearLayout>
 

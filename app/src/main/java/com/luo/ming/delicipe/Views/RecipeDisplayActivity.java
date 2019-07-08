@@ -8,6 +8,7 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -189,7 +190,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
         for(int i=0;i<ingredients.size();i++){
             LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_ingredient_api,null);
+            ConstraintLayout row = (ConstraintLayout) inflater.inflate(R.layout.table_row_ingredient_api,null);
 
              TextView itemName = row.findViewById(R.id.text_ingredient_item);
 
@@ -209,7 +210,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
         for(int i=0;i<ingredients.size();i++){
             LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_ingredient_api,null);
+            ConstraintLayout row = (ConstraintLayout) inflater.inflate(R.layout.table_row_ingredient_api,null);
 
             TextView itemName = row.findViewById(R.id.text_ingredient_item);
 
@@ -296,7 +297,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
     @Override
     public void displayCookingTime(int cookingTime) {
 
-        textCookingTime.setText(String.valueOf(cookingTime)+"  MINUTES");
+        textCookingTime.setText(String.valueOf(cookingTime)+" Minutes");
 
     }
 

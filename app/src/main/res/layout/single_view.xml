@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/recipe_cover_image"
                 android:fontFamily="@font/merriweather"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textStyle="bold"
                 android:textColor="#ff373435"
                 android:paddingLeft="10dp"

@@ -11,8 +11,4 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|always" />
 
-    <item
-        android:id="@+id/night_mode"
-        android:title="@string/night_mode"/>
-
 </menu>

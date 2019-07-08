@@ -5,15 +5,15 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_action_cart"
-            android:title="shopping" />
+            android:title="Shopping" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_action_edit"
-            android:title="edit" />
+            android:title="Create Recipe" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_action_clock"
-            android:title="time" />
+            android:title="Search Online Recipe" />
 
     </group>
 
