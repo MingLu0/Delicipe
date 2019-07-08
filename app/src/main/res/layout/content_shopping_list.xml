@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFBE6"
-    tools:context=".Views.ShoppingFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Views.ShoppingListActivity"
+    tools:showIn="@layout/activity_shopping_list">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/shoppingRecycleriew"
-
+        android:id="@+id/shoppingRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
 </LinearLayout>

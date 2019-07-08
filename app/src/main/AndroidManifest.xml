@@ -12,10 +12,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Views.AddRecipeActivity"
-            android:windowSoftInputMode="adjustPan"
+        <activity
+            android:name=".Views.ShoppingListActivity"
+            android:label="@string/title_activity_shopping_list"
+            android:parentActivityName=".Views.TabbedActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.luo.ming.delicipe.Views.TabbedActivity" />
+        </activity>
+        <activity
+            android:name=".Views.AddRecipeActivity"
+            android:parentActivityName=".Views.TabbedActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".Views.TabbedActivity">
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.luo.ming.delicipe.Views.TabbedActivity" />
@@ -64,9 +74,7 @@
         <activity
             android:name=".Views.RecipeDisplayActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

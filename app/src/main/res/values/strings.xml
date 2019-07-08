@@ -37,6 +37,9 @@
     <string name="main_sign_up_btn">SIGN UP</string>
     <string name="edit_shopping_item_save_btn">SAVE</string>
     <string name="title_activity_create_recipe">CreateRecipeActivity</string>
+    <string name="title_activity_shopping_list">ShoppingListActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
 
 </resources>

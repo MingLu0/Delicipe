@@ -2,15 +2,20 @@ package com.luo.ming.delicipe.Views;
 
 
 import android.content.Intent;
+
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -30,7 +35,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-public class TabbedActivity extends AppCompatActivity{
+public class TabbedActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     /**
      * The {@link PagerAdapter} that will provide
@@ -70,6 +75,13 @@ public class TabbedActivity extends AppCompatActivity{
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.fragment_container);
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawerLayout, toolbar,R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        navigationView.setNavigationItemSelectedListener(this);
+
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         // Set the text for each tab.
@@ -104,7 +116,7 @@ public class TabbedActivity extends AppCompatActivity{
         androidx.appcompat.widget.SearchView searchView =
                 (androidx.appcompat.widget.SearchView) menu.findItem(R.id.search).getActionView();
 
-        searchView.setQueryHint("search online recipe");
+        searchView.setQueryHint("Search Online Recipe");
 
         searchView.setIconified(false);
 
@@ -145,6 +157,22 @@ public class TabbedActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
      }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        int id = menuItem.getItemId();
+
+        switch (id){
+            case R.id.nav_shopping:
+                Intent intent = new Intent(this,ShoppingListActivity.class);
+                startActivity(intent);
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
 
     /**
      * A {@link FragmentStatePagerAdapter} that returns a fragment corresponding to
@@ -163,11 +191,9 @@ public class TabbedActivity extends AppCompatActivity{
         public Fragment getItem(int position) {
 
             switch(position){
-
                 case 0: return new RecommendationFragment();
                 case 1: return new UserRecipeFragment();
                 case 2: return new FavouritesFragment();
-               // case 3: return new ShoppingFragment();
                 default: return null;
             }
 
@@ -180,4 +206,5 @@ public class TabbedActivity extends AppCompatActivity{
 
 
     }
+
 }
