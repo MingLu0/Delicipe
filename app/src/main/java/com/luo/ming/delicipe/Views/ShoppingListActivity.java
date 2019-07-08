@@ -22,7 +22,7 @@ import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Presenters.ShoppingFragmentPresenter;
 import com.luo.ming.delicipe.R;
 
-public class ShoppingListActivity extends AppCompatActivity implements ShoppingFragmentPresenter.View {
+public class ShoppingListActivity extends AppCompatActivity implements ShoppingFragmentPresenter.View ,IngredientInputDialogView.OnButtonStateClickedListener{
 
     private RecyclerView recyclerView;
     private ShoppingListRecyclerViewAdapter recyclerViewAdapter;
@@ -136,6 +136,16 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
         super.onResume();
 
         resetPresenterAndAdapter();
+
+    }
+
+    @Override
+    public void onSaveClicked(String item) {
+
+    }
+
+    @Override
+    public void onCancelClicked() {
 
     }
 }

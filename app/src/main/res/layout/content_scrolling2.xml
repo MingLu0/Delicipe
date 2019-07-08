@@ -73,7 +73,7 @@
             android:text="60 Minutes"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.21"
+            app:layout_constraintHorizontal_bias="0.7"
             app:layout_constraintStart_toEndOf="@+id/imgClock"
             app:layout_constraintTop_toBottomOf="@+id/txtComment" />
 
@@ -92,25 +92,24 @@
             app:layout_constraintBottom_toBottomOf="@+id/txtCookingTime"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/checkBox"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toEndOf="@+id/txtCookingTime"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toEndOf="@+id/imgClock"
             app:layout_constraintTop_toTopOf="@+id/txtCookingTime" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Subhead"
             android:id="@+id/txtServing"
+            style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
-            android:text="4"
             android:fontFamily="@font/merriweather"
+            android:text="4"
             app:layout_constraintBottom_toBottomOf="@+id/imgPerson"
             app:layout_constraintStart_toEndOf="@+id/imgPerson"
             app:layout_constraintTop_toTopOf="@+id/imgPerson" />
-
 
 
         <ImageButton
@@ -156,9 +155,9 @@
             android:padding="8dp"
             android:textColor="#121312"
             android:textSize="36sp"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -166,15 +165,14 @@
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:button="@drawable/button_favourite"
             android:checked="true"
             app:layout_constraintBottom_toBottomOf="@+id/txtCookingTime"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txtCookingTime"
+            app:layout_constraintEnd_toStartOf="@+id/txtCookingTime"
+            app:layout_constraintHorizontal_bias="0.74"
+            app:layout_constraintStart_toEndOf="@+id/imgClock"
             app:layout_constraintTop_toTopOf="@+id/txtCookingTime" />
 
         <TextView
@@ -198,8 +196,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Cooking steps"
             android:fontFamily="@font/merriweather"
+            android:text="Cooking steps"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/table_main" />
