@@ -28,9 +28,8 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
     private ShoppingListRecyclerViewAdapter recyclerViewAdapter;
     private ShoppingFragmentPresenter presenter;
 
-    private AlertDialog.Builder inputDialogBuilder;
-    private AlertDialog inputDialog;
-    private LayoutInflater inflater;
+    private int position;
+    private Ingredient editIngredit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,40 +94,11 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
     @Override
     public void getEditedItem(final Ingredient editIngredit, final int position) {
 
-        inputDialogBuilder = new AlertDialog.Builder(this);
+        this.position = position;
+        this.editIngredit = editIngredit;
 
-        inflater = LayoutInflater.from(this);
-        final View view = inflater.inflate(R.layout.shopping_edit_popup, null);
-
-        final TextInputLayout editItemNameInputLayout = view.findViewById(R.id.text_input_layout_edit_shopping_item_outlined);
-        final TextInputEditText editItemNameInputText = view.findViewById(R.id.text_input_edit_text_edit_shopping_outlined);
-        Button btnSave =  view.findViewById(R.id.edit_saveButton);
-
-        editItemNameInputText.setText(editIngredit.getIngredientItem());
-
-        inputDialogBuilder.setView(view);
-        inputDialog = inputDialogBuilder.create();
-        inputDialog.show();
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(! TextUtils.isEmpty(editItemNameInputText.getText())){
-
-                    Ingredient newIngredient = new Ingredient();
-                    newIngredient.setID(editIngredit.getID());
-                    newIngredient.setIngredientItem(editItemNameInputText.getText().toString());
-                    presenter.saveUpdatedItem(newIngredient,position);
-                    inputDialog.dismiss();
-
-                } else{
-                    editItemNameInputLayout.setError("Item name required");
-                }
-
-            }
-        });
-
+        IngredientInputDialogView dialog=new IngredientInputDialogView(this);
+        dialog.setListener(this);
     }
 
     @Override
@@ -141,6 +111,11 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
 
     @Override
     public void onSaveClicked(String item) {
+
+        Ingredient newIngredient = new Ingredient();
+        newIngredient.setID(editIngredit.getID());
+        newIngredient.setIngredientItem(item);
+        presenter.saveUpdatedItem(newIngredient,position);
 
     }
 
