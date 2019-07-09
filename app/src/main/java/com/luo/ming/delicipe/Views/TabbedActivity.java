@@ -166,6 +166,18 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
             case R.id.nav_shopping:
                 Intent intent = new Intent(this,ShoppingListActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.nav_create_recipe:
+                Intent intent_recipe = new Intent(this,AddRecipeActivity.class);
+                startActivity(intent_recipe);
+                break;
+
+            case R.id.nav_online_recipe:
+                Intent intent_search = new Intent(this, SearchActivity.class);
+                startActivity(intent_search);
+                break;
+
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

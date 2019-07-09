@@ -140,6 +140,7 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
     @Override
     public void onAddCoverFragmentInteraction(Bundle bundle) {
 
+        userRecipeCover = null;
         userRecipeCover = bundle.getParcelable(COVER_INFO_BUNDLE_TAG);
 //        Log.d("AddRecipeActivity", userRecipeCover.getComment());
 //        Log.d("AddRecipeActivity", userRecipeCover.getImageUri());

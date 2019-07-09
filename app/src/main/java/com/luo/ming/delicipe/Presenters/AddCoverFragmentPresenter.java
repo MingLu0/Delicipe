@@ -25,12 +25,16 @@ public class AddCoverFragmentPresenter {
         int servingSize = view.getServingSize();
         String comment = view.getComment();
 
-        if(!checkIfNameExisits(coverName)){
+        if(coverName!=null){
+            if(!checkIfNameExisits(coverName)){
+                UserRecipeCover userRecipeCover = new UserRecipeCover(imageBytes,coverName,cookingTime,servingSize,comment);
+                return userRecipeCover;
+            }
 
-            UserRecipeCover userRecipeCover = new UserRecipeCover(imageBytes,coverName,cookingTime,servingSize,comment);
-            return userRecipeCover;
+            view.showNameExistsError();
         }
-        view.showNameExistsError();
+
+
        return null;
     }
 
@@ -50,6 +54,7 @@ public class AddCoverFragmentPresenter {
         int getServingSize();
         String getComment();
         void showNameExistsError();
+        void showNameEmptyError();
 
     }
 }

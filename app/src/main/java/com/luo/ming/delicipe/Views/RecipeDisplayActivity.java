@@ -77,6 +77,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home_up);
 
 
 
