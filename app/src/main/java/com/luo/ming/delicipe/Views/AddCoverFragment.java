@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,22 +109,13 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
             }
         });
 
-        name_text.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
+        name_text.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
 
                 resetNameEditText();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                resetNameEditText();
+                return false;
             }
         });
 
@@ -208,6 +200,7 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
         return 0;
 
     }
+
 
     @Override
     public String getComment() {

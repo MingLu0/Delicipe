@@ -85,9 +85,9 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         // Set the text for each tab.
-        tabLayout.addTab(tabLayout.newTab().setText("For You"));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label1));
-        tabLayout.addTab(tabLayout.newTab().setText("FAVORITE"));
+        tabLayout.addTab(tabLayout.newTab().setText("Hot"));
+        tabLayout.addTab(tabLayout.newTab().setText("My Recipe"));
+        tabLayout.addTab(tabLayout.newTab().setText("Favourite"));
         //tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label3));
         // Set the tabs to fill the entire layout.
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

@@ -36,7 +36,6 @@
                 app:title="@string/app_name"
             >
 
-
             </androidx.appcompat.widget.Toolbar>
 
             <com.google.android.material.tabs.TabLayout

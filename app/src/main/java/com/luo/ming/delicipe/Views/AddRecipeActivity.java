@@ -120,8 +120,8 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
         TabLayout tabLayout = findViewById(R.id.tab_layout_recipe);
         // Set the text for each tab.
         tabLayout.addTab(tabLayout.newTab().setText("COVER"));
-        tabLayout.addTab(tabLayout.newTab().setText("INGREDIENTS"));
-        tabLayout.addTab(tabLayout.newTab().setText("STEPS"));
+        tabLayout.addTab(tabLayout.newTab().setText("ingredient"));
+        tabLayout.addTab(tabLayout.newTab().setText("STEP"));
         // Set the tabs to fill the entire layout.
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
