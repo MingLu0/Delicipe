@@ -11,7 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +31,8 @@ import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Presenters.AddCoverFragmentPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -93,6 +98,35 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
                 startActivityForResult(pickPhoto,1);
             }
         });
+
+        name_text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus&& TextUtils.isEmpty(name_text.getText())){
+                    name_layout.setError(null);
+                }
+            }
+        });
+
+        name_text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                resetNameEditText();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                resetNameEditText();
+            }
+        });
+
 
         presenter = new AddCoverFragmentPresenter(getActivity(), this);
     }
@@ -192,6 +226,11 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
     public void showNameEmptyError() {
 
         name_layout.setError("Please Enter Recipe Name");
+    }
+
+    public void resetNameEditText(){
+        name_layout.setError(null);
+        name_layout.setHelperText("*Required");
     }
 
     public void sendDataBackToActivity(){

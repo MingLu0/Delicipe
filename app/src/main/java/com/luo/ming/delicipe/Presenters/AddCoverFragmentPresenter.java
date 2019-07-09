@@ -30,15 +30,14 @@ public class AddCoverFragmentPresenter {
                 UserRecipeCover userRecipeCover = new UserRecipeCover(imageBytes,coverName,cookingTime,servingSize,comment);
                 return userRecipeCover;
             }
-
             view.showNameExistsError();
         }
-
 
        return null;
     }
 
     private boolean checkIfNameExisits(String coverName) {
+
         UserRecipeCover userRecipeCover = new UserRecipeCover();
         userRecipeCover.setCoverName(coverName);
         Boolean bool = userRecipeCover.checkIfNameAlreadyExists(context);
