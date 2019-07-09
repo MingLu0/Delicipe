@@ -69,6 +69,7 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
                     if(btnChk.isChecked()){
 
                         presenter.deleteShoppingItem(getAdapterPosition());
+                        btnChk.setChecked(false);
 
                     }
 

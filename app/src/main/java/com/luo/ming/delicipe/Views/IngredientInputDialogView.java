@@ -27,12 +27,19 @@ public class IngredientInputDialogView extends LinearLayout {
     }
 
     private String inputText;
+    private String item;
 
 
 
     public IngredientInputDialogView(Context context) {
         super(context);
 
+        initView(context);
+    }
+
+    public IngredientInputDialogView(Context context, String item){
+        super(context);
+        this.item = item;
         initView(context);
     }
 
@@ -70,6 +77,7 @@ public class IngredientInputDialogView extends LinearLayout {
         btnSave =  findViewById(R.id.edit_saveButton);
         btnCancel = findViewById(R.id.edit_cancelButton);
 
+        editItemNameInputText.setText(item);
         inputDialogBuilder.setView(view);
         inputDialog = inputDialogBuilder.create();
         inputDialog.show();

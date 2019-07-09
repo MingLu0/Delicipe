@@ -38,14 +38,6 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = findViewById(R.id.shoppingRecyclerView);
@@ -97,7 +89,7 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
         this.position = position;
         this.editIngredit = editIngredit;
 
-        IngredientInputDialogView dialog=new IngredientInputDialogView(this);
+        IngredientInputDialogView dialog = new IngredientInputDialogView(this,editIngredit.getIngredientItem());
         dialog.setListener(this);
     }
 

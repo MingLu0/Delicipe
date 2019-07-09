@@ -24,10 +24,12 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:fontFamily="@font/merriweather"
                     android:id="@+id/text_input_edit_text_edit_shopping_outlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter item details" />
+                    android:hint="Enter ingredient details" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -39,7 +41,6 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/edit_cancelButton"
-
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,7 +48,7 @@
                     android:layout_weight="1"
                     android:text="Cancel" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/edit_saveButton"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="wrap_content"
@@ -57,7 +58,7 @@
                     android:background="@color/colorAccent"
                     android:text="@string/edit_shopping_item_save_btn"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold" />
+                    />
 
             </LinearLayout>
 
