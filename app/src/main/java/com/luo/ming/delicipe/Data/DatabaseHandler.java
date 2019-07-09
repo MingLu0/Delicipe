@@ -536,4 +536,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return userRecipeCover;
 
     }
+
+    public void addShoppingListItem(String item) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(Constants.KEY_ITEM_NAME,item);
+
+        db.insert(Constants.TABLE_SHOPPING_LIST_NAME, null,values);
+
+        db.close();
+
+
+    }
 }

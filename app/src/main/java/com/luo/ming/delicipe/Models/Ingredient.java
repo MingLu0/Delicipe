@@ -186,5 +186,11 @@ public class Ingredient implements Serializable {
         db.updateShoppingListItem(ingredient);
     }
 
+    public void addShoppingItemToDB(String item, Context context){
+        DatabaseHandler db = new DatabaseHandler(context);
+        db.addShoppingListItem(item);
+    }
+
+
 
 }

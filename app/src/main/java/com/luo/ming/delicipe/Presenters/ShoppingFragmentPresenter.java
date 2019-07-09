@@ -24,6 +24,13 @@ public class ShoppingFragmentPresenter {
 
     }
 
+    public void saveNewItem(String item) {
+
+        Ingredient ingredient = new Ingredient();
+        ingredient.addShoppingItemToDB(item, context);
+
+    }
+
     private class getIngredientsFromDB extends AsyncTask<Void,Void,Void> {
 
 
@@ -125,6 +132,7 @@ public class ShoppingFragmentPresenter {
         void notifyShoppingItemRemoved(int position);
         void notifyShoppingItemChanged();
         void getEditedItem(Ingredient ingredient,int position);
+
     }
 
     public interface ShoppingRowView{

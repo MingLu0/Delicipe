@@ -1,5 +1,6 @@
 package com.luo.ming.delicipe.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -7,12 +8,17 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -49,6 +55,33 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
         recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(this,presenter);
 
         recyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.shopping_options_menu,menu);
+
+
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.add_recipe:
+
+                IngredientInputDialogView dialogView = new IngredientInputDialogView(this);
+                dialogView.setListener(this);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -104,10 +137,20 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
     @Override
     public void onSaveClicked(String item) {
 
-        Ingredient newIngredient = new Ingredient();
-        newIngredient.setID(editIngredit.getID());
-        newIngredient.setIngredientItem(item);
-        presenter.saveUpdatedItem(newIngredient,position);
+        if(editIngredit!=null){
+
+            Ingredient newIngredient = new Ingredient();
+            newIngredient.setID(editIngredit.getID());
+            newIngredient.setIngredientItem(item);
+            presenter.saveUpdatedItem(newIngredient,position);
+            editIngredit = null;
+
+        } else {
+            presenter.saveNewItem(item);
+            refreshRecyclerViewList();
+        }
+
+
 
     }
 
