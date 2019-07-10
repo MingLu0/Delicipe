@@ -12,10 +12,12 @@ public class AddIngredientFragmentPresenter {
 
     private View view;
     private Context context;
+    private int editItemPosition;
 
     public AddIngredientFragmentPresenter(View view, Context context) {
         this.view = view;
         this.context = context;
+        editItemPosition = -1;
     }
 
     public void displayTableLayout(){
@@ -34,10 +36,30 @@ public class AddIngredientFragmentPresenter {
         return ingredients;
     }
 
+    public void editIngredient(String item) {
+        view.editIngredient(item, editItemPosition);
+        editItemPosition = -1;
+    }
+
+    public void handleSaveButtonClickedEvent(String item) {
+
+        if (editItemPosition >= 0) {
+            editIngredient(item);
+        } else {
+            addIngredient(item);
+        }
+
+    }
+
+    public void setItemPosition(int position) {
+        editItemPosition = position;
+    }
+
 
     public interface View {
         void displayTableLayout();
         void addIngredientToLayout(String item);
+        void editIngredient(String item, int position);
         ArrayList<UserRecipeIngredient>getIngredientsFromTableLayout();
     }
 }

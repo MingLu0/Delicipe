@@ -13,10 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.android.material.tabs.TabLayout;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Presenters.AddIngredientFragmentPresenter;
 import com.luo.ming.delicipe.R;
@@ -34,10 +38,6 @@ IngredientInputDialogView.OnButtonStateClickedListener{
     private AddIngredientFragmentPresenter presenter;
     private OnAddIngredientFragmentInteractionListener listener;
     private int rowCount;
-
-    private AlertDialog.Builder inputDialogBuilder;
-    private AlertDialog inputDialog;
-    private LayoutInflater inflater;
 
 
     public static final String INGREDIENT_BUNDLE_TAG = "package com.luo.ming.delicipe." +
@@ -75,11 +75,12 @@ IngredientInputDialogView.OnButtonStateClickedListener{
         tableLayout = view.findViewById(R.id.tableLayout_ingredient);
         presenter = new AddIngredientFragmentPresenter(this,getActivity());
         addIngredientBtn = view.findViewById(R.id.button_add_ingredient);
+
         addIngredientBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                IngredientInputDialogView dialog=new IngredientInputDialogView(getContext());
+                IngredientInputDialogView dialog = new IngredientInputDialogView(getContext());
                 dialog.setListener(AddIngredientFragment.this);
 
             }
@@ -93,22 +94,6 @@ IngredientInputDialogView.OnButtonStateClickedListener{
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         CardView row = (CardView) inflater.inflate(R.layout.table_row_shopping,null);
 
-
-//        deleteIngredientBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                // row is your row, the parent of the clicked button
-//                View row = (View) v.getParent();
-//                // container contains all the rows, you could keep a variable somewhere else to the container which you can refer to here
-//                ViewGroup container = ((ViewGroup)row.getParent());
-//                // delete the row and invalidate your view so it gets redrawn
-//                container.removeView(row);
-//                container.invalidate();
-//
-//            }
-//        });
-
         rowCount = tableLayout.getChildCount();
         tableLayout.addView(row,rowCount);
 
@@ -120,11 +105,52 @@ IngredientInputDialogView.OnButtonStateClickedListener{
         LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         CardView row = (CardView) inflater.inflate(R.layout.table_row_shopping,null);
 
-        TextView itemName = row.findViewById(R.id.txt_item);
+        final TextView itemName = row.findViewById(R.id.txt_item);
         itemName.setText(item);
+
+        final CheckBox checkBox = row.findViewById(R.id.chk_selected);
+
+        ImageButton editButton = row.findViewById(R.id.button_edit);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                IngredientInputDialogView dialogView = new IngredientInputDialogView(AddIngredientFragment.this.getActivity(),itemName.getText().toString());
+                dialogView.setListener(AddIngredientFragment.this);
+                View row = (View) v.getParent().getParent();
+                int position = tableLayout.indexOfChild(row);
+                presenter.setItemPosition(position);
+
+            }
+        });
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(checkBox.isChecked()){
+                    View row = (View)v.getParent().getParent();
+                    tableLayout.removeView(row);
+                    tableLayout.invalidate();
+                }
+
+            }
+        });
 
         tableLayout.addView(row);
 
+    }
+
+    @Override
+    public void editIngredient(String item, int position) {
+
+        View row = tableLayout.getChildAt(position);
+
+        if(row!=null){
+            TextView itemText = row.findViewById(R.id.txt_item);
+            itemText.setText(item);
+            tableLayout.invalidate();
+        }
     }
 
     @Override
@@ -152,9 +178,7 @@ IngredientInputDialogView.OnButtonStateClickedListener{
 
     @Override
     public void onSaveClicked(String item) {
-
-        presenter.addIngredient(item);
-
+        presenter.handleSaveButtonClickedEvent(item);
     }
 
     @Override

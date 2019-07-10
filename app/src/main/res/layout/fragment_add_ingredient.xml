@@ -25,13 +25,6 @@
             android:orientation="vertical"
             >
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:src="@drawable/ic_action_add_recipe" />
-
             <TableLayout
                 android:id="@+id/tableLayout_ingredient"
                 android:layout_width="match_parent"
@@ -43,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_add_ingredient"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -56,7 +49,6 @@
                     android:text="Add ingredient"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.85"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
