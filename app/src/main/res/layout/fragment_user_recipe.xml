@@ -38,7 +38,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:clickable="true"
-            android:src="@drawable/ic_action_add"
+            android:src="@drawable/ic_action_add_recipe"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.825"

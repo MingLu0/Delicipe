@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.luo.ming.delicipe.Presenters.RecommendationFragmentPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
@@ -96,10 +97,11 @@ public class StaggeredRecipeRecyclerViewAdapter extends RecyclerView.Adapter<Sta
 
         @Override
         public void setRecipePhoto(String imageLink) {
-            Picasso.with(context)
+
+            Glide.with(context)
                     .load(imageLink)
                     .error(R.drawable.ic_launcher_background)
-                    .fit()
+                    .centerCrop()
                     .into(recipeImage);
 
 

@@ -76,10 +76,8 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_add_recipe,menu);
-
         return true;
     }
 
@@ -93,7 +91,6 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-       // actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.pager);
@@ -102,7 +99,7 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
         TabLayout tabLayout = findViewById(R.id.tab_layout_recipe);
         // Set the text for each tab.
         tabLayout.addTab(tabLayout.newTab().setText("COVER"));
-        tabLayout.addTab(tabLayout.newTab().setText("ingredient"));
+        tabLayout.addTab(tabLayout.newTab().setText("INGREDIENT"));
         tabLayout.addTab(tabLayout.newTab().setText("STEP"));
         // Set the tabs to fill the entire layout.
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -196,7 +193,6 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
             }
 
         }
-
         @Override
         public int getCount() {
             return mNumOfTabs;

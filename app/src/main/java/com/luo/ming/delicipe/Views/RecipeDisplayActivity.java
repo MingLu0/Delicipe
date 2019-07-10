@@ -172,13 +172,13 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
                 .fit()
                 .into(toolbarImage);
 
-
     }
 
     @Override
     public void displayRecipePhotoFromBitmap(Bitmap bitmap) {
         Glide.with(this)
                 .load(bitmap)
+                .centerCrop()
                 .error(R.drawable.ic_launcher_foreground)
                 .into(toolbarImage);
     }
