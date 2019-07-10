@@ -93,7 +93,7 @@ public class ScrollingActivityPresenter {
         displayUserRecipeTitle();
         displayComment();
         displayUserRecipeServing();
-        displayCookingTime();
+        displayCookingTime(userRecipe.getUserRecipeCover().getCookingTime());
         displayUserIngredients();
         view.setIconVisibility(android.view.View.VISIBLE,android.view.View.INVISIBLE,android.view.View.INVISIBLE);
         displayUserSteps();
@@ -114,9 +114,8 @@ public class ScrollingActivityPresenter {
         view.displayCookingSteps(userRecipeSteps);
     }
 
-    private void displayCookingTime() {
-        
-        int cookingTime = userRecipe.getUserRecipeCover().getServingSize();
+    private void displayCookingTime(int cookingTime) {
+
         view.displayCookingTime(cookingTime);
     }
 
@@ -129,6 +128,7 @@ public class ScrollingActivityPresenter {
         view.setIconVisibility(android.view.View.INVISIBLE,android.view.View.VISIBLE,android.view.View.VISIBLE);
         displayRecipeTitle();
         getRecipePhoto();
+        displayCookingTime(recipe.getCookingTime());
         displayIngredientsTableLayout();
         displayFavouriteButton();
     }
@@ -189,6 +189,7 @@ public class ScrollingActivityPresenter {
                 displayIngredientsTableLayout();
                 displayRecipeTitle();
                 displayFavBtnForAPIRecipes();
+                displayCartButton();
 
             }
 
@@ -197,6 +198,10 @@ public class ScrollingActivityPresenter {
 
             }
         });
+    }
+
+    private void displayCartButton() {
+        view.displayShoppingCartButton();
     }
 
     public void getRecipePhoto(){
@@ -313,6 +318,7 @@ public class ScrollingActivityPresenter {
         void displayComment(String comment);
         void displayCookingSteps(ArrayList<UserRecipeStep> userRecipeSteps);
         void displayDirectionsPage(String Url);
+        void displayShoppingCartButton();
     }
 
 

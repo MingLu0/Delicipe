@@ -104,7 +104,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
 
 
         searchView.setIconifiedByDefault(false);
-        searchView.setQueryHint("search recipe");
+        searchView.setQueryHint("Search Online Recipes");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

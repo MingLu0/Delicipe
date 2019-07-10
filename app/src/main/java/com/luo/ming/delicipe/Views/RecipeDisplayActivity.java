@@ -40,7 +40,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
 
     private ImageView toolbarImage;
     private ScrollingActivityPresenter presenter;
-    private ImageButton btnCart;
+    private CheckBox btnCart;
     private TableLayout ingredientTableLayout,stepsTableLayout;
     private TextView txtServing,textTitle,textSteps,textCookingTime,textComment;
     private static int newServing;
@@ -83,7 +83,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
 
 
 
-        btnCart = (ImageButton)findViewById(R.id.btnCart);
+        btnCart = findViewById(R.id.btnCart);
         ingredientTableLayout = (TableLayout)findViewById(R.id.table_main);
         stepsTableLayout = findViewById(R.id.table_steps);
         txtServing = (TextView)findViewById(R.id.txtServing);
@@ -280,6 +280,12 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
 
+    }
+
+    @Override
+    public void displayShoppingCartButton() {
+
+        btnCart.setButtonDrawable(R.drawable.ic_action_shopping_cart_add);
     }
 
     @Override

@@ -116,10 +116,9 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
         androidx.appcompat.widget.SearchView searchView =
                 (androidx.appcompat.widget.SearchView) menu.findItem(R.id.search).getActionView();
 
-        searchView.setQueryHint("Search Online Recipe");
+        searchView.setQueryHint("Search Online Recipes");
 
         searchView.setIconified(false);
-
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
@@ -151,7 +150,6 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
-
         }
 
         return super.onOptionsItemSelected(item);
@@ -179,9 +177,7 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
                 break;
 
         }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        
         return true;
     }
 
