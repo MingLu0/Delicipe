@@ -133,6 +133,16 @@ public class ScrollingActivityPresenter {
         displayFavouriteButton();
     }
 
+    public void saveSingleIngredient(String item) {
+        Ingredient ingredient = new Ingredient();
+        ingredient.addShoppingItemToDB(item, context);
+    }
+
+    public void unsaveSingleIngredient(String item) {
+        Ingredient ingredient = new Ingredient();
+        ingredient.deleteShoppingItemFromDBByName(item,context);
+    }
+
     public static class saveUnsaveFavouriteRecipeTask extends AsyncTask<Void,Void,Void>{
 
         private Recipe recipe;

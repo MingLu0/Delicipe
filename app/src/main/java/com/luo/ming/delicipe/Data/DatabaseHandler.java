@@ -406,13 +406,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return false;
     }
 
-    public void deleteShoppingItem(int id) {
+    public void deleteShoppingItemById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Constants.TABLE_SHOPPING_LIST_NAME, Constants.KEY_INGREDIENT_ITEM_ID + " = ?",
                 new String[] {String.valueOf(id)});
-
         db.close();
+    }
 
+    public void deleteShoppingItemByName(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Constants.TABLE_SHOPPING_LIST_NAME,Constants.KEY_ITEM_NAME + " = ?",
+                new String[]{name});
+        db.close();
     }
 
     public void unsaveFavouriteRecipe(String id){

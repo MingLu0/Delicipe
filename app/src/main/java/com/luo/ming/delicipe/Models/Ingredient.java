@@ -6,10 +6,8 @@ import com.luo.ming.delicipe.Data.DatabaseHandler;
 import com.luo.ming.delicipe.Helpers.IngredientClassHelper;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class Ingredient implements Serializable {
     private double count;
@@ -176,9 +174,14 @@ public class Ingredient implements Serializable {
         return newIngredient;
     }
 
-    public void deleteShoppingItemFromDB(int id,Context context){
+    public void deleteShoppingItemFromDBById(int id, Context context){
         DatabaseHandler db = new DatabaseHandler(context);
-        db.deleteShoppingItem(id);
+        db.deleteShoppingItemById(id);
+    }
+
+    public void deleteShoppingItemFromDBByName(String name, Context context){
+        DatabaseHandler db = new DatabaseHandler(context);
+        db.deleteShoppingItemByName(name);
     }
 
     public void updateShoppingItemFromDB(Ingredient ingredient, Context context){

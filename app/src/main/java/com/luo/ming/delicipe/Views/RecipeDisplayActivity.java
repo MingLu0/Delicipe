@@ -49,6 +49,8 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
     private Button btnGetDirection;
 
 
+    //todo handle rotation
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -136,7 +138,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
 
                 Boolean checked = ((CheckBox)v).isChecked();
                 if(checked){
-                    checkBox.setButtonDrawable(R.drawable.ic_action_favourited_button);
+                    checkBox.setButtonDrawable(R.drawable.ic_action_favourited_button_24dp);
 
                     presenter.saveFavouriteRecipe();
 
@@ -193,9 +195,29 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
 
             ConstraintLayout row = (ConstraintLayout) inflater.inflate(R.layout.table_row_ingredient_api,null);
 
-             TextView itemName = row.findViewById(R.id.text_ingredient_item);
+             final TextView itemName = row.findViewById(R.id.text_ingredient_item);
 
              itemName.setText(ingredients.get(i).getIngredientItem());
+
+             final CheckBox checkBox = row.findViewById(R.id.checkBox_save_ingredient);
+             checkBox.setChecked(false);
+             checkBox.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     if(checkBox.isChecked()){
+
+                         presenter.saveSingleIngredient(itemName.getText().toString());
+
+                         Toast.makeText(getApplication(),"Ingredient Saved", Toast.LENGTH_SHORT).show();
+
+                     } else {
+
+                         presenter.unsaveSingleIngredient(itemName.getText().toString());
+                         Toast.makeText(getApplication(),"Ingredient Unsaved",Toast.LENGTH_SHORT).show();
+
+                     }
+                 }
+             });
 
             ingredientTableLayout.addView(row,i);
 
@@ -281,7 +303,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
 
         //android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.
         if(bool){
-            checkBox.setButtonDrawable(R.drawable.ic_action_favourited_button);
+            checkBox.setButtonDrawable(R.drawable.ic_action_favourited_button_24dp);
         } else {
             checkBox.setButtonDrawable(R.drawable.ic_action_favourite);
         }

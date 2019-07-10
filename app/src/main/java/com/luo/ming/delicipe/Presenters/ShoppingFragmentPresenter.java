@@ -72,7 +72,7 @@ public class ShoppingFragmentPresenter {
     public void deleteShoppingItem(int position) {
 
         Ingredient deleteItem = ingredients.get(position);
-        deleteItem.deleteShoppingItemFromDB(deleteItem.getID(),context);
+        deleteItem.deleteShoppingItemFromDBById(deleteItem.getID(),context);
         ingredients.remove(position);
         view.notifyShoppingItemRemoved(position);
     }
