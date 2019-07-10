@@ -21,6 +21,7 @@ import com.luo.ming.delicipe.Models.UserRecipe;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Models.UserRecipeStep;
+import com.luo.ming.delicipe.Presenters.AddRecipeActivityPresenter;
 import com.luo.ming.delicipe.R;
 
 import java.util.ArrayList;
@@ -29,22 +30,14 @@ import static com.luo.ming.delicipe.Views.AddCookingStepFragment.STEP_INFO_BUNDL
 import static com.luo.ming.delicipe.Views.AddCoverFragment.COVER_INFO_BUNDLE_TAG;
 import static com.luo.ming.delicipe.Views.AddIngredientFragment.INGREDIENT_BUNDLE_TAG;
 
-public class AddRecipeActivity extends AppCompatActivity implements AddCoverFragment.OnAddCoverFragmentInteractionListener, AddIngredientFragment.OnAddIngredientFragmentInteractionListener,AddCookingStepFragment.OnAddCookingStepFragmentInteractionListener{
+public class AddRecipeActivity extends AppCompatActivity implements AddCoverFragment.OnAddCoverFragmentInteractionListener, AddIngredientFragment.OnAddIngredientFragmentInteractionListener,AddCookingStepFragment.OnAddCookingStepFragmentInteractionListener, AddRecipeActivityPresenter.View {
 
     private PagerAdapter mSectionsPagerAdapter;
     private AddCoverFragment addCoverFragment;
     private AddIngredientFragment addIngredientFragment;
     private AddCookingStepFragment addCookingStepFragment;
 
-    private UserRecipeCover userRecipeCover;
-    private UserRecipeIngredient ingredient;
-    private UserRecipeStep step;
-
-    private ArrayList<UserRecipeIngredient> ingredientList;
-    private ArrayList<UserRecipeStep> userRecipeStepList;
-
-    //todo convert to MVP
-    private UserRecipe userRecipe;
+    private AddRecipeActivityPresenter presenter;
 
 
     /**
@@ -57,20 +50,9 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
 
         switch (item.getItemId()){
             case R.id.save_recipe:
-                addCoverFragment.sendDataBackToActivity();
-                addIngredientFragment.sendDataBackToActivity();
+                getRecipeInfoFromFragments();
+                presenter.saveRecipe();
 
-                if(addCookingStepFragment!=null){
-                    addCookingStepFragment.sendDataBackToActivity();
-                }
-
-                if(userRecipeCover != null){
-                     userRecipe = new UserRecipe(userRecipeCover,ingredientList,userRecipeStepList);
-                     userRecipe.saveUserRecipeToDatabase(this);
-                     Intent intent = new Intent(this, TabbedActivity.class);
-                     startActivity(intent);
-                    Toast.makeText(this,"Recipe has been saved", Toast.LENGTH_SHORT).show();
-                }
         }
 
         return super.onOptionsItemSelected(item);
@@ -135,49 +117,62 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         // set viewpager to the appropriate screen
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        presenter = new AddRecipeActivityPresenter(this, this);
+
     }
 
     @Override
     public void onAddCoverFragmentInteraction(Bundle bundle) {
 
-        userRecipeCover = null;
-        userRecipeCover = bundle.getParcelable(COVER_INFO_BUNDLE_TAG);
-//        Log.d("AddRecipeActivity", userRecipeCover.getComment());
-//        Log.d("AddRecipeActivity", userRecipeCover.getImageUri());
-//        Log.d("AddRecipeActivity", userRecipeCover.getCoverName());
-//        Log.d("AddRecipeActivity",String.valueOf(userRecipeCover.getCookingTime()));
-//        Log.d("AddRecipeActivity",String.valueOf(userRecipeCover.getServingSize()));
+        UserRecipeCover recipeCover = bundle.getParcelable(COVER_INFO_BUNDLE_TAG);
+        presenter.setUserRecipeCover(recipeCover);
 
     }
 
     @Override
     public void onAddIngredientFragmentInteraction(Bundle bundle) {
 
-        ingredientList = bundle.getParcelableArrayList(INGREDIENT_BUNDLE_TAG);
-
-        for(int i=0;i<ingredientList.size();i++){
-            ingredient = ingredientList.get(i);
-//            Log.d("AddRecipeActivity",String.valueOf(ingredient.getAmount()));
-//            Log.d("AddRecipeActivity",ingredient.getUnit());
-//            Log.d("AddRecipeActivity",ingredient.getName());
-        }
+        ArrayList<UserRecipeIngredient> ingredientLis = bundle.getParcelableArrayList(INGREDIENT_BUNDLE_TAG);
+        presenter.setIngredientList(ingredientLis);
 
     }
 
     @Override
     public void onAddCookingStepFragmentInteraction(Bundle bundle) {
 
-        userRecipeStepList = bundle.getParcelableArrayList(STEP_INFO_BUNDLE);
+        ArrayList<UserRecipeStep>userRecipeSteps = bundle.getParcelableArrayList(STEP_INFO_BUNDLE);
 
-        for(int i = 0; i< userRecipeStepList.size(); i++){
+        presenter.setUserRecipeStepList(userRecipeSteps);
 
-            step = userRecipeStepList.get(i);
-//            Log.d("AddRecipeActivity",step.getImageUri());
-//            Log.d("AddRecipeActivity",step.getStepText());
+    }
 
+    public void getRecipeInfoFromFragments(){
+
+        if(addCoverFragment!=null){
+            addCoverFragment.sendDataBackToActivity();
         }
 
+        if(addIngredientFragment!=null){
+            addIngredientFragment.sendDataBackToActivity();
+        }
+        if(addCookingStepFragment!=null){
+            addCookingStepFragment.sendDataBackToActivity();
+        }
 
+    }
+
+    @Override
+    public void showSaveSuccessMessage() {
+        Intent intent = new Intent(this, TabbedActivity.class);
+        startActivity(intent);
+        Toast.makeText(this,"Recipe has been saved", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void showSaveFailedMessage() {
+        Toast.makeText(this,"Recipe name can not be empty", Toast.LENGTH_SHORT).show();
     }
 
 

@@ -109,6 +109,7 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
 
         TextInputLayout stepTextLayout = row.findViewById(R.id.input_layout_step);
         TextInputEditText stepText = row.findViewById(R.id.input_edit_text_step);
+        stepTextLayout.setHint("Enter a cooking step");
 
         int rowCount = tableLayout.getChildCount();
         tableLayout.addView(row,rowCount);
@@ -130,7 +131,8 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
             public void onClick(View v) {
 
                 int requestCode = tableLayout.indexOfChild(row);
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK);
+                pickPhoto.setType("image/*");
                 startActivityForResult(pickPhoto,requestCode);
             }
 
