@@ -31,6 +31,9 @@ public class ShoppingFragmentPresenter {
 
     }
 
+    public void deleteAllShoppingItems() {
+    }
+
     private class getIngredientsFromDB extends AsyncTask<Void,Void,Void> {
 
 

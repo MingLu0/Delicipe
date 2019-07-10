@@ -177,7 +177,7 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
                 break;
 
         }
-        
+
         return true;
     }
 

@@ -3,10 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/add_recipe"
-
         android:title="add recipe"
         android:icon="@drawable/ic_action_add_recipe"
         android:iconTint="@color/colorPrimaryDark"
+        android:orderInCategory="20"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/delete_all_ingredients"
+        android:title="delete all ingredients"
+        android:icon="@drawable/ic_action_delete_recipe"
+        android:orderInCategory="10"
         app:showAsAction="always" />
 
 </menu>

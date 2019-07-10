@@ -70,7 +70,7 @@
             android:layout_marginRight="8dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/merriweather"
-            android:text="60 Minutes"
+            android:text=" "
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.7"
@@ -125,7 +125,7 @@
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnGetDirection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/merriweather"
-            android:text="Cooking steps"
+            android:text="Cooking Steps"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/table_main" />

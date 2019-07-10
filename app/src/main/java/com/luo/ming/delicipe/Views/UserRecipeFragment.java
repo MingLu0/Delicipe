@@ -26,6 +26,7 @@ public class UserRecipeFragment extends Fragment implements UserRecipeFragmentPr
         // Required empty public constructor
     }
 
+    //todo fix showing lagging problem
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

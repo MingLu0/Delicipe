@@ -128,7 +128,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.saveAllIngredients();
+               // presenter.saveAllIngredients();
             }
         });
 

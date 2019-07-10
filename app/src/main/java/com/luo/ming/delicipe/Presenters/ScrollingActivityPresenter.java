@@ -189,6 +189,7 @@ public class ScrollingActivityPresenter {
                 displayIngredientsTableLayout();
                 displayRecipeTitle();
                 displayFavBtnForAPIRecipes();
+                displayCookingTime(recipe.getCookingTime());
                 displayCartButton();
 
             }

@@ -77,9 +77,12 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
 
         switch (id){
             case R.id.add_recipe:
-
                 IngredientInputDialogView dialogView = new IngredientInputDialogView(this);
                 dialogView.setListener(this);
+
+            case R.id.delete_all_ingredients:
+                presenter.deleteAllShoppingItems();
+
         }
         return super.onOptionsItemSelected(item);
     }
