@@ -54,6 +54,9 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
 
     private DrawerLayout drawerLayout;
 
+    public static final String MESSAGE_FROM_TABBEDACTIVITY_TAG ="package com.luo.ming.delicipe.Views";
+    public static final String MESSAGE_FROM_NAVIGATIONDRAWER_TAGE ="package com.luo.ming.delicipe.Views.NavigationDrawer";
+
 
     //00c853
 
@@ -125,9 +128,8 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
             public boolean onQueryTextSubmit(String query) {
 
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                intent.putExtra("keyword",query);
+                intent.putExtra(MESSAGE_FROM_TABBEDACTIVITY_TAG,query);
                 startActivity(intent);
-
                 Log.d("searchview",query);
 
                 return false;

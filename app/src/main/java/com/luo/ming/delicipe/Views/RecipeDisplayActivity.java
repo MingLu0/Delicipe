@@ -50,6 +50,8 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
 
 
     //todo handle rotation
+    //todo add divider
+    //todo add progress bar
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

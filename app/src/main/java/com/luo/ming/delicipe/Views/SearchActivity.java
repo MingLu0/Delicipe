@@ -47,17 +47,19 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
         coordinatorLayout = findViewById(R.id.coordinatorLayout_search_activity);
         presenter = new SearchActivityPresenter(this,this);
         Intent intent = getIntent();
-        String keyword = intent.getStringExtra("keyword");
+        Bundle bundle = intent.getExtras();
 
-        presenter.setUrl(keyword);
+        if(bundle!=null){
+            if(bundle.containsKey(TabbedActivity.MESSAGE_FROM_TABBEDACTIVITY_TAG)){
+                String keyword = bundle.getString("keyword");
 
-        searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(presenter,this);
-
-        presenter.getRecipesList();
-
-        searchRecyclerViewAdapter.notifyDataSetChanged();
-
-
+                presenter.setUrl(keyword);
+                searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(presenter,this);
+                presenter.getRecipesList();
+                searchRecyclerViewAdapter.notifyDataSetChanged();
+            }
+        }
+        
     }
 
 
