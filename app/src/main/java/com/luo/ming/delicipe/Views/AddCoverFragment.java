@@ -45,7 +45,7 @@ import static android.app.Activity.RESULT_OK;
 public class AddCoverFragment extends Fragment implements AddCoverFragmentPresenter.FragmentView{
 
 
-    private String imageUri;
+    private Uri imageUri;
     private ImageView coverImageButton;
     private Button addBtn;
     private OnAddCoverFragmentInteractionListener listener;
@@ -89,6 +89,16 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
 
         coverImageButton = view.findViewById(R.id.imageCover);
 
+        if(savedInstanceState!=null){
+
+            imageUri = savedInstanceState.getParcelable("Uri");
+            Picasso.with(getActivity())
+                    .load(imageUri)
+                    .fit()
+                    .into(coverImageButton);
+
+        }
+
         coverImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,11 +138,11 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
         switch(requestCode){
             case 1:
                 if(resultCode == RESULT_OK){
-                    Uri selectedImage = data.getData();
-
+                    Uri selectedImageUri = data.getData();
+                    imageUri = selectedImageUri;
                     Bitmap bitmap = null;
                     try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),selectedImage);
+                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),selectedImageUri);
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -143,7 +153,7 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
                    Log.d("AddCoverFragment",String.valueOf(imageBytes.length));
 
                     Picasso.with(getActivity())
-                            .load(selectedImage)
+                            .load(selectedImageUri)
                             .fit()
                             .into(coverImageButton);
 
@@ -235,5 +245,15 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
     public interface OnAddCoverFragmentInteractionListener {
 
         void onAddCoverFragmentInteraction(Bundle bundle);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if(imageUri!=null){
+            outState.putParcelable("Uri", imageUri);
+        }
+
     }
 }
