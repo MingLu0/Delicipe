@@ -73,7 +73,7 @@ IngredientInputDialogView.OnButtonStateClickedListener{
 
 
         tableLayout = view.findViewById(R.id.tableLayout_ingredient);
-        presenter = new AddIngredientFragmentPresenter(this,getActivity());
+        presenter = new AddIngredientFragmentPresenter(this);
         addIngredientBtn = view.findViewById(R.id.button_add_ingredient);
 
         addIngredientBtn.setOnClickListener(new View.OnClickListener() {

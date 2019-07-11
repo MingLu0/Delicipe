@@ -55,9 +55,9 @@ public class UserRecipe implements Parcelable {
         }
     };
 
-    public void saveUserRecipeToDatabase(Context context){
+    public void saveUserRecipeToDatabase(){
 
-        db = DatabaseHandler.getDataBase(context);
+        db = DatabaseHandler.getDataBase();
         db.saveRecipeCover(userRecipeCover);
         int recipeCoverID = db.getUserRecipeCoverID(userRecipeCover.getCoverName());
         db.saveRecipeIngredients(ingredientList,recipeCoverID);
@@ -66,9 +66,9 @@ public class UserRecipe implements Parcelable {
     }
 
 
-    public UserRecipe getUserRecipeObjFromCoverObj(UserRecipeCover recipeCover,Context context) {
+    public UserRecipe getUserRecipeObjFromCoverObj(UserRecipeCover recipeCover) {
 
-        db = DatabaseHandler.getDataBase(context);
+        db = DatabaseHandler.getDataBase();
         userRecipeCover = recipeCover;
         ingredientList = db.getRecipeIngredientsWithCoverId(recipeCover.getCoverID());
         userRecipeStepList = db.getRecipeStepsWithCoverId(recipeCover.getCoverID());
@@ -91,7 +91,7 @@ public class UserRecipe implements Parcelable {
 
     public UserRecipe getUserRecipeWithID(String recipeID, Context context) {
 
-        db = DatabaseHandler.getDataBase(context);
+        db = DatabaseHandler.getDataBase();
 
         userRecipeCover = db.getRecipeCoverWithId(recipeID);
         ingredientList = db.getRecipeIngredientsWithCoverId(recipeID);
@@ -102,7 +102,7 @@ public class UserRecipe implements Parcelable {
 
     public void addIngredientsToDB(Context context, ArrayList<UserRecipeIngredient> ingredientList) {
 
-        db = DatabaseHandler.getDataBase(context);
+        db = DatabaseHandler.getDataBase();
         db.addUserIngredients(ingredientList);
     }
 }

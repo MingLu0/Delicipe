@@ -1,20 +1,16 @@
 package com.luo.ming.delicipe.Presenters;
 
-import android.content.Context;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 
 
 public class AddCoverFragmentPresenter {
 
-    private Context context;
     private FragmentView view;
 
 
-    public AddCoverFragmentPresenter(Context context, FragmentView view) {
-        this.context = context;
+    public AddCoverFragmentPresenter(FragmentView view) {
         this.view = view;
     }
-
 
 
     public UserRecipeCover getCoverInfoFromInput() {
@@ -27,8 +23,9 @@ public class AddCoverFragmentPresenter {
 
         if(coverName!=null){
             if(!checkIfNameExisits(coverName)){
-                UserRecipeCover userRecipeCover = new UserRecipeCover(imageBytes,coverName,cookingTime,servingSize,comment);
-                return userRecipeCover;
+
+                 return new UserRecipeCover(imageBytes,coverName,cookingTime,servingSize,comment);
+
             }
             view.showNameExistsError();
         }
@@ -38,11 +35,8 @@ public class AddCoverFragmentPresenter {
 
     private boolean checkIfNameExisits(String coverName) {
 
-        UserRecipeCover userRecipeCover = new UserRecipeCover();
-        userRecipeCover.setCoverName(coverName);
-        Boolean bool = userRecipeCover.checkIfNameAlreadyExists(context);
+        return UserRecipeCover.chkIfRecipeNameExists(coverName);
 
-        return bool;
     }
 
     public interface FragmentView{

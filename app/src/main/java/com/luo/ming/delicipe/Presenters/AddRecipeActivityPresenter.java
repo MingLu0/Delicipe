@@ -1,7 +1,5 @@
 package com.luo.ming.delicipe.Presenters;
 
-import android.content.Context;
-
 import com.luo.ming.delicipe.Models.UserRecipe;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
@@ -12,7 +10,6 @@ import java.util.ArrayList;
 public class AddRecipeActivityPresenter {
 
     private View view;
-    private Context context;
 
     private UserRecipeCover userRecipeCover;
     private ArrayList<UserRecipeIngredient> ingredientList;
@@ -20,9 +17,8 @@ public class AddRecipeActivityPresenter {
 
     private UserRecipe userRecipe;
 
-    public AddRecipeActivityPresenter(View view, Context context) {
+    public AddRecipeActivityPresenter(View view) {
         this.view = view;
-        this.context = context;
     }
 
     public void setUserRecipeCover(UserRecipeCover userRecipeCover) {
@@ -42,7 +38,7 @@ public class AddRecipeActivityPresenter {
 
         if(userRecipeCover != null){
             userRecipe = new UserRecipe(userRecipeCover,ingredientList,userRecipeStepList);
-            userRecipe.saveUserRecipeToDatabase(context);
+            userRecipe.saveUserRecipeToDatabase();
             view.showSaveSuccessMessage();
         } else {
 

@@ -89,7 +89,7 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
         tableLayout = view.findViewById(R.id.tableLayout_steps);
         addStepButton = view.findViewById(R.id.add_step_button);
 
-        presenter = new AddCookingStepPresenter(getActivity(),this);
+        presenter = new AddCookingStepPresenter(this);
         addStepButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

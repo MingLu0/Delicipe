@@ -1,22 +1,16 @@
 package com.luo.ming.delicipe.Presenters;
 
-import android.content.Context;
-import android.text.Editable;
-
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
-import com.luo.ming.delicipe.Views.AddIngredientFragment;
 
 import java.util.ArrayList;
 
 public class AddIngredientFragmentPresenter {
 
     private View view;
-    private Context context;
     private int editItemPosition;
 
-    public AddIngredientFragmentPresenter(View view, Context context) {
+    public AddIngredientFragmentPresenter(View view) {
         this.view = view;
-        this.context = context;
         editItemPosition = -1;
     }
 
@@ -32,8 +26,7 @@ public class AddIngredientFragmentPresenter {
 
     public ArrayList<UserRecipeIngredient> getAllIngredientsFromTB() {
 
-        ArrayList<UserRecipeIngredient>ingredients = view.getIngredientsFromTableLayout();
-        return ingredients;
+        return view.getIngredientsFromTableLayout();
     }
 
     public void editIngredient(String item) {

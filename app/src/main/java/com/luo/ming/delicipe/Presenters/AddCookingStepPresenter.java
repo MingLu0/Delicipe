@@ -1,19 +1,15 @@
 package com.luo.ming.delicipe.Presenters;
 
-import android.content.Context;
-
 import com.luo.ming.delicipe.Models.UserRecipeStep;
 
 import java.util.ArrayList;
 
 public class AddCookingStepPresenter {
 
-    private Context context;
     private View view;
 
 
-    public AddCookingStepPresenter(Context context, View view) {
-        this.context = context;
+    public AddCookingStepPresenter(View view) {
         this.view = view;
     }
 
@@ -23,9 +19,8 @@ public class AddCookingStepPresenter {
 
     public ArrayList<UserRecipeStep> getUserSteps() {
 
-        ArrayList<UserRecipeStep>userRecipeSteps = view.getStepsFromTableLayout();
+        return view.getStepsFromTableLayout();
 
-        return userRecipeSteps;
     }
 
     public interface View{

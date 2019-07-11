@@ -21,10 +21,7 @@ public class ShoppingFragmentPresenter {
     }
 
     public void saveNewItem(String item) {
-
-        Ingredient ingredient = new Ingredient();
-        ingredient.addShoppingItemToDB(item);
-
+        Ingredient.addShoppingItemToDB(item);
     }
 
     public void deleteAllShoppingItems() {

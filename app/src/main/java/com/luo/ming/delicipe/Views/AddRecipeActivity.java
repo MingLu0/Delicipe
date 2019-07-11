@@ -115,7 +115,7 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
         // set viewpager to the appropriate screen
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        presenter = new AddRecipeActivityPresenter(this, this);
+        presenter = new AddRecipeActivityPresenter(this);
 
     }
 

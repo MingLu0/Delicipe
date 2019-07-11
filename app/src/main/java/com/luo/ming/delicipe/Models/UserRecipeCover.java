@@ -39,11 +39,10 @@ public class UserRecipeCover implements Parcelable {
         this.comment = comment;
     }
 
-    public ArrayList<UserRecipeCover> getAllRecipeCoversFromDB(Context context){
+    public static ArrayList<UserRecipeCover> getAllRecipeCoversFromDB(){
+
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         ArrayList<UserRecipeCover> userRecipeCovers ;
-
-        db = DatabaseHandler.getDataBase(context);
-
         userRecipeCovers= db.getAllUserRecipeCovers();
 
         return userRecipeCovers;
@@ -127,11 +126,11 @@ public class UserRecipeCover implements Parcelable {
         dest.writeString(comment);
     }
 
-    public Boolean checkIfNameAlreadyExists(Context context) {
+    public static Boolean chkIfRecipeNameExists(String name) {
 
-        db = DatabaseHandler.getDataBase(context);
+        DatabaseHandler db = DatabaseHandler.getDataBase();
 
-        Boolean bool = db.checkIfUserRecipeNameExists(context, this.getCoverName());
+        Boolean bool = db.checkIfUserRecipeNameExists(name);
 
         return bool;
     }

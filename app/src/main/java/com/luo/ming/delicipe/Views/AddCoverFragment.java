@@ -113,14 +113,12 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
         name_text.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-
                 resetNameEditText();
                 return false;
             }
         });
 
-
-        presenter = new AddCoverFragmentPresenter(getActivity(), this);
+        presenter = new AddCoverFragmentPresenter(this);
     }
 
     @Override

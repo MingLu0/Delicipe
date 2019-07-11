@@ -9,6 +9,7 @@ import android.os.Parcelable;
 import android.util.Log;
 
 import com.luo.ming.delicipe.Helpers.Constants;
+import com.luo.ming.delicipe.Helpers.DelicipeApplication;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Models.UserRecipe;
@@ -30,11 +31,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         super(context, Constants.DB_NAME, null, Constants.DB_VERSION);
     }
 
-    public static DatabaseHandler getDataBase(Context context){
+    public static DatabaseHandler getDataBase(){
 
         if (INSTANCE == null ){
             synchronized (DatabaseHandler.class){
-                INSTANCE = new DatabaseHandler(context);
+                INSTANCE = new DatabaseHandler(DelicipeApplication.getAppContext());
                 return INSTANCE;
             }
         }
@@ -443,7 +444,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public Boolean checkIfUserRecipeNameExists(Context context, String coverName) {
+    public Boolean checkIfUserRecipeNameExists(String coverName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 

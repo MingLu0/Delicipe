@@ -272,7 +272,7 @@ public class Recipe implements Serializable {
     }
 
     public void addIngredientToDB(Context context,ArrayList<Ingredient>ingredients){
-        db = DatabaseHandler.getDataBase(context);
+        db = DatabaseHandler.getDataBase();
         db.addIngredients(ingredients);
     }
 
@@ -307,7 +307,7 @@ public class Recipe implements Serializable {
 
         ArrayList<Recipe>recipes = new ArrayList<>();
 
-        db = DatabaseHandler.getDataBase(context);
+        db = DatabaseHandler.getDataBase();
 
         recipes = db.getFavouriteRecipes();
 
@@ -341,7 +341,7 @@ public class Recipe implements Serializable {
 
     public Boolean checkIfRecipeSaved(Context context) {
 
-        db = DatabaseHandler.getDataBase(context);
+        db = DatabaseHandler.getDataBase();
 
         Boolean bool = db.checkIfRecipeSaved(this.ID);
 
@@ -349,13 +349,13 @@ public class Recipe implements Serializable {
     }
 
     public void saveFavouriteRecipeToDB(Context context){
-        db = DatabaseHandler.getDataBase(context);
+        db = DatabaseHandler.getDataBase();
         db.saveFavouriteRecipe(this);
     }
 
     public void unsaveFavouriteRecipetoDB(Context context) {
 
-        db = DatabaseHandler.getDataBase(context);
+        db = DatabaseHandler.getDataBase();
         db.unsaveFavouriteRecipe(this.ID);
     }
 }

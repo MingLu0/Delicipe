@@ -11,14 +11,12 @@ import java.util.ArrayList;
 
 public class UserRecipeFragmentPresenter {
 
-    private Context context;
     private ArrayList<UserRecipeCover>userRecipeCoverList;
     private ArrayList<UserRecipe>userRecipeList;
     private UserRecipeCover userRecipeCover;
     private View view;
 
-    public UserRecipeFragmentPresenter(Context context,View view) {
-        this.context = context;
+    public UserRecipeFragmentPresenter(View view) {
         this.view = view;
         userRecipeCover = new UserRecipeCover();
         //userRecipeCoverList = userRecipeCover.getAllRecipeCoversFromDB(context);
@@ -51,7 +49,7 @@ public class UserRecipeFragmentPresenter {
 
         UserRecipe userRecipe = new UserRecipe();
 
-        userRecipe = userRecipe.getUserRecipeObjFromCoverObj(recipeCover,context);
+        userRecipe = userRecipe.getUserRecipeObjFromCoverObj(recipeCover);
 
         return userRecipe;
 
@@ -66,7 +64,7 @@ public class UserRecipeFragmentPresenter {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            userRecipeCoverList = userRecipeCover.getAllRecipeCoversFromDB(context);
+            userRecipeCoverList = UserRecipeCover.getAllRecipeCoversFromDB();
             Log.d("RecipeFragmentPresenter","retrived usercover list");
             return null;
         }

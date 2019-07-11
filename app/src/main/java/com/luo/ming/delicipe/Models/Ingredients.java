@@ -18,13 +18,13 @@ public class Ingredients implements Serializable {
     }
 
     public static ArrayList<Ingredient>getAllIngredientsFromDB(Context context){
-        DatabaseHandler db = DatabaseHandler.getDataBase(context);
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         return db.getAllIngredients();
     }
 
     public static void deleteAllShoppingItems(){
 
-        DatabaseHandler db = DatabaseHandler.getDataBase(DelicipeApplication.getAppContext());
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         db.deleteAllShoppingItems();
     }
 }
