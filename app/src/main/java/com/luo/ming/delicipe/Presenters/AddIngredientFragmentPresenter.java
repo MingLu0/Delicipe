@@ -50,9 +50,12 @@ public class AddIngredientFragmentPresenter {
 
     public void displayTableRows(ArrayList<UserRecipeIngredient> ingredients) {
 
-        for(UserRecipeIngredient i : ingredients){
-            view.addIngredientToLayout(i.getName());
+        if(ingredients!=null){
+            for(UserRecipeIngredient i : ingredients){
+                view.addIngredientToLayout(i.getName());
+            }
         }
+
     }
 
 

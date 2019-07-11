@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.luo.ming.delicipe.Helpers.BitmapUtility;
@@ -90,6 +91,12 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
         addStepButton = view.findViewById(R.id.add_step_button);
 
         presenter = new AddCookingStepPresenter(this);
+        
+        if(savedInstanceState!=null){
+
+            ArrayList<UserRecipeStep> userRecipeSteps = savedInstanceState.getParcelableArrayList("userRecipeSteps");
+            presenter.displayTableRows(userRecipeSteps);
+        }
         addStepButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,8 +105,9 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
         });
     }
 
+
     @Override
-    public void displayTableLayout() {
+    public void addNewCookingStep(UserRecipeStep userRecipeStep) {
 
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final LinearLayout row = (LinearLayout) inflater.inflate(R.layout.table_row_step,null);
@@ -111,9 +119,17 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
         TextInputEditText stepText = row.findViewById(R.id.input_edit_text_step);
         stepTextLayout.setHint("Enter a cooking step");
 
+        if(userRecipeStep!=null){
+
+            stepText.setText(userRecipeStep.getStepText());
+            Glide.with(getActivity())
+                    .load(userRecipeStep.getImageBytes())
+                    .fitCenter()
+                    .into(addphotoBtn);
+        }
+
         int rowCount = tableLayout.getChildCount();
         tableLayout.addView(row,rowCount);
-
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,7 +211,6 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
     }
 
 
-
     public void sendDataBackToActivity(){
 
         ArrayList<UserRecipeStep> userRecipeStepsList = presenter.getUserSteps();
@@ -208,4 +223,15 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
     public interface OnAddCookingStepFragmentInteractionListener{
         void onAddCookingStepFragmentInteraction(Bundle bundle);
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if(tableLayout.getChildCount()>0){
+            ArrayList<UserRecipeStep> userRecipeSteps = getStepsFromTableLayout();
+            outState.putParcelableArrayList("userRecipeSteps",userRecipeSteps);
+        }
+    }
+
 }

@@ -211,9 +211,7 @@ IngredientInputDialogView.OnButtonStateClickedListener{
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-
         if(tableLayout.getChildCount()>0){
-
             ArrayList<UserRecipeIngredient> ingredientList = getIngredientsFromTableLayout();
             outState.putParcelableArrayList("ingredients",ingredientList);
         }
