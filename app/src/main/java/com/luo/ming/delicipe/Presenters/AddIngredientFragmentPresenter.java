@@ -15,7 +15,7 @@ public class AddIngredientFragmentPresenter {
     }
 
     public void displayTableLayout(){
-        view.displayTableLayout();
+        view.addNewTableRow();
     }
 
     public void addIngredient(String text) {
@@ -48,9 +48,16 @@ public class AddIngredientFragmentPresenter {
         editItemPosition = position;
     }
 
+    public void displayTableRows(ArrayList<UserRecipeIngredient> ingredients) {
+
+        for(UserRecipeIngredient i : ingredients){
+            view.addIngredientToLayout(i.getName());
+        }
+    }
+
 
     public interface View {
-        void displayTableLayout();
+        void addNewTableRow();
         void addIngredientToLayout(String item);
         void editIngredient(String item, int position);
         ArrayList<UserRecipeIngredient>getIngredientsFromTableLayout();

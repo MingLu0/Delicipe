@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,6 +78,11 @@ IngredientInputDialogView.OnButtonStateClickedListener{
         presenter = new AddIngredientFragmentPresenter(this);
         addIngredientBtn = view.findViewById(R.id.button_add_ingredient);
 
+        if(savedInstanceState!=null){
+            ArrayList<UserRecipeIngredient>ingredients = savedInstanceState.getParcelableArrayList("ingredients");
+            presenter.displayTableRows(ingredients);
+        }
+
         addIngredientBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,9 +94,8 @@ IngredientInputDialogView.OnButtonStateClickedListener{
         });
     }
 
-
     @Override
-    public void displayTableLayout() {
+    public void addNewTableRow() {
 
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         CardView row = (CardView) inflater.inflate(R.layout.table_row_shopping,null);
@@ -201,4 +207,15 @@ IngredientInputDialogView.OnButtonStateClickedListener{
         void onAddIngredientFragmentInteraction(Bundle bundle);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+
+        if(tableLayout.getChildCount()>0){
+
+            ArrayList<UserRecipeIngredient> ingredientList = getIngredientsFromTableLayout();
+            outState.putParcelableArrayList("ingredients",ingredientList);
+        }
+    }
 }
