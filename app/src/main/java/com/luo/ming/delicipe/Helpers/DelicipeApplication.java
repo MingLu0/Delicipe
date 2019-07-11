@@ -6,6 +6,7 @@ import android.content.Context;
 import androidx.appcompat.app.AppCompatDelegate;
 
 public class DelicipeApplication extends Application {
+    
     private static DelicipeApplication instance;
     private static Context context;
 

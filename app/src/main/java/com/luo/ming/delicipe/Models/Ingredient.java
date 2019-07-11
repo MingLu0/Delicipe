@@ -31,8 +31,6 @@ public class Ingredient implements Serializable {
         this.ingredientItem = ingredientItem;
     }
 
-    private DatabaseHandler db;
-
 
     public int getID() {
         return ID;
@@ -177,7 +175,7 @@ public class Ingredient implements Serializable {
     }
 
     public static void deleteShoppingItemFromDBById(int id){
-        DatabaseHandler db = new DatabaseHandler(DelicipeApplication.getAppContext());
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         db.deleteShoppingItemById(id);
     }
 
@@ -187,12 +185,12 @@ public class Ingredient implements Serializable {
     }
 
     public static void updateShoppingItemFromDB(Ingredient ingredient){
-        DatabaseHandler db = new DatabaseHandler(DelicipeApplication.getAppContext());
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         db.updateShoppingListItem(ingredient);
     }
 
     public static void  addShoppingItemToDB(String item){
-        DatabaseHandler db = new DatabaseHandler(DelicipeApplication.getAppContext());
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         db.addShoppingListItem(item);
     }
 
@@ -202,7 +200,6 @@ public class Ingredient implements Serializable {
     }
 
     public static void deleteAllShoppingItems(){
-
         DatabaseHandler db = DatabaseHandler.getDataBase();
         db.deleteAllShoppingItems();
     }
