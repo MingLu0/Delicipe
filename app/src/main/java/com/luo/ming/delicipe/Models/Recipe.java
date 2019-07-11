@@ -78,13 +78,6 @@ public class Recipe implements Serializable {
     public void setImageLink(String imageLink){
         this.imageLink = getOnlineUrl(imageLink);
     }
-//    public void setImageLink(String imageLink){
-//        // Swapping http with https so image is found and displayed
-//        this.imageLink = imageLink.replace("http","https");
-//        if(this.imageLink.contains("httpss")){
-//            this.imageLink = this.imageLink.replace("httpss","https");
-//        }
-//    }
 
     public static String getOnlineUrl(String imageLink){
         String imageUrl = imageLink.replace("http","https");

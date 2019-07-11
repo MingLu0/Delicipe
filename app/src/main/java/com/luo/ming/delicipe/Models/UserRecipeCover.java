@@ -39,10 +39,7 @@ public class UserRecipeCover implements Parcelable {
     public static ArrayList<UserRecipeCover> getAllRecipeCoversFromDB(){
 
         DatabaseHandler db = DatabaseHandler.getDataBase();
-        ArrayList<UserRecipeCover> userRecipeCovers ;
-        userRecipeCovers= db.getAllUserRecipeCovers();
-
-        return userRecipeCovers;
+        return db.getAllUserRecipeCovers();
     }
 
 
@@ -126,10 +123,8 @@ public class UserRecipeCover implements Parcelable {
     public static Boolean chkIfRecipeNameExists(String name) {
 
         DatabaseHandler db = DatabaseHandler.getDataBase();
+        return db.checkIfUserRecipeNameExists(name);
 
-        Boolean bool = db.checkIfUserRecipeNameExists(name);
-
-        return bool;
     }
 
 }

@@ -8,6 +8,7 @@ import com.luo.ming.delicipe.Helpers.IngredientClassHelper;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Ingredient implements Serializable {
@@ -193,6 +194,17 @@ public class Ingredient implements Serializable {
     public static void  addShoppingItemToDB(String item){
         DatabaseHandler db = new DatabaseHandler(DelicipeApplication.getAppContext());
         db.addShoppingListItem(item);
+    }
+
+    public static ArrayList<Ingredient> getAllIngredientsFromDB(Context context){
+        DatabaseHandler db = DatabaseHandler.getDataBase();
+        return db.getAllIngredients();
+    }
+
+    public static void deleteAllShoppingItems(){
+
+        DatabaseHandler db = DatabaseHandler.getDataBase();
+        db.deleteAllShoppingItems();
     }
 
 

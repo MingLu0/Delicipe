@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import com.luo.ming.delicipe.Helpers.DelicipeApplication;
 import com.luo.ming.delicipe.Models.Ingredient;
-import com.luo.ming.delicipe.Models.Ingredients;
 
 import java.util.ArrayList;
 
@@ -33,7 +32,7 @@ public class ShoppingFragmentPresenter {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Ingredients.deleteAllShoppingItems();
+            Ingredient.deleteAllShoppingItems();
             return null;
         }
 
@@ -51,7 +50,7 @@ public class ShoppingFragmentPresenter {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            ingredients = Ingredients.getAllIngredientsFromDB(DelicipeApplication.getAppContext());
+            ingredients = Ingredient.getAllIngredientsFromDB(DelicipeApplication.getAppContext());
 
             return null;
         }
