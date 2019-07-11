@@ -3,6 +3,7 @@ package com.luo.ming.delicipe.Models;
 import android.content.Context;
 
 import com.luo.ming.delicipe.Data.DatabaseHandler;
+import com.luo.ming.delicipe.Helpers.DelicipeApplication;
 import com.luo.ming.delicipe.Helpers.IngredientClassHelper;
 
 import java.io.Serializable;
@@ -174,8 +175,8 @@ public class Ingredient implements Serializable {
         return newIngredient;
     }
 
-    public void deleteShoppingItemFromDBById(int id, Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
+    public static void deleteShoppingItemFromDBById(int id){
+        DatabaseHandler db = new DatabaseHandler(DelicipeApplication.getAppContext());
         db.deleteShoppingItemById(id);
     }
 
@@ -184,13 +185,13 @@ public class Ingredient implements Serializable {
         db.deleteShoppingItemByName(name);
     }
 
-    public void updateShoppingItemFromDB(Ingredient ingredient, Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
+    public static void updateShoppingItemFromDB(Ingredient ingredient){
+        DatabaseHandler db = new DatabaseHandler(DelicipeApplication.getAppContext());
         db.updateShoppingListItem(ingredient);
     }
 
-    public void addShoppingItemToDB(String item, Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
+    public static void  addShoppingItemToDB(String item){
+        DatabaseHandler db = new DatabaseHandler(DelicipeApplication.getAppContext());
         db.addShoppingListItem(item);
     }
 

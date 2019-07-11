@@ -558,5 +558,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public void deleteAllShoppingItems() {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Constants.TABLE_SHOPPING_LIST_NAME,null,
+                null);
+        db.close();
+
     }
 }

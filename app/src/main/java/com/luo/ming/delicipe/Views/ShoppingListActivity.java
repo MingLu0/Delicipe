@@ -49,7 +49,7 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this)); //?
 
-        presenter = new ShoppingFragmentPresenter(this,this);//?
+        presenter = new ShoppingFragmentPresenter(this);//?
 
         recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(this,presenter);
 
@@ -90,7 +90,8 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
                                 doPositiveClick();
                             }
                         })
-                        .create();
+                        .setNegativeButton(R.string.alert_dialog_cancel,null)
+                        .show();
                 break;
 
         }
@@ -129,8 +130,9 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
 
     }
 
+    @Override
     public void resetPresenterAndAdapter(){
-        presenter = new ShoppingFragmentPresenter(this,this);
+        presenter = new ShoppingFragmentPresenter(this);
         recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(this,presenter);
         recyclerView.setAdapter(recyclerViewAdapter);
     }

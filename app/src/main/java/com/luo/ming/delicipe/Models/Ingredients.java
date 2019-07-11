@@ -3,6 +3,7 @@ package com.luo.ming.delicipe.Models;
 import android.content.Context;
 
 import com.luo.ming.delicipe.Data.DatabaseHandler;
+import com.luo.ming.delicipe.Helpers.DelicipeApplication;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ public class Ingredients implements Serializable {
         return db.getAllIngredients();
     }
 
-    public static void deleteAllShoppingItems(Context context){
+    public static void deleteAllShoppingItems(){
 
-        DatabaseHandler db = DatabaseHandler.getDataBase(context);
+        DatabaseHandler db = DatabaseHandler.getDataBase(DelicipeApplication.getAppContext());
         db.deleteAllShoppingItems();
     }
 }

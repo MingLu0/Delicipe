@@ -207,16 +207,12 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
                  @Override
                  public void onClick(View v) {
                      if(checkBox.isChecked()){
-
                          presenter.saveSingleIngredient(itemName.getText().toString());
-
                          Toast.makeText(getApplication(),"Ingredient Saved", Toast.LENGTH_SHORT).show();
 
                      } else {
-
                          presenter.unsaveSingleIngredient(itemName.getText().toString());
                          Toast.makeText(getApplication(),"Ingredient Unsaved",Toast.LENGTH_SHORT).show();
-
                      }
                  }
              });

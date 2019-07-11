@@ -134,8 +134,8 @@ public class ScrollingActivityPresenter {
     }
 
     public void saveSingleIngredient(String item) {
-        Ingredient ingredient = new Ingredient();
-        ingredient.addShoppingItemToDB(item, context);
+
+        Ingredient.addShoppingItemToDB(item);
     }
 
     public void unsaveSingleIngredient(String item) {

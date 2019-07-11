@@ -1,6 +1,5 @@
 package com.luo.ming.delicipe.Presenters;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import com.luo.ming.delicipe.Helpers.DelicipeApplication;
@@ -11,16 +10,12 @@ import java.util.ArrayList;
 
 public class ShoppingFragmentPresenter {
 
-    private Context context;
-
     private ArrayList<Ingredient>ingredients;
-    private Ingredients ingredientsObj;
     private View view;
 
 
-    public ShoppingFragmentPresenter(Context context, View view){
+    public ShoppingFragmentPresenter(View view){
         this.view = view;
-        this.context = context;
         new getIngredientsFromDB( ).execute();
 
     }
@@ -28,19 +23,28 @@ public class ShoppingFragmentPresenter {
     public void saveNewItem(String item) {
 
         Ingredient ingredient = new Ingredient();
-        ingredient.addShoppingItemToDB(item, context);
+        ingredient.addShoppingItemToDB(item);
 
     }
 
     public void deleteAllShoppingItems() {
 
+        new deleteAllShoppingItemsInDB().execute();
     }
 
-    public static class deleteAllShoppingItems extends AsyncTask<Void,Void,Void>{
+    public  class deleteAllShoppingItemsInDB extends AsyncTask<Void,Void,Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
+            Ingredients.deleteAllShoppingItems();
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            view.resetPresenterAndAdapter();
         }
     }
 
@@ -49,9 +53,6 @@ public class ShoppingFragmentPresenter {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
-//            ingredientsObj = new Ingredients();
-//            ingredients = ingredientsObj.getAllIngredientsFromDB(context);
 
             ingredients = Ingredients.getAllIngredientsFromDB(DelicipeApplication.getAppContext());
 
@@ -64,6 +65,7 @@ public class ShoppingFragmentPresenter {
 
             view.setRecyclerViewAdapter();
             view.refreshRecyclerViewList();
+
         }
     }
 
@@ -87,7 +89,7 @@ public class ShoppingFragmentPresenter {
     public void deleteShoppingItem(int position) {
 
         Ingredient deleteItem = ingredients.get(position);
-        deleteItem.deleteShoppingItemFromDBById(deleteItem.getID(),context);
+        Ingredient.deleteShoppingItemFromDBById(deleteItem.getID());
         ingredients.remove(position);
         view.notifyShoppingItemRemoved(position);
     }
@@ -97,9 +99,6 @@ public class ShoppingFragmentPresenter {
     public void editShoppingItem(int position){
         Ingredient editItem = ingredients.get(position);
         view.getEditedItem(editItem,position);
-//        editItem.updateShoppingItemFromDB(newItem,context);
-
-
     }
 
     public void saveUpdatedItem(Ingredient newIngredient, int position){
@@ -121,9 +120,7 @@ public class ShoppingFragmentPresenter {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            newIngredient.updateShoppingItemFromDB(newIngredient,context);
-
-
+            newIngredient.updateShoppingItemFromDB(newIngredient);
             return null;
         }
 
@@ -145,6 +142,7 @@ public class ShoppingFragmentPresenter {
         void notifyShoppingItemRemoved(int position);
         void notifyShoppingItemChanged();
         void getEditedItem(Ingredient ingredient,int position);
+        void resetPresenterAndAdapter();
 
     }
 
