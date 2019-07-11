@@ -1,6 +1,5 @@
 package com.luo.ming.delicipe.Models;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -24,8 +23,6 @@ public class UserRecipeCover implements Parcelable {
     public void setCoverID(String coverID) {
         this.coverID = coverID;
     }
-
-    private DatabaseHandler db;
 
     //default constructor
     public UserRecipeCover() {

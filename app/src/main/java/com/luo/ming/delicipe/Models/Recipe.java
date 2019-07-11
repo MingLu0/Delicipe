@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.luo.ming.delicipe.Data.DatabaseHandler;
+import com.luo.ming.delicipe.Helpers.DelicipeApplication;
 import com.luo.ming.delicipe.Helpers.VolleyCallBack;
 import com.luo.ming.delicipe.R;
 
@@ -39,7 +40,6 @@ public class Recipe implements Serializable {
     private String sourceURL;
     private int cookingTime;
     private int servings;
-    private DatabaseHandler db;
 
     private ArrayList<Ingredient> ingredients;
 
@@ -74,13 +74,17 @@ public class Recipe implements Serializable {
 
         this.title = title;
     }
+
     public void setImageLink(String imageLink){
-        // Swapping http with https so image is found and displayed
-        this.imageLink = imageLink.replace("http","https");
-        if(this.imageLink.contains("httpss")){
-            this.imageLink = this.imageLink.replace("httpss","https");
-        }
+        this.imageLink = getOnlineUrl(imageLink);
     }
+//    public void setImageLink(String imageLink){
+//        // Swapping http with https so image is found and displayed
+//        this.imageLink = imageLink.replace("http","https");
+//        if(this.imageLink.contains("httpss")){
+//            this.imageLink = this.imageLink.replace("httpss","https");
+//        }
+//    }
 
     public static String getOnlineUrl(String imageLink){
         String imageUrl = imageLink.replace("http","https");
@@ -130,10 +134,10 @@ public class Recipe implements Serializable {
         servings = size;
     }
 
-    public void getRecipeObj(String url, Context context, final VolleyCallBack callBack) {
+    public void getRecipeObj(String url, final VolleyCallBack callBack) {
         Log.d("recipeModel","getRecipeObj called");
 
-        RequestQueue queue = Volley.newRequestQueue(context);
+        RequestQueue queue = Volley.newRequestQueue(DelicipeApplication.getAppContext());
 
         List<Recipe> recipeList = new ArrayList<>();
 
@@ -201,12 +205,12 @@ public class Recipe implements Serializable {
     }
 
     //get a list of recipes from the API server based on user input
-    public List<Recipe> getRecipes(String url,Context context, final VolleyCallBack callBack) {
+    public static List<Recipe> getRecipesFromAPI(String url, final VolleyCallBack callBack) {
         Log.d("getrecipe","getrecipecalled");
 
         final ArrayList<Recipe>recipeList = new ArrayList<>();
 
-        RequestQueue queue = Volley.newRequestQueue(context);
+        RequestQueue queue = Volley.newRequestQueue(DelicipeApplication.getAppContext());
 
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -271,8 +275,8 @@ public class Recipe implements Serializable {
 
     }
 
-    public void addIngredientToDB(Context context,ArrayList<Ingredient>ingredients){
-        db = DatabaseHandler.getDataBase();
+    public void addIngredientToDB(ArrayList<Ingredient>ingredients){
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         db.addIngredients(ingredients);
     }
 
@@ -303,18 +307,17 @@ public class Recipe implements Serializable {
 
 
 
-    public ArrayList<Recipe> getFavouriteRecipesFromDB(Context context) {
+    public static ArrayList<Recipe> getFavouriteRecipesFromDB() {
 
-        ArrayList<Recipe>recipes = new ArrayList<>();
+        DatabaseHandler db = DatabaseHandler.getDataBase();
 
-        db = DatabaseHandler.getDataBase();
+        return db.getFavouriteRecipes();
 
-        recipes = db.getFavouriteRecipes();
-
-        return recipes;
     }
 
-    public static JSONArray loadRecommendedRecipeJsonArray(Resources resources){
+    public static JSONArray loadRecommendedRecipeJsonArray(){
+
+        Resources resources = DelicipeApplication.getAppContext().getResources();
         StringBuilder stringBuilder = new StringBuilder();
         InputStream in = resources.openRawResource(R.raw.recipes);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
@@ -339,23 +342,21 @@ public class Recipe implements Serializable {
 
 
 
-    public Boolean checkIfRecipeSaved(Context context) {
+    public Boolean checkIfRecipeSaved() {
 
-        db = DatabaseHandler.getDataBase();
+        DatabaseHandler db = DatabaseHandler.getDataBase();
+        return db.checkIfRecipeSaved(this.ID);
 
-        Boolean bool = db.checkIfRecipeSaved(this.ID);
-
-        return bool;
     }
 
-    public void saveFavouriteRecipeToDB(Context context){
-        db = DatabaseHandler.getDataBase();
+    public void saveFavouriteRecipeToDB(){
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         db.saveFavouriteRecipe(this);
     }
 
-    public void unsaveFavouriteRecipetoDB(Context context) {
+    public void unsaveFavouriteRecipetoDB() {
 
-        db = DatabaseHandler.getDataBase();
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         db.unsaveFavouriteRecipe(this.ID);
     }
 }

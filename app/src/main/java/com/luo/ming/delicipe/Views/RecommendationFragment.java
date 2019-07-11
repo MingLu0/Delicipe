@@ -53,7 +53,7 @@ public class RecommendationFragment extends Fragment implements RecommendationFr
             }
         });
 
-        RecommendationFragmentPresenter presenter = new RecommendationFragmentPresenter(getActivity(), this);
+        RecommendationFragmentPresenter presenter = new RecommendationFragmentPresenter( this);
 
         recyclerView.setLayoutManager(gridLayoutManager);
         StaggeredRecipeRecyclerViewAdapter adapter = new StaggeredRecipeRecyclerViewAdapter(getActivity(),presenter);

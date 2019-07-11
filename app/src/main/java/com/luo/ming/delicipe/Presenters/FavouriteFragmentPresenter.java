@@ -52,10 +52,7 @@ public class FavouriteFragmentPresenter {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            Recipe recipe = new Recipe();
-
-
-            recipeList = recipe.getFavouriteRecipesFromDB(context);
+            recipeList = Recipe.getFavouriteRecipesFromDB();
 
             return null;
         }

@@ -106,14 +106,14 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
         if(bundle.containsKey(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE)){
             Recipe recipe = (Recipe) bundle.getSerializable(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE);
 
-            presenter = new ScrollingActivityPresenter(this,this,recipe);
+            presenter = new ScrollingActivityPresenter(this,recipe);
             presenter.displayFavouriteRecipe();
 
         } else if (bundle.containsKey(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE)){
 
             String recipeID = bundle.getString(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE);
 
-            presenter = new ScrollingActivityPresenter(this,this);
+            presenter = new ScrollingActivityPresenter(this);
             presenter.setUrl(recipeID);
             presenter.displayOnlineRecipe();
 
@@ -121,7 +121,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
 
             String userRecipeID = bundle.getString(UserRecipeFragmentViewAdapter.USER_RECIPE_ADPATER_MESSAGE);
 
-            presenter = new ScrollingActivityPresenter(this,this,userRecipeID);
+            presenter = new ScrollingActivityPresenter(this,userRecipeID);
             presenter.displayUserRecipe();
         }
 

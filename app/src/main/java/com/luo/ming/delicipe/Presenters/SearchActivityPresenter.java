@@ -1,46 +1,27 @@
 package com.luo.ming.delicipe.Presenters;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.AsyncTask;
 import android.util.Log;
-import android.content.Context;
+
 import java.util.List;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import java.util.ArrayList;
 
 import com.luo.ming.delicipe.Helpers.VolleyCallBack;
 import com.luo.ming.delicipe.Models.Recipe;
-import com.luo.ming.delicipe.Views.SearchRecyclerViewAdapter;
 
 public class SearchActivityPresenter implements VolleyCallBack {
 
     private  List<Recipe> recipeList;
     private String url;
     private View view;
-    private Recipe recipe;
-    private Context context;
-    private RecyclerView recyclerView;
-    private SearchRecyclerViewAdapter recipeRecyclerViewAdapter;
 
     private final String baseUrl = "https://www.food2fork.com/api/search?key=";
     private final String key = "f5b73a553a6a92ccfabca695807bdaeb";//
 
 
-
     public List<Recipe> getRecipeList() {
         return recipeList;
     }
-
 
     //set the url using the base url and the user input keyword
     public void setUrl(String keyword) {
@@ -50,13 +31,10 @@ public class SearchActivityPresenter implements VolleyCallBack {
 
     }
 
-    public SearchActivityPresenter(View view, Context context){
+    public SearchActivityPresenter(View view){
 
         this.view = view;
-        this.context = context;
-        this.recipe = new Recipe();
         recipeList = new ArrayList<>();
-
     }
 
 
@@ -80,8 +58,7 @@ public class SearchActivityPresenter implements VolleyCallBack {
     public void getRecipesList() {
 
         recipeList.clear();
-        recipeList = recipe.getRecipes(url,context,this);
-
+        recipeList = Recipe.getRecipesFromAPI(url,this);
     }
 
     @Override
@@ -92,9 +69,7 @@ public class SearchActivityPresenter implements VolleyCallBack {
 
     @Override
     public void onFailure() {
-
         view.displayInputErrorSnackBar();
-
     }
 
 

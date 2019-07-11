@@ -19,15 +19,13 @@ public class UserRecipeFragmentPresenter {
     public UserRecipeFragmentPresenter(View view) {
         this.view = view;
         userRecipeCover = new UserRecipeCover();
-        //userRecipeCoverList = userRecipeCover.getAllRecipeCoversFromDB(context);
         new GetAllRecipeCoversTask().execute();
 
     }
 
     public void onBindUserRecipeViewHolder(int position, UserRecipeRowView view){
 
-        UserRecipeCover recipeCover = userRecipeCoverList.get(position);
-        view.setRowViewContent(recipeCover);
+        view.setRowViewContent(userRecipeCoverList.get(position));
 
     }
 
@@ -43,17 +41,17 @@ public class UserRecipeFragmentPresenter {
         return userRecipeCoverList.size();
     }
 
-    public UserRecipe getUserRecipeObject(int position) {
-
-        UserRecipeCover recipeCover = userRecipeCoverList.get(position);
-
-        UserRecipe userRecipe = new UserRecipe();
-
-        userRecipe = userRecipe.getUserRecipeObjFromCoverObj(recipeCover);
-
-        return userRecipe;
-
-    }
+//    public UserRecipe getUserRecipeObject(int position) {
+//
+//        UserRecipeCover recipeCover = userRecipeCoverList.get(position);
+//
+//        UserRecipe userRecipe = new UserRecipe();
+//
+//        userRecipe = userRecipe.getUserRecipeObjFromCoverObj(recipeCover);
+//
+//        return userRecipe;
+//
+//    }
 
     public UserRecipeCover getUserRecipeCover(int position) {
 

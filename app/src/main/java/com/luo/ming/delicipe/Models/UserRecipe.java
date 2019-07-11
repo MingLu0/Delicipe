@@ -1,10 +1,7 @@
 package com.luo.ming.delicipe.Models;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.ContactsContract;
-
 import com.luo.ming.delicipe.Data.DatabaseHandler;
 import java.util.ArrayList;
 
@@ -13,7 +10,6 @@ public class UserRecipe implements Parcelable {
     private UserRecipeCover userRecipeCover;
     private ArrayList<UserRecipeIngredient> ingredientList;
     private ArrayList<UserRecipeStep> userRecipeStepList;
-    private DatabaseHandler db;
 
     public UserRecipeCover getUserRecipeCover() {
         return userRecipeCover;
@@ -57,7 +53,7 @@ public class UserRecipe implements Parcelable {
 
     public void saveUserRecipeToDatabase(){
 
-        db = DatabaseHandler.getDataBase();
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         db.saveRecipeCover(userRecipeCover);
         int recipeCoverID = db.getUserRecipeCoverID(userRecipeCover.getCoverName());
         db.saveRecipeIngredients(ingredientList,recipeCoverID);
@@ -68,7 +64,7 @@ public class UserRecipe implements Parcelable {
 
     public UserRecipe getUserRecipeObjFromCoverObj(UserRecipeCover recipeCover) {
 
-        db = DatabaseHandler.getDataBase();
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         userRecipeCover = recipeCover;
         ingredientList = db.getRecipeIngredientsWithCoverId(recipeCover.getCoverID());
         userRecipeStepList = db.getRecipeStepsWithCoverId(recipeCover.getCoverID());
@@ -89,10 +85,9 @@ public class UserRecipe implements Parcelable {
         dest.writeTypedList(userRecipeStepList);
     }
 
-    public UserRecipe getUserRecipeWithID(String recipeID, Context context) {
+    public UserRecipe getUserRecipeWithID(String recipeID) {
 
-        db = DatabaseHandler.getDataBase();
-
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         userRecipeCover = db.getRecipeCoverWithId(recipeID);
         ingredientList = db.getRecipeIngredientsWithCoverId(recipeID);
         userRecipeStepList = db.getRecipeStepsWithCoverId(recipeID);
@@ -100,9 +95,9 @@ public class UserRecipe implements Parcelable {
         return this;
     }
 
-    public void addIngredientsToDB(Context context, ArrayList<UserRecipeIngredient> ingredientList) {
+    public void addIngredientsToDB(ArrayList<UserRecipeIngredient> ingredientList) {
 
-        db = DatabaseHandler.getDataBase();
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         db.addUserIngredients(ingredientList);
     }
 }

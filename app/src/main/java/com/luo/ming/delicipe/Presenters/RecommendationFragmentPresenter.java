@@ -12,17 +12,11 @@ import org.json.JSONObject;
 public class RecommendationFragmentPresenter {
 
     private JSONArray recipeJsonArray;
-    private Recipe recipe;
-    private Context context;
     private View view;
 
-    public RecommendationFragmentPresenter(Context context,View view) {
-        this.context = context;
+    public RecommendationFragmentPresenter(View view) {
         this.view = view;
-        recipeJsonArray = Recipe.loadRecommendedRecipeJsonArray(context.getResources());
-        if(recipeJsonArray!=null){
-
-        }
+        recipeJsonArray = Recipe.loadRecommendedRecipeJsonArray();
     }
 
     public void onBindViewHolder(StaggeredRecipeRecyclerViewAdapter.ViewHolder holder, int position) throws JSONException {

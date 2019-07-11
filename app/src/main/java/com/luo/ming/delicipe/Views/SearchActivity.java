@@ -45,7 +45,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         coordinatorLayout = findViewById(R.id.coordinatorLayout_search_activity);
-        presenter = new SearchActivityPresenter(this,this);
+        presenter = new SearchActivityPresenter(this);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 

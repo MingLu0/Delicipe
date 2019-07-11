@@ -180,8 +180,8 @@ public class Ingredient implements Serializable {
         db.deleteShoppingItemById(id);
     }
 
-    public void deleteShoppingItemFromDBByName(String name, Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
+    public static void deleteShoppingItemFromDBByName(String name){
+        DatabaseHandler db = DatabaseHandler.getDataBase();
         db.deleteShoppingItemByName(name);
     }
 
