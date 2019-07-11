@@ -1,15 +1,14 @@
 package com.luo.ming.delicipe.Views;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -79,12 +78,29 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
             case R.id.add_recipe:
                 IngredientInputDialogView dialogView = new IngredientInputDialogView(this);
                 dialogView.setListener(this);
+                break;
 
             case R.id.delete_all_ingredients:
-                presenter.deleteAllShoppingItems();
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.alert_dialog_shopping_title)
+                        .setMessage(R.string.alert_dialog_shopping_message)
+                        .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                doPositiveClick();
+                            }
+                        })
+                        .create();
+                break;
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void doPositiveClick(){
+
+        presenter.deleteAllShoppingItems();
+
     }
 
     @Override
@@ -152,9 +168,6 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
             presenter.saveNewItem(item);
             refreshRecyclerViewList();
         }
-
-
-
     }
 
     @Override

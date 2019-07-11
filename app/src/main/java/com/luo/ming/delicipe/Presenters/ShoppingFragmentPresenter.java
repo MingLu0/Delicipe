@@ -3,6 +3,7 @@ package com.luo.ming.delicipe.Presenters;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.luo.ming.delicipe.Helpers.DelicipeApplication;
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Ingredients;
 
@@ -32,6 +33,15 @@ public class ShoppingFragmentPresenter {
     }
 
     public void deleteAllShoppingItems() {
+
+    }
+
+    public static class deleteAllShoppingItems extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
     }
 
     private class getIngredientsFromDB extends AsyncTask<Void,Void,Void> {
@@ -40,8 +50,10 @@ public class ShoppingFragmentPresenter {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            ingredientsObj = new Ingredients();
-            ingredients = ingredientsObj.getAllIngredientsFromDB(context);
+//            ingredientsObj = new Ingredients();
+//            ingredients = ingredientsObj.getAllIngredientsFromDB(context);
+
+            ingredients = Ingredients.getAllIngredientsFromDB(DelicipeApplication.getAppContext());
 
             return null;
         }
@@ -93,8 +105,6 @@ public class ShoppingFragmentPresenter {
     public void saveUpdatedItem(Ingredient newIngredient, int position){
 
         new saveUpdatedItemTask(newIngredient,position).execute();
-
-
     }
 
     public class saveUpdatedItemTask extends AsyncTask<Void,Void,Void>{

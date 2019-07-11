@@ -9,14 +9,21 @@ import java.util.ArrayList;
 
 public class Ingredients implements Serializable {
 
-    private DatabaseHandler db;
+    //todo delete this class
+
 
     public Ingredients() {
 
     }
 
-    public ArrayList<Ingredient>getAllIngredientsFromDB(Context context){
-        db = DatabaseHandler.getDataBase(context);
+    public static ArrayList<Ingredient>getAllIngredientsFromDB(Context context){
+        DatabaseHandler db = DatabaseHandler.getDataBase(context);
         return db.getAllIngredients();
+    }
+
+    public static void deleteAllShoppingItems(Context context){
+
+        DatabaseHandler db = DatabaseHandler.getDataBase(context);
+        db.deleteAllShoppingItems();
     }
 }

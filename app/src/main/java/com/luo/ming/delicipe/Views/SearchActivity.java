@@ -51,7 +51,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
 
         if(bundle!=null){
             if(bundle.containsKey(TabbedActivity.MESSAGE_FROM_TABBEDACTIVITY_TAG)){
-                String keyword = bundle.getString("keyword");
+                String keyword = bundle.getString(TabbedActivity.MESSAGE_FROM_TABBEDACTIVITY_TAG);
 
                 presenter.setUrl(keyword);
                 searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(presenter,this);
@@ -59,7 +59,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
                 searchRecyclerViewAdapter.notifyDataSetChanged();
             }
         }
-        
+
     }
 
 

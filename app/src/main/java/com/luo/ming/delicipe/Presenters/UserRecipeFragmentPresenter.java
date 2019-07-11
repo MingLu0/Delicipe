@@ -74,7 +74,7 @@ public class UserRecipeFragmentPresenter {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-           // view.notifyDataSetHasChanged();
+            view.notifyDataSetHasChanged();
 
         }
     }
