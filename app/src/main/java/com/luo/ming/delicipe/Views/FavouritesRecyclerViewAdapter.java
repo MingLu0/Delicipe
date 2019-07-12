@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,7 +53,7 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
         ImageView recipeImage;
         TextView txtRecipePublisher;
         TextView txtRecipeTitle;
-       // Context context;
+
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);

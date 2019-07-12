@@ -57,6 +57,7 @@
                 android:layout_alignTop="@+id/source"
                 android:layout_alignBottom="@+id/source"
                 android:layout_alignRight="@+id/source"
+                android:visibility="invisible"
                 android:background="@drawable/ic_delete_black_24dp"/>
 
 

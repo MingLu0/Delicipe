@@ -76,6 +76,7 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
             coverImage = itemView.findViewById(R.id.recipe_cover_image);
             coverName = itemView.findViewById(R.id.recipe_cover_title);
             deleteBtn = itemView.findViewById(R.id.delete_user_recipe);
+            deleteBtn.setVisibility(View.VISIBLE);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -111,11 +112,6 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
 
         @Override
         public void setRowViewContent(UserRecipeCover userRecipeCover) {
-
-//            Log.d("RecipeViewAdapter", userRecipeCover.getImageUri());
-//            Log.d("RecipeViewAdapter",userRecipeCover.getCoverName());
-//
-            Bitmap bitmap = BitmapUtility.covertBytesToBitmap(userRecipeCover.getImageBytes());
 
             Glide.with(context)
                     .load(userRecipeCover.getImageBytes())
