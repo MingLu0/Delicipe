@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Presenters.ShoppingFragmentPresenter;
@@ -95,30 +96,12 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
     }
 
     @Override
-    public void setRecyclerViewAdapter() {
-
-        recyclerView.setAdapter(recyclerViewAdapter);
-
-    }
-
-    @Override
-    public void refreshRecyclerViewList() {
-
-        recyclerView.getAdapter().notifyDataSetChanged();
-    }
-
-    @Override
     public void notifyShoppingItemRemoved(int position) {
 
         recyclerViewAdapter.notifyItemRemoved(position);
 
     }
 
-    @Override
-    public void notifyShoppingItemChanged() {
-        resetPresenterAndAdapter();
-
-    }
 
     @Override
     public void resetPresenterAndAdapter(){
@@ -126,6 +109,19 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
         recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(this,presenter);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
+
+    @Override
+    public void notifyShoppingDataChanged() {
+
+        recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void displayItemAllDeletedMessage() {
+
+        Toast.makeText(this,"All shopping item has been deleted",Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public void getEditedItem(final Ingredient editIngredit, final int position) {

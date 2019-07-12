@@ -66,6 +66,8 @@ public class UserRecipeFragmentPresenter {
             super.onPostExecute(aVoid);
             userRecipeCoverList.remove(position);
             view.notifyDataSetHasChanged();
+            view.displayRecipeDeletedMessage();
+
         }
     }
 
@@ -75,8 +77,6 @@ public class UserRecipeFragmentPresenter {
         protected Void doInBackground(Void... voids) {
             userRecipeCoverList = UserRecipeCover.getAllRecipeCoversFromDB();
 
-
-            Log.d("RecipeFragmentPresenter","retrived usercover list");
             return null;
         }
 
@@ -84,7 +84,6 @@ public class UserRecipeFragmentPresenter {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             view.notifyDataSetHasChanged();
-            view.displayRecipeDeletedMessage();
 
         }
     }

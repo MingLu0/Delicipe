@@ -56,14 +56,15 @@ public class ShoppingFragmentPresenter {
         @Override
         protected Void doInBackground(Void... voids) {
             Ingredient.deleteAllShoppingItems();
+            ingredients = null;
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
-            view.resetPresenterAndAdapter();
+            view.notifyShoppingDataChanged();
+            view.displayItemAllDeletedMessage();
         }
     }
 
@@ -82,8 +83,7 @@ public class ShoppingFragmentPresenter {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            view.setRecyclerViewAdapter();
-            view.refreshRecyclerViewList();
+            view.notifyShoppingDataChanged();
 
         }
     }
@@ -140,14 +140,14 @@ public class ShoppingFragmentPresenter {
         @Override
         protected Void doInBackground(Void... voids) {
             newIngredient.updateShoppingItemFromDB(newIngredient);
+            ingredients.set(position,newIngredient);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
-            view.notifyShoppingItemChanged();
+            view.notifyShoppingDataChanged();
 
         }
     }
@@ -155,14 +155,11 @@ public class ShoppingFragmentPresenter {
 
 
     public interface View{
-
-        void setRecyclerViewAdapter();
-        void refreshRecyclerViewList();
         void notifyShoppingItemRemoved(int position);
-        void notifyShoppingItemChanged();
         void getEditedItem(Ingredient ingredient,int position);
         void resetPresenterAndAdapter();
-
+        void notifyShoppingDataChanged();
+        void displayItemAllDeletedMessage();
     }
 
     public interface ShoppingRowView{
