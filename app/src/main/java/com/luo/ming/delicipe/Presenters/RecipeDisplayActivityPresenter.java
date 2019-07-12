@@ -15,7 +15,7 @@ import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Models.UserRecipeStep;
 
-public class ScrollingActivityPresenter {
+public class RecipeDisplayActivityPresenter {
 
     private String url;
     private View view;
@@ -39,16 +39,14 @@ public class ScrollingActivityPresenter {
 
     }
 
-    public ScrollingActivityPresenter(View view){
-
+    public RecipeDisplayActivityPresenter(View view){
         this.view = view;
         recipe = new Recipe();
         ingredients = new ArrayList<>();
 
-
     }
 
-    public ScrollingActivityPresenter(View view, Recipe recipe){
+    public RecipeDisplayActivityPresenter(View view, Recipe recipe){
 
         this.view = view;
         this.recipe = recipe;
@@ -56,14 +54,14 @@ public class ScrollingActivityPresenter {
 
     }
 
-    public ScrollingActivityPresenter(View view, String recipeID){
+    public RecipeDisplayActivityPresenter(View view, String recipeID){
         this.view = view;
         this.recipeID = recipeID;
         userRecipe = new UserRecipe();
         userRecipe = userRecipe.getUserRecipeWithID(recipeID);
     }
 
-    public ScrollingActivityPresenter(View view, UserRecipeCover userRecipeCover){
+    public RecipeDisplayActivityPresenter(View view, UserRecipeCover userRecipeCover){
         this.view = view;
         this.userRecipeCover = userRecipeCover;
 
@@ -97,7 +95,11 @@ public class ScrollingActivityPresenter {
 
     private void displayUserIngredients() {
         ArrayList<UserRecipeIngredient>ingredients = userRecipe.getIngredientList();
-        view.displayUserIngredients(ingredients);
+        ArrayList<String>ingredientNames = new ArrayList<>();
+        for(UserRecipeIngredient i : ingredients){
+            ingredientNames.add(i.getName());
+        }
+        view.displayIngredients(ingredientNames);
     }
     
     private void displayUserSteps(){
@@ -163,7 +165,6 @@ public class ScrollingActivityPresenter {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-
         }
     }
 
@@ -181,7 +182,6 @@ public class ScrollingActivityPresenter {
                 displayCookingTime(recipe.getCookingTime());
                 displayCartButton();
             }
-
             @Override
             public void onFailure() {
 
@@ -219,7 +219,11 @@ public class ScrollingActivityPresenter {
     public void displayIngredientsTableLayout(){
 
         ingredients = recipe.getIngredients();
-        view.displayOnlineIngredients(ingredients);
+        ArrayList<String>ingredientNames = new ArrayList<>();
+        for(Ingredient i : ingredients){
+            ingredientNames.add(i.getIngredientItem());
+        }
+        view.displayIngredients(ingredientNames);
 
     }
 
@@ -275,8 +279,8 @@ public class ScrollingActivityPresenter {
 
     public void updateIngredientCount(int newServing){
 
-        ingredients=recipe.updateIngredientCount(newServing);
-        view.displayOnlineIngredients(ingredients);
+//        ingredients=recipe.updateIngredientCount(newServing);
+//        view.displayIngredients(ingredients);
 
     }
 
@@ -293,8 +297,7 @@ public class ScrollingActivityPresenter {
 
         void displayRecipePhoto(String imageLink);
         void displayRecipePhotoFromBitmap(Bitmap bitmap);
-        void displayOnlineIngredients(ArrayList<Ingredient>ingredients);
-        void displayUserIngredients(ArrayList<UserRecipeIngredient>ingredients);
+        void displayIngredients(ArrayList<String>ingredients);
         void popupToast(String text);
         void updateServingSize(int newSergving);
         void displayRecipeTitle(String recipeTitle);

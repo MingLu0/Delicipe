@@ -158,7 +158,6 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
 
         } else {
             presenter.saveNewItem(item);
-            refreshRecyclerViewList();
         }
     }
 

@@ -20,7 +20,30 @@ public class ShoppingFragmentPresenter {
     }
 
     public void saveNewItem(String item) {
-        Ingredient.addShoppingItemToDB(item);
+        new saveNewItemToDB(item).execute();
+    }
+
+    public  class saveNewItemToDB extends AsyncTask<Void,Void,Void>{
+
+        private String item;
+
+        public saveNewItemToDB(String item) {
+            this.item = item;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Ingredient.addShoppingItemToDB(item);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            view.resetPresenterAndAdapter();
+
+        }
     }
 
     public void deleteAllShoppingItems() {

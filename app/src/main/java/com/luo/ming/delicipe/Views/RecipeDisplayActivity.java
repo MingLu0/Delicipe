@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -32,14 +31,14 @@ import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Models.UserRecipeStep;
-import com.luo.ming.delicipe.Presenters.ScrollingActivityPresenter;
+import com.luo.ming.delicipe.Presenters.RecipeDisplayActivityPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
 
-public class RecipeDisplayActivity extends AppCompatActivity implements ScrollingActivityPresenter.View {
+public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDisplayActivityPresenter.View {
 
     private ImageView toolbarImage;
-    private ScrollingActivityPresenter presenter;
+    private RecipeDisplayActivityPresenter presenter;
     private CheckBox btnCart;
     private TableLayout ingredientTableLayout,stepsTableLayout;
     private TextView txtServing,textTitle,textSteps,textCookingTime,textComment;
@@ -103,25 +102,25 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
+
         if(bundle.containsKey(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE)){
             Recipe recipe = (Recipe) bundle.getSerializable(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE);
 
-            presenter = new ScrollingActivityPresenter(this,recipe);
+            presenter = new RecipeDisplayActivityPresenter(this,recipe);
             presenter.displayFavouriteRecipe();
 
         } else if (bundle.containsKey(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE)){
 
             String recipeID = bundle.getString(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE);
 
-            presenter = new ScrollingActivityPresenter(this);
+            presenter = new RecipeDisplayActivityPresenter(this);
             presenter.setUrl(recipeID);
             presenter.displayOnlineRecipe();
 
         } else if(bundle.containsKey(UserRecipeFragmentViewAdapter.USER_RECIPE_ADPATER_MESSAGE)){
 
             String userRecipeID = bundle.getString(UserRecipeFragmentViewAdapter.USER_RECIPE_ADPATER_MESSAGE);
-
-            presenter = new ScrollingActivityPresenter(this,userRecipeID);
+            presenter = new RecipeDisplayActivityPresenter(this,userRecipeID);
             presenter.displayUserRecipe();
         }
 
@@ -188,18 +187,18 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
     }
 
     @Override
-    public void displayOnlineIngredients(ArrayList<Ingredient> ingredients) {
+    public void displayIngredients(ArrayList<String> ingredientNames) {
 
         ingredientTableLayout.removeAllViews();
 
-        for(int i=0;i<ingredients.size();i++){
+        for(int i=0;i<ingredientNames.size();i++){
             LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             ConstraintLayout row = (ConstraintLayout) inflater.inflate(R.layout.table_row_ingredient_api,null);
 
              final TextView itemName = row.findViewById(R.id.text_ingredient_item);
 
-             itemName.setText(ingredients.get(i).getIngredientItem());
+             itemName.setText(ingredientNames.get(i));
 
              final CheckBox checkBox = row.findViewById(R.id.checkBox_save_ingredient);
              checkBox.setChecked(false);
@@ -216,26 +215,6 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
                      }
                  }
              });
-
-            ingredientTableLayout.addView(row,i);
-
-        }
-
-    }
-
-    @Override
-    public void displayUserIngredients(ArrayList<UserRecipeIngredient> ingredients) {
-
-        ingredientTableLayout.removeAllViews();
-
-        for(int i=0;i<ingredients.size();i++){
-            LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            ConstraintLayout row = (ConstraintLayout) inflater.inflate(R.layout.table_row_ingredient_api,null);
-
-            TextView itemName = row.findViewById(R.id.text_ingredient_item);
-
-            itemName.setText(ingredients.get(i).getName());
 
             ingredientTableLayout.addView(row,i);
 
@@ -341,7 +320,6 @@ public class RecipeDisplayActivity extends AppCompatActivity implements Scrollin
     public void displayComment(String comment) {
         textComment.setText(comment);
     }
-
 
 
     @Override

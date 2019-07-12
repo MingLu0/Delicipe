@@ -91,7 +91,7 @@ public class AddCookingStepFragment extends Fragment implements AddCookingStepPr
         addStepButton = view.findViewById(R.id.add_step_button);
 
         presenter = new AddCookingStepPresenter(this);
-        
+
         if(savedInstanceState!=null){
 
             ArrayList<UserRecipeStep> userRecipeSteps = savedInstanceState.getParcelableArrayList("userRecipeSteps");
