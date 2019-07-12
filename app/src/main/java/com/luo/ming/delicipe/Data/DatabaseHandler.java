@@ -238,6 +238,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public void deleteUserRecipeByID(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(Constants.TABLE_USER_STEP, Constants.KEY_USER_STEP_COVER_ID + " = ?",
+                new String[]{id});
+
+        db.delete(Constants.TABLE_USER_INGREDIENT, Constants.KEY_USER_INGREDIENT_COVER_ID + " = ?",
+                new String[]{id});
+        db.delete(Constants.TABLE_USER_RECIPE_COVER, Constants.KEY_COVER_ID + " = ?",
+                new String[]{id});
+        db.close();
+    }
+
     public void saveFavouriteRecipe(Recipe recipe) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -342,7 +355,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){
             do {
-
                 UserRecipeCover userRecipeCover = new UserRecipeCover();
 
                 userRecipeCover.setCoverID(cursor.getString(cursor.getColumnIndex(Constants.KEY_COVER_ID)));
@@ -528,7 +540,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(Constants.TABLE_USER_RECIPE_COVER, new String[]{Constants.KEY_COVER_ID,
                 Constants.KEY_COVER_IMAGE_BYTES, Constants.KEY_COVER_NAME, Constants.KEY_COVER_COMMENT,
                 Constants.KEY_COVER_COOKING_TIME, Constants.KEY_COVER_SERVING_SIZE},whereClause,new String[]{recipeID},null,null,null);
-
 
         cursor.moveToFirst();
 

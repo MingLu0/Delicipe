@@ -100,4 +100,9 @@ public class UserRecipe implements Parcelable {
         DatabaseHandler db = DatabaseHandler.getDataBase();
         db.addUserIngredients(ingredientList);
     }
+
+    public static void deleteUserRecipeByID(String id){
+        DatabaseHandler db = DatabaseHandler.getDataBase();
+        db.deleteUserRecipeByID(id);
+    }
 }

@@ -61,12 +61,6 @@ public class RecipeDisplayActivityPresenter {
         userRecipe = userRecipe.getUserRecipeWithID(recipeID);
     }
 
-    public RecipeDisplayActivityPresenter(View view, UserRecipeCover userRecipeCover){
-        this.view = view;
-        this.userRecipeCover = userRecipeCover;
-
-
-    }
 
     public void saveFavouriteRecipe(){
 
@@ -277,12 +271,6 @@ public class RecipeDisplayActivityPresenter {
         }
     }
 
-    public void updateIngredientCount(int newServing){
-
-//        ingredients=recipe.updateIngredientCount(newServing);
-//        view.displayIngredients(ingredients);
-
-    }
 
     public void updateServing(int newServing) {
         view.updateServingSize(newServing);
@@ -294,7 +282,6 @@ public class RecipeDisplayActivityPresenter {
 
 
     public interface View {
-
         void displayRecipePhoto(String imageLink);
         void displayRecipePhotoFromBitmap(Bitmap bitmap);
         void displayIngredients(ArrayList<String>ingredients);
@@ -310,7 +297,5 @@ public class RecipeDisplayActivityPresenter {
         void displayDirectionsPage(String Url);
         void displayShoppingCartButton();
     }
-
-
 
 }

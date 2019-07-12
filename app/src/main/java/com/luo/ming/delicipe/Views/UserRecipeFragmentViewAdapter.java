@@ -1,21 +1,26 @@
 package com.luo.ming.delicipe.Views;
 
+import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.bumptech.glide.Glide;
 import com.luo.ming.delicipe.Helpers.BitmapUtility;
+import com.luo.ming.delicipe.Helpers.DelicipeApplication;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Presenters.UserRecipeFragmentPresenter;
 import com.luo.ming.delicipe.R;
@@ -62,6 +67,7 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
 
         private ImageView coverImage;
         private TextView coverName;
+        private ImageButton deleteBtn;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -69,6 +75,7 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
 
             coverImage = itemView.findViewById(R.id.recipe_cover_image);
             coverName = itemView.findViewById(R.id.recipe_cover_title);
+            deleteBtn = itemView.findViewById(R.id.delete_user_recipe);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -80,7 +87,27 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
                 }
             });
 
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    new AlertDialog.Builder(context)
+                            .setTitle(R.string.alert_dialog_delete_recipe_title)
+                            .setMessage(R.string.alert_dialog_shopping_message)
+                            .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    presenter.deleteUserRecipe(getAdapterPosition());
+                                }
+                            })
+                            .setNegativeButton(R.string.alert_dialog_cancel,null)
+                            .show();
+
+                }
+            });
+
         }
+
 
         @Override
         public void setRowViewContent(UserRecipeCover userRecipeCover) {

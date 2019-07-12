@@ -1,6 +1,5 @@
 package com.luo.ming.delicipe.Presenters;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,15 +11,13 @@ import java.util.ArrayList;
 public class UserRecipeFragmentPresenter {
 
     private ArrayList<UserRecipeCover>userRecipeCoverList;
-    private ArrayList<UserRecipe>userRecipeList;
-    private UserRecipeCover userRecipeCover;
     private View view;
 
     public UserRecipeFragmentPresenter(View view) {
         this.view = view;
-        userRecipeCover = new UserRecipeCover();
-        new GetAllRecipeCoversTask().execute();
-
+        if(userRecipeCoverList==null){
+            new GetAllRecipeCoversTask().execute();
+        }
     }
 
     public void onBindUserRecipeViewHolder(int position, UserRecipeRowView view){
@@ -31,31 +28,45 @@ public class UserRecipeFragmentPresenter {
 
     public int getItemRowsCount(){
 
-        if(userRecipeCoverList==null){
-            return 0;
-        }
-
-        if(userRecipeCoverList.isEmpty()){
+        if(userRecipeCoverList==null||userRecipeCoverList.isEmpty()){
             return 0;
         }
         return userRecipeCoverList.size();
     }
 
-//    public UserRecipe getUserRecipeObject(int position) {
-//
-//        UserRecipeCover recipeCover = userRecipeCoverList.get(position);
-//
-//        UserRecipe userRecipe = new UserRecipe();
-//
-//        userRecipe = userRecipe.getUserRecipeObjFromCoverObj(recipeCover);
-//
-//        return userRecipe;
-//
-//    }
 
     public UserRecipeCover getUserRecipeCover(int position) {
 
         return userRecipeCoverList.get(position);
+    }
+
+    public void deleteUserRecipe(int position) {
+
+        new deleteUserRecipeByID(userRecipeCoverList.get(position).getCoverID(),position).execute();
+    }
+
+    private  class deleteUserRecipeByID extends AsyncTask<Void,Void,Void>{
+
+        private String id;
+        private int position;
+
+        public deleteUserRecipeByID(String id, int position) {
+            this.id = id;
+            this.position = position;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            UserRecipe.deleteUserRecipeByID(id);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            userRecipeCoverList.remove(position);
+            view.notifyDataSetHasChanged();
+        }
     }
 
     private class GetAllRecipeCoversTask extends AsyncTask<Void,Void,Void>{
@@ -63,6 +74,8 @@ public class UserRecipeFragmentPresenter {
         @Override
         protected Void doInBackground(Void... voids) {
             userRecipeCoverList = UserRecipeCover.getAllRecipeCoversFromDB();
+
+
             Log.d("RecipeFragmentPresenter","retrived usercover list");
             return null;
         }
@@ -71,6 +84,7 @@ public class UserRecipeFragmentPresenter {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             view.notifyDataSetHasChanged();
+            view.displayRecipeDeletedMessage();
 
         }
     }
@@ -79,6 +93,7 @@ public class UserRecipeFragmentPresenter {
     public interface View{
 
         void notifyDataSetHasChanged();
+        void displayRecipeDeletedMessage();
 
     }
 
