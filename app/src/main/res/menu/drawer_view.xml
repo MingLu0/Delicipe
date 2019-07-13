@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_shopping"
             android:icon="@drawable/ic_action_cart"
@@ -14,6 +15,11 @@
             android:id="@+id/nav_online_recipe"
             android:icon="@drawable/ic_action_search"
             android:title="Search Online Recipe" />
+
+        <item
+            android:id="@+id/nav_log_out"
+            android:icon="@drawable/ic_action_log_out"
+            android:title="Log Out" />
 
     </group>
 

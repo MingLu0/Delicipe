@@ -178,6 +178,10 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
                 startActivity(intent_search);
                 break;
 
+            case R.id.nav_log_out:
+
+                break;
+
         }
 
         return true;

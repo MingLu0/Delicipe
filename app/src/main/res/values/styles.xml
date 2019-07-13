@@ -11,6 +11,7 @@
 
     <style name="ActionBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
 
+        <item name="android:fontFamily">@font/lobster</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

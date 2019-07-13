@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private TextInputLayout email_layout, password_layout;
     private TextInputEditText email_edit_text, password_edit_Text;
     private MaterialButton btn_sign_in;
+    private MaterialButton btn_sign_up;
 
     private static final String TAG = "MainActivity";
 
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         password_edit_Text = findViewById(R.id.password_edit_text);
 
         btn_sign_in = findViewById(R.id.btnSignIn);
+        btn_sign_up = findViewById(R.id.btnSignUp);
 
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("message");
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 if(user!=null){
                     Log.d(TAG,"user signed in");
                     Log.d(TAG,user.getEmail());
+
 
                     databaseReference.setValue("Hey, i'm in");
                 } else {
@@ -132,9 +135,14 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+            }
+        });
 
-
-
+        btn_sign_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SignUpActivity.class);
+                startActivity(intent);
             }
         });
 
