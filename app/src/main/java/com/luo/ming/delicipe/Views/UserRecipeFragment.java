@@ -28,7 +28,6 @@ public class UserRecipeFragment extends Fragment implements UserRecipeFragmentPr
     }
 
     //todo fix showing lagging problem
-    //todo add delete function
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
