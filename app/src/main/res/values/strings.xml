@@ -32,7 +32,7 @@
     <string name="recipe_ingredient_label">Ingredients</string>
     <string name="recipe_serving_label">SERVINGS</string>
     <string name="main_app_name_label">Delicipe</string>
-    <string name="main_slogan_label">Get the reipe to cook your favourite meal!</string>
+    <string name="main_slogan_label">Your food diary</string>
     <string name="main_browse_btn">Not now, thanks</string>
     <string name="main_sign_up_btn">SIGN UP</string>
     <string name="edit_shopping_item_save_btn">Save</string>

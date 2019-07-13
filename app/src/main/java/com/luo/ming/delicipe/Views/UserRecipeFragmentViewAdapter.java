@@ -94,7 +94,7 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
 
                     new AlertDialog.Builder(context)
                             .setTitle(R.string.alert_dialog_delete_recipe_title)
-                            .setMessage(R.string.alert_dialog_shopping_message)
+                            .setMessage(R.string.alert_dialog_delete_recipe_message)
                             .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
