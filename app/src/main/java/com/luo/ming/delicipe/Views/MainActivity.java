@@ -68,18 +68,18 @@ public class MainActivity extends AppCompatActivity {
 
         databaseReference.setValue("Hello Again");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                Toast.makeText(MainActivity.this,value,Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                String value = dataSnapshot.getValue(String.class);
+//                Toast.makeText(MainActivity.this,value,Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
         mAuthListner = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -89,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if(user!=null){
                     Log.d(TAG,"user signed in");
+                    Log.d(TAG,user.getEmail());
+
+                    databaseReference.setValue("Hey, i'm in");
                 } else {
                     Log.d(TAG,"user signed out");
                 }
