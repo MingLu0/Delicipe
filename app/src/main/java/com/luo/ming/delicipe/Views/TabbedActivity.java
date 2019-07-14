@@ -27,7 +27,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.luo.ming.delicipe.Models.User;
+import com.luo.ming.delicipe.Presenters.TabbedActivityPresenter;
 import com.luo.ming.delicipe.R;
+import com.squareup.picasso.Picasso;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -35,9 +38,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
-public class TabbedActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class TabbedActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        TabbedActivityPresenter.View {
 
     /**
      * The {@link PagerAdapter} that will provide
@@ -55,6 +61,10 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
     private ViewPager mViewPager;
 
     private DrawerLayout drawerLayout;
+    private TabbedActivityPresenter presenter;
+
+    private ImageView userImage;
+    private TextView userName,userEmail;
 
     public static final String MESSAGE_FROM_TABBEDACTIVITY_TAG ="package com.luo.ming.delicipe.Views";
     public static final String MESSAGE_FROM_NAVIGATIONDRAWER_TAGE ="package com.luo.ming.delicipe.Views.NavigationDrawer";
@@ -74,8 +84,11 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        presenter = new TabbedActivityPresenter(this);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+
+
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.fragment_container);
@@ -86,6 +99,11 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
                 R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView =  navigationView.getHeaderView(0);
+        userName = (TextView)headerView.findViewById(R.id.nav_header_user_name);
+        userImage = headerView.findViewById(R.id.nav_header_user_image);
+        userEmail = headerView.findViewById(R.id.nav_header_email);
 
 
         TabLayout tabLayout = findViewById(R.id.tabs);
@@ -107,8 +125,22 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
         // set viewpager to the appropriate screen
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle!=null){
+            if(bundle.containsKey(MainActivity.MAIN_ACTIVITY_MESSAGE)){
+
+                User user = (User)bundle.getSerializable(MainActivity.MAIN_ACTIVITY_MESSAGE);
+                presenter.updateUiFromIntent(user);
+
+            }
+        }
+
+
 
     }
+
+
 
 
     @Override
@@ -188,6 +220,38 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
         }
 
         return true;
+    }
+
+    @Override
+    public void setNavHeaderImg(String url) {
+
+        Picasso.with(this)
+                .load(url)
+                .error(R.mipmap.ic_launcher)
+                .into(userImage);
+    }
+
+    @Override
+    public void setNavHeaderUserName(String name) {
+
+        if(name!=null){
+            userName.setText(name);
+        } else {
+            userName.setVisibility(View.INVISIBLE);
+        }
+
+
+    }
+
+    @Override
+    public void setNavHeaderEmail(String email) {
+
+        if(email!=null){
+            userEmail.setText(email);
+        } else {
+            userEmail.setVisibility(View.INVISIBLE);
+        }
+
     }
 
 

@@ -35,10 +35,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.luo.ming.delicipe.Helpers.DelicipeApplication;
+import com.luo.ming.delicipe.Models.User;
+import com.luo.ming.delicipe.Presenters.MainActivityPresenter;
 import com.luo.ming.delicipe.R;
 
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class MainActivity extends AppCompatActivity implements MainActivityPresenter.View {
 
     private Button browseButton;
 
@@ -56,12 +59,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     //private GoogleApiClient mGoogleApiClient;
 
     private GoogleSignInClient mGoogleApiClient;
+    private MainActivityPresenter presenter;
 
     private static final int RC_SIGN_IN = 9001;
 
 
 
     private static final String TAG = "MainActivity";
+    public static final String MAIN_ACTIVITY_MESSAGE = "package com.luo.ming.delicipe.Views.MainActivity";
 
 
 
@@ -88,6 +93,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("message");
         mAuth = FirebaseAuth.getInstance();
+
+        presenter = new MainActivityPresenter(this);
+
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -146,21 +155,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
                 String email = email_edit_text.getText().toString();
                 String password = password_edit_Text.getText().toString();
-                if(!email.isEmpty()&&!password.isEmpty()){
 
-                    mAuth.signInWithEmailAndPassword(email,password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(MainActivity.this,"Log in success",Toast.LENGTH_LONG).show();
-                                    } else {
-                                        Toast.makeText(MainActivity.this,"Log in failed",Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
+                presenter.signInWithEmailAndPassword(email,password);
 
-                }
+
+
 
             }
         });
@@ -243,7 +242,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    public void displayToast(String text) {
 
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void goToHotRecipePageWithUserInfo(User user) {
+
+        Intent intent = new Intent(this,TabbedActivity.class);
+
+        intent.putExtra(MAIN_ACTIVITY_MESSAGE, user);
+        startActivity(intent);
     }
 }
