@@ -10,9 +10,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     private MaterialButton btn_sign_in;
     private MaterialButton btn_sign_up;
 
+    private ImageView backgroundImage;
+
     private SignInButton googleSignInBtn;
     //private GoogleApiClient mGoogleApiClient;
 
@@ -85,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
         googleSignInBtn = findViewById(R.id.google_sign_in_button);
         googleSignInBtn.setSize(SignInButton.SIZE_WIDE);
+
+        backgroundImage = findViewById(R.id.image_background);
 
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("message");
@@ -154,6 +160,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
                 startActivity(intent);
             }
         });
+
+        Glide.with(this)
+                .load(R.raw.background40)
+                .centerCrop()
+                .into(backgroundImage);
 
     }
 

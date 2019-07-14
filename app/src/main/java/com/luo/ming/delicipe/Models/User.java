@@ -123,7 +123,9 @@ public class User implements Serializable {
                                  User user = new User();
                                  user.setDisplayName(firebaseUser.getDisplayName());
                                  user.setEmail(firebaseUser.getEmail());
-                                 user.setPhotoUrl(firebaseUser.getPhotoUrl().toString());
+                                 if(firebaseUser.getPhotoUrl()!=null){
+                                     user.setPhotoUrl(firebaseUser.getPhotoUrl().toString());
+                                 }
                                 callBack.onSuccess(user);
                                 Log.d(TAG,"user name "+user.getDisplayName());
                                 Log.d(TAG,"user image " + user.getPhotoUrl());
