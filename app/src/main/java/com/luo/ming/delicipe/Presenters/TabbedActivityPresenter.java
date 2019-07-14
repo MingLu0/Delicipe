@@ -12,7 +12,7 @@ public class TabbedActivityPresenter {
 
     public void updateUiFromIntent(User user) {
 
-        //view.setNavHeaderImg(user.toString());
+        view.setNavHeaderImg(user.getPhotoUrl());
         view.setNavHeaderUserName(user.getDisplayName());
         view.setNavHeaderEmail(user.getEmail());
 

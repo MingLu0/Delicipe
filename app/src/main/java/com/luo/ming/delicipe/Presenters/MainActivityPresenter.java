@@ -1,5 +1,8 @@
 package com.luo.ming.delicipe.Presenters;
 
+import android.app.Activity;
+
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.luo.ming.delicipe.Helpers.SignInCallBack;
 import com.luo.ming.delicipe.Models.User;
 
@@ -30,11 +33,21 @@ public class MainActivityPresenter implements SignInCallBack {
         view.displayToast(exception);
     }
 
+    public void signInWithGoogleAcct() {
+        view.signInWithGoogleAcct();
+    }
+
+    public void firebaseAuthenWithGoogle(Activity activity, GoogleSignInAccount account) {
+
+        User.firebaseAuthWithGoogle(activity,account,this);
+    }
+
     public interface View{
 
         void displayToast(String text);
 
         void goToHotRecipePageWithUserInfo(User user);
+        void signInWithGoogleAcct();
     }
 
 

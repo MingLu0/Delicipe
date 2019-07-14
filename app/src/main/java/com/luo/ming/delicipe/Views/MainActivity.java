@@ -68,10 +68,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     private static final String TAG = "MainActivity";
     public static final String MAIN_ACTIVITY_MESSAGE = "package com.luo.ming.delicipe.Views.MainActivity";
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         presenter = new MainActivityPresenter(this);
 
 
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -110,13 +105,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
             @Override
             public void onClick(View v) {
 
-                signIn();
+                presenter.signInWithGoogleAcct();
+
             }
         });
-
-
-
-
 
 
         mAuthListner = new FirebaseAuth.AuthStateListener() {
@@ -128,8 +120,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
                 if(user!=null){
                     Log.d(TAG,"user signed in");
                     Log.d(TAG,user.getEmail());
-
-
                     databaseReference.setValue("Hey, i'm in");
                 } else {
                     Log.d(TAG,"user signed out");
@@ -140,9 +130,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         browseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //presenter.login();  ONLY LINE BEFORE EDITING
-                // Go to Home Page activity
-                //Intent intent = new Intent(getApplicationContext(), TabbedActivity.class);
                 Intent intent = new Intent(getApplicationContext(), TabbedActivity.class);
                 startActivity(intent);
 
@@ -155,11 +142,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
                 String email = email_edit_text.getText().toString();
                 String password = password_edit_Text.getText().toString();
-
                 presenter.signInWithEmailAndPassword(email,password);
-
-
-
 
             }
         });
@@ -174,9 +157,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
     }
 
-    public void signIn(){
+    @Override
+    public void signInWithGoogleAcct() {
+
         Intent signInIntent = mGoogleApiClient.getSignInIntent();
         startActivityForResult(signInIntent,RC_SIGN_IN);
+
     }
 
     @Override
@@ -189,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
             try{
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
+                presenter.firebaseAuthenWithGoogle(this,account);
             } catch (ApiException e){
                 Log.w(TAG,"Google sign in failed");
             }
@@ -197,33 +183,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
 
-        Log.d(TAG,"firebaseAuthWithGoogle:" +account.getId());
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
-
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if(task.isSuccessful()){
-                            Log.d(TAG,"signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //update ui
-                        } else {
-                            Log.w(TAG,"signInWithCredential:failure",task.getException());
-                            Snackbar.make(findViewById(R.id.activity_main), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-
-                            //update UI
-                        }
-
-                    }
-                });
-
-
-    }
 
     @Override
     protected void onStart() {
@@ -251,8 +211,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     public void goToHotRecipePageWithUserInfo(User user) {
 
         Intent intent = new Intent(this,TabbedActivity.class);
-
         intent.putExtra(MAIN_ACTIVITY_MESSAGE, user);
         startActivity(intent);
     }
+
+
 }

@@ -8,14 +8,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.luo.ming.delicipe.Helpers.DelicipeApplication;
 import com.luo.ming.delicipe.Helpers.SignInCallBack;
 import com.luo.ming.delicipe.Helpers.SignUpCallBack;
+import com.luo.ming.delicipe.R;
 
 import java.io.Serializable;
 
@@ -34,15 +39,15 @@ public class User implements Serializable {
         this.displayName = displayName;
     }
 
-    public Uri getPhotoUrl() {
+    public String getPhotoUrl() {
         return photoUrl;
     }
 
-    public void setPhotoUrl(Uri photoUrl) {
+    public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
     }
 
-    private Uri photoUrl;
+    private String photoUrl;
 
     private static final String TAG = "User";
 
@@ -118,7 +123,7 @@ public class User implements Serializable {
                                  User user = new User();
                                  user.setDisplayName(firebaseUser.getDisplayName());
                                  user.setEmail(firebaseUser.getEmail());
-                                 user.setPhotoUrl(firebaseUser.getPhotoUrl());
+                                 user.setPhotoUrl(firebaseUser.getPhotoUrl().toString());
                                 callBack.onSuccess(user);
                                 Log.d(TAG,"user name "+user.getDisplayName());
                                 Log.d(TAG,"user image " + user.getPhotoUrl());
@@ -130,6 +135,38 @@ public class User implements Serializable {
                     });
 
         }
+    }
+
+
+    public static void firebaseAuthWithGoogle(Activity activity, GoogleSignInAccount account, final SignInCallBack callBack) {
+
+        Log.d(TAG,"firebaseAuthWithGoogle:" +account.getId());
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if(task.isSuccessful()){
+                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                            User user = new User();
+                            user.setDisplayName(firebaseUser.getDisplayName());
+                            user.setEmail(firebaseUser.getEmail());
+                            user.setPhotoUrl(firebaseUser.getPhotoUrl().toString());
+                            callBack.onSuccess(user);
+                            //update ui
+                        } else {
+                            Log.w(TAG,"signInWithCredential:failure",task.getException());
+                            callBack.onFailure(task.getException().toString());
+                            //update UI
+                        }
+
+                    }
+                });
+
     }
 
 
