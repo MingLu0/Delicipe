@@ -2,13 +2,11 @@ package com.luo.ming.delicipe.Presenters;
 
 import android.app.Activity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.luo.ming.delicipe.Helpers.DelicipeApplication;
+import com.luo.ming.delicipe.Helpers.SignUpCallBack;
 import com.luo.ming.delicipe.Models.User;
 
-public class SignUpActivityPresenter {
+public class SignUpActivityPresenter implements SignUpCallBack {
 
-    private FirebaseAuth mAuth;
     private View view;
 
     public SignUpActivityPresenter(View view) {
@@ -16,10 +14,27 @@ public class SignUpActivityPresenter {
     }
 
     public void signUpWithEmailAndPassWord(Activity activity, String email, String password) {
-        User.signUpWithEmailAndPwd(email,password,activity);
+
+        User user = new User();
+        user.signUpWithEmailAndPwd(email,password,activity,this);
+    }
+
+    @Override
+    public void onSuccess() {
+
+        view.goBackToMainActivity();
+        view.displayLogInSuccessMessage();
+    }
+
+    @Override
+    public void onFailure() {
+
     }
 
     public interface View{
+
+        void displayLogInSuccessMessage();
+        void goBackToMainActivity();
 
     }
 }

@@ -48,4 +48,6 @@
     <string name="alert_dialog_delete_recipe_message">Are you sure you want to delete this recipe?</string>
     <string name="title_activity_sign_up">Sign up</string>
 
+    <string name="default_web_client_id">658109207604-5pgumb5trm2rq1agq31ef6i88u8kcar0.apps.googleusercontent.com</string>
+
 </resources>

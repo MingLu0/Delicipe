@@ -26,9 +26,11 @@ import androidx.viewpager.widget.ViewPager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.luo.ming.delicipe.R;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -179,7 +181,8 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
                 break;
 
             case R.id.nav_log_out:
-
+                FirebaseAuth.getInstance().signOut();
+                drawerLayout.closeDrawer(GravityCompat.START,false);
                 break;
 
         }

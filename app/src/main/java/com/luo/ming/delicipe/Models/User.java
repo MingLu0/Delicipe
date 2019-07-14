@@ -1,8 +1,6 @@
 package com.luo.ming.delicipe.Models;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,7 +9,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.luo.ming.delicipe.Helpers.DelicipeApplication;
+import com.luo.ming.delicipe.Helpers.SignUpCallBack;
 
 public class User {
     private String email;
@@ -53,7 +51,7 @@ public class User {
         this.last_name = last_name;
     }
 
-    public static void signUpWithEmailAndPwd(String email, String password,Activity activity){
+    public  void signUpWithEmailAndPwd(String email, String password, Activity activity, final SignUpCallBack callBack){
 
         if(!email.isEmpty()&&!password.isEmpty()){
 
@@ -64,7 +62,11 @@ public class User {
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if(task.isSuccessful()){
+                                callBack.onSuccess();
                                 Log.d(TAG,"sign up success");
+                            } else {
+
+                                callBack.onFailure();
                             }
                         }
                     });
@@ -73,16 +75,7 @@ public class User {
 
     }
 
-    public Activity getActivity() {
-        Context context = DelicipeApplication.getAppContext();
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (Activity)context;
-            }
-            context = ((ContextWrapper)context).getBaseContext();
-        }
-        return null;
-    }
+
 
 
 }

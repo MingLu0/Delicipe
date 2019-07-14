@@ -3,6 +3,7 @@ package com.luo.ming.delicipe.Views;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,24 +13,32 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.luo.ming.delicipe.R;
 
-import org.w3c.dom.Text;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
     private Button browseButton;
 
@@ -42,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText email_edit_text, password_edit_Text;
     private MaterialButton btn_sign_in;
     private MaterialButton btn_sign_up;
+
+    private SignInButton googleSignInBtn;
+    //private GoogleApiClient mGoogleApiClient;
+
+    private GoogleSignInClient mGoogleApiClient;
+
+    private static final int RC_SIGN_IN = 9001;
+
+
 
     private static final String TAG = "MainActivity";
 
@@ -64,24 +82,33 @@ public class MainActivity extends AppCompatActivity {
         btn_sign_in = findViewById(R.id.btnSignIn);
         btn_sign_up = findViewById(R.id.btnSignUp);
 
+        googleSignInBtn = findViewById(R.id.google_sign_in_button);
+        googleSignInBtn.setSize(SignInButton.SIZE_WIDE);
+
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("message");
         mAuth = FirebaseAuth.getInstance();
 
-        databaseReference.setValue("Hello Again");
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
 
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                String value = dataSnapshot.getValue(String.class);
-//                Toast.makeText(MainActivity.this,value,Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+
+        mGoogleApiClient = GoogleSignIn.getClient(this,gso);
+
+        googleSignInBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                signIn();
+            }
+        });
+
+
+
+
+
 
         mAuthListner = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -146,6 +173,56 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void signIn(){
+        Intent signInIntent = mGoogleApiClient.getSignInIntent();
+        startActivityForResult(signInIntent,RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == RC_SIGN_IN){
+
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try{
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e){
+                Log.w(TAG,"Google sign in failed");
+            }
+
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+
+        Log.d(TAG,"firebaseAuthWithGoogle:" +account.getId());
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
+
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if(task.isSuccessful()){
+                            Log.d(TAG,"signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            //update ui
+                        } else {
+                            Log.w(TAG,"signInWithCredential:failure",task.getException());
+                            Snackbar.make(findViewById(R.id.activity_main), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+
+                            //update UI
+                        }
+
+                    }
+                });
+
 
     }
 
@@ -162,5 +239,11 @@ public class MainActivity extends AppCompatActivity {
         if(mAuthListner != null){
             mAuth.removeAuthStateListener(mAuthListner);
         }
+    }
+
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }

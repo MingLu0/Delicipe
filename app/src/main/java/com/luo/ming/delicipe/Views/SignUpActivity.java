@@ -1,5 +1,6 @@
 package com.luo.ming.delicipe.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.button.MaterialButton;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -25,7 +27,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityP
     private TextInputEditText email_text, password_text;
     private SignUpActivityPresenter presenter;
     private MaterialButton btnSignUp;
-
 
 
 
@@ -59,8 +60,19 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityP
             }
         });
 
+    }
 
+    @Override
+    public void displayLogInSuccessMessage() {
 
+        Toast.makeText(this, "Account has been created, please log in",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void goBackToMainActivity() {
+
+         Intent intent = new Intent(this,MainActivity.class);
+         startActivity(intent);
     }
 
 }
