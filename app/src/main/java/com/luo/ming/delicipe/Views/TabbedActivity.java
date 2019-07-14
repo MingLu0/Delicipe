@@ -40,6 +40,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class TabbedActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
@@ -214,6 +215,7 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
 
             case R.id.nav_log_out:
                 FirebaseAuth.getInstance().signOut();
+                presenter.logOut();
                 drawerLayout.closeDrawer(GravityCompat.START,false);
                 break;
 
@@ -252,6 +254,12 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
             userEmail.setVisibility(View.INVISIBLE);
         }
 
+    }
+
+    @Override
+    public void displayToast(String text) {
+
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
     }
 
 

@@ -18,9 +18,19 @@ public class TabbedActivityPresenter {
 
     }
 
+    public void logOut() {
+
+        view.setNavHeaderImg("logged out");
+        view.setNavHeaderUserName(null);
+        view.setNavHeaderEmail("Logged out");
+        view.displayToast("Logged out");
+
+    }
+
     public interface View{
         void setNavHeaderImg(String url);
         void setNavHeaderUserName(String name);
         void setNavHeaderEmail(String email);
+        void displayToast(String text);
     }
 }
