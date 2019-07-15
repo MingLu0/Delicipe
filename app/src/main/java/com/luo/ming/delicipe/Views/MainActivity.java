@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     private TextInputLayout email_layout, password_layout;
     private TextInputEditText email_edit_text, password_edit_Text;
     private MaterialButton btn_sign_in;
-    private MaterialButton btn_sign_up;
+    private TextView btn_sign_up;
 
     private ImageView backgroundImage;
 
