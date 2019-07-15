@@ -219,6 +219,11 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
                 drawerLayout.closeDrawer(GravityCompat.START,false);
                 break;
 
+            case R.id.nav_log_in:
+                Intent intent_log_in = new Intent(this,MainActivity.class);
+                startActivity(intent_log_in);
+                break;
+
         }
 
         return true;
