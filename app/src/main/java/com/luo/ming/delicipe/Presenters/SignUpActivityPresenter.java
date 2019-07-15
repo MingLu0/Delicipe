@@ -15,8 +15,23 @@ public class SignUpActivityPresenter implements SignUpCallBack {
 
     public void signUpWithEmailAndPassWord(Activity activity, String email, String password) {
 
-        User user = new User();
-        user.signUpWithEmailAndPwd(email,password,activity,this);
+        boolean emailvalid = false;
+        boolean passwordValid = false;
+        try{
+            emailvalid = User.checkEmailFormat(email);
+        } catch (IllegalArgumentException e){
+            view.displayEmailErrorMessage(e.getMessage());
+        }
+
+        try{
+            passwordValid = User.checkPasswordLength(password);
+        } catch (IllegalArgumentException e){
+            view.displayPasswordErrorMessage(e.getMessage());
+        }
+
+        if(emailvalid&&passwordValid){
+            User.signUpWithEmailAndPwd(email,password,activity,this);
+        }
     }
 
     @Override
@@ -27,8 +42,9 @@ public class SignUpActivityPresenter implements SignUpCallBack {
     }
 
     @Override
-    public void onFailure() {
+    public void onFailure(String message) {
 
+        view.displayEmailErrorMessage(message);
     }
 
     public interface View{
@@ -36,5 +52,7 @@ public class SignUpActivityPresenter implements SignUpCallBack {
         void displayLogInSuccessMessage();
         void goBackToMainActivity();
 
+        void displayPasswordErrorMessage(String message);
+        void displayEmailErrorMessage(String message);
     }
 }

@@ -11,6 +11,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
@@ -60,6 +62,43 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityP
             }
         });
 
+        email_text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                email_layout.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        password_text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                password_layout.setError(null);
+                password_layout.setHelperText("Please enter a password with at least 6 characters");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     @Override
@@ -73,6 +112,18 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityP
 
          Intent intent = new Intent(this,MainActivity.class);
          startActivity(intent);
+    }
+
+    @Override
+    public void displayPasswordErrorMessage(String message) {
+
+        password_layout.setError(message);
+    }
+
+    @Override
+    public void displayEmailErrorMessage(String message) {
+
+        email_layout.setError(message);
     }
 
 }

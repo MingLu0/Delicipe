@@ -25,8 +25,6 @@ public class RecipeDisplayActivityPresenter {
     private String recipeID;
     private ArrayList<Ingredient>ingredients;
 
-
-
     private final String baseUrl = "https://www.food2fork.com/api/get?key=";
     private final String key = "f5b73a553a6a92ccfabca695807bdaeb";//
 

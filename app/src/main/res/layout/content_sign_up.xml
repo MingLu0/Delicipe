@@ -31,7 +31,7 @@
             android:id="@+id/email_sign_up_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:maxLines="1"
             android:textColorLink="#4CAF50" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -48,8 +48,10 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         android:hint="Password"
+        app:helperText="Please enter at least 6 characters"
         app:boxStrokeColor="#4CAF50"
         app:errorEnabled="true"
+        app:passwordToggleEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +74,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Sign UP"
+        android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

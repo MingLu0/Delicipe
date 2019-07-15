@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.util.Log;
+import android.util.Patterns;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -85,28 +86,52 @@ public class User implements Serializable {
         this.last_name = last_name;
     }
 
-    public  void signUpWithEmailAndPwd(String email, String password, Activity activity, final SignUpCallBack callBack){
+    public static void signUpWithEmailAndPwd(String email, String password, Activity activity, final SignUpCallBack callBack){
 
-        if(!email.isEmpty()&&!password.isEmpty()){
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(activity,
+                new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
 
-            FirebaseAuth mAuth = FirebaseAuth.getInstance();
-            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(activity,
-                    new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    callBack.onSuccess();
+                    Log.d(TAG,"sign up success");
+                } else {
 
-                            if(task.isSuccessful()){
-                                callBack.onSuccess();
-                                Log.d(TAG,"sign up success");
-                            } else {
+                    String message = task.getException().getMessage();
+                    callBack.onFailure(message);
+                }
+            }
+        });
+    }
 
-                                callBack.onFailure();
-                            }
-                        }
-                    });
+    public static boolean checkEmailFormat(String email){
 
+        if(!email.isEmpty()){
+
+            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                throw new IllegalArgumentException("Please enter a correct email address");
+            }
+
+        } else {
+            throw new IllegalArgumentException("Please enter an email address");
         }
 
+        return true;
+    }
+
+    public static boolean checkPasswordLength(String password){
+
+        if(!password.isEmpty()){
+            if(password.length()<6){
+                throw new IllegalArgumentException("Please enter a password with at least 6 characters");
+            }
+        } else {
+            throw new IllegalArgumentException("Please enter password");
+        }
+
+        return true;
     }
 
     public static void signInWithEmailAndPassword(String email, String password, final SignInCallBack callBack) {
