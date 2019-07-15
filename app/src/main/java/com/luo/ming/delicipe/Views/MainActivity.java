@@ -178,6 +178,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     }
 
     @Override
+    public void displayPasswordInputError(String message) {
+
+        password_layout.setError(message);
+    }
+
+    @Override
+    public void displayEmailInputError(String message) {
+
+        email_layout.setError(message);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

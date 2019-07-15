@@ -156,7 +156,7 @@ public class User implements Serializable {
                                 Log.d(TAG,"user image " + user.getPhotoUrl());
                                 Log.d(TAG,"user email " + user.getEmail());
                             } else {
-                                callBack.onFailure(task.getException().toString());
+                                callBack.onFailure("User and Email do not match");
                             }
                         }
                     });

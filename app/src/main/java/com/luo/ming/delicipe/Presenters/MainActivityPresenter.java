@@ -16,13 +16,30 @@ public class MainActivityPresenter implements SignInCallBack {
 
     public void signInWithEmailAndPassword(String email, String password) {
 
-        User.signInWithEmailAndPassword(email,password,this);
+        boolean validEmail = false;
+        boolean validPassword = false;
+
+        try{
+            validEmail = User.checkEmailFormat(email);
+        } catch (IllegalArgumentException e){
+            view.displayEmailInputError(e.getMessage());
+        }
+
+        try{
+            validPassword = User.checkPasswordLength(password);
+        } catch (IllegalArgumentException e){
+            view.displayPasswordInputError(e.getMessage());
+        }
+
+        if(validEmail&&validPassword){
+            User.signInWithEmailAndPassword(email,password,this);
+        }
     }
 
     @Override
     public void onSuccess(User user) {
         
-        view.displayToast("Log in Successfully");
+        view.displayToast("Logged in Successfully");
         view.goToHotRecipePageWithUserInfo(user);
 
     }
@@ -30,7 +47,8 @@ public class MainActivityPresenter implements SignInCallBack {
     @Override
     public void onFailure(String exception) {
 
-        view.displayToast(exception);
+        view.displayEmailInputError(exception);
+        view.displayPasswordInputError(exception);
     }
 
     public void signInWithGoogleAcct() {
@@ -48,6 +66,9 @@ public class MainActivityPresenter implements SignInCallBack {
 
         void goToHotRecipePageWithUserInfo(User user);
         void signInWithGoogleAcct();
+
+        void displayPasswordInputError(String message);
+        void displayEmailInputError(String message);
     }
 
 
