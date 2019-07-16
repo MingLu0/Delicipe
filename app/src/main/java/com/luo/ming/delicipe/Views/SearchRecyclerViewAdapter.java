@@ -68,7 +68,7 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
             txtRecipePublisher = (TextView) itemView.findViewById(R.id.source);
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            recipeImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
