@@ -60,13 +60,22 @@ public class MainActivityPresenter implements SignInCallBack {
         User.firebaseAuthWithGoogle(activity,account,this);
     }
 
+    public void checkIfUserHasLoggedIn() {
+
+        if(User.checkIfCurrentUserExists()){
+            User user = User.getCurrentUser();
+            view.goToHotRecipePageWithUserInfo(user);
+        } else {
+            view.signInWithGoogleAcct();
+        }
+    }
+
     public interface View{
 
         void displayToast(String text);
 
         void goToHotRecipePageWithUserInfo(User user);
         void signInWithGoogleAcct();
-
         void displayPasswordInputError(String message);
         void displayEmailInputError(String message);
     }

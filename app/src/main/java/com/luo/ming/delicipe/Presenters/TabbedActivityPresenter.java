@@ -20,10 +20,10 @@ public class TabbedActivityPresenter {
 
     public void logOut() {
 
-        view.setNavHeaderImg("logged out");
+        view.setNavHeaderImg("Signed out");
         view.setNavHeaderUserName(null);
-        view.setNavHeaderEmail("Logged out");
-        view.displayToast("Logged out");
+        view.setNavHeaderEmail("Signed out");
+        view.displayToast("Signed out");
 
     }
 

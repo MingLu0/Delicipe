@@ -32,6 +32,19 @@ public class User implements Serializable {
     private String last_name;
     private String displayName;
 
+    public static boolean checkIfCurrentUserExists() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        return mAuth.getCurrentUser()!=null;
+    }
+
+    public static User getCurrentUser() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        User user = convertFirebaseUserToUser(currentUser);
+
+        return user;
+    }
+
     public String getDisplayName() {
         return displayName;
     }
@@ -145,16 +158,8 @@ public class User implements Serializable {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                  FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                                 User user = new User();
-                                 user.setDisplayName(firebaseUser.getDisplayName());
-                                 user.setEmail(firebaseUser.getEmail());
-                                 if(firebaseUser.getPhotoUrl()!=null){
-                                     user.setPhotoUrl(firebaseUser.getPhotoUrl().toString());
-                                 }
-                                callBack.onSuccess(user);
-                                Log.d(TAG,"user name "+user.getDisplayName());
-                                Log.d(TAG,"user image " + user.getPhotoUrl());
-                                Log.d(TAG,"user email " + user.getEmail());
+                                callBack.onSuccess(convertFirebaseUserToUser(firebaseUser));
+
                             } else {
                                 callBack.onFailure("User and Email do not match");
                             }
@@ -162,6 +167,17 @@ public class User implements Serializable {
                     });
 
         }
+    }
+
+    public static User convertFirebaseUserToUser(FirebaseUser firebaseUser){
+        User user = new User();
+        user.setDisplayName(firebaseUser.getDisplayName());
+        user.setEmail(firebaseUser.getEmail());
+        if(firebaseUser.getPhotoUrl()!=null){
+            user.setPhotoUrl(firebaseUser.getPhotoUrl().toString());
+        }
+
+        return user;
     }
 
 
@@ -179,26 +195,17 @@ public class User implements Serializable {
 
                         if(task.isSuccessful()){
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                            User user = new User();
-                            user.setDisplayName(firebaseUser.getDisplayName());
-                            user.setEmail(firebaseUser.getEmail());
-                            user.setPhotoUrl(firebaseUser.getPhotoUrl().toString());
-                            callBack.onSuccess(user);
-                            //update ui
+                            callBack.onSuccess(convertFirebaseUserToUser(firebaseUser));
+
                         } else {
                             Log.w(TAG,"signInWithCredential:failure",task.getException());
+
                             callBack.onFailure(task.getException().toString());
-                            //update UI
                         }
 
                     }
                 });
 
     }
-
-
-
-
-
 
 }

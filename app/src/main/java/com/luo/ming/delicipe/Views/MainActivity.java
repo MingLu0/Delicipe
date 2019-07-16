@@ -213,6 +213,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListner);
+        presenter.checkIfUserHasLoggedIn();
+
     }
 
     @Override
