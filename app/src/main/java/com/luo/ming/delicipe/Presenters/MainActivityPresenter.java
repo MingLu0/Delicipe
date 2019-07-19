@@ -65,8 +65,6 @@ public class MainActivityPresenter implements SignInCallBack {
         if(User.checkIfCurrentUserExists()){
             User user = User.getCurrentUser();
             view.goToHotRecipePageWithUserInfo(user);
-        } else {
-            view.signInWithGoogleAcct();
         }
     }
 

@@ -99,6 +99,12 @@ public class User implements Serializable {
         this.last_name = last_name;
     }
 
+    public static void signOut(){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
+
+    }
+
     public static void signUpWithEmailAndPwd(String email, String password, Activity activity, final SignUpCallBack callBack){
 
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
