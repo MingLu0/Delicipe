@@ -12,6 +12,7 @@ public class MainActivityPresenter implements SignInCallBack {
 
     public MainActivityPresenter(View view) {
         this.view = view;
+        view.displayBackgroundImage();
     }
 
     public void signInWithEmailAndPassword(String email, String password) {
@@ -76,6 +77,7 @@ public class MainActivityPresenter implements SignInCallBack {
         void signInWithGoogleAcct();
         void displayPasswordInputError(String message);
         void displayEmailInputError(String message);
+        void displayBackgroundImage();
     }
 
 

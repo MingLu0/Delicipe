@@ -59,8 +59,8 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
             super(itemView);
 
             recipeImage =  itemView.findViewById(R.id.recipe_cover_image);
-            txtRecipeTitle = (TextView) itemView.findViewById(R.id.recipe_cover_title);
-            txtRecipePublisher = (TextView) itemView.findViewById(R.id.source);
+            txtRecipeTitle = itemView.findViewById(R.id.recipe_cover_title);
+            txtRecipePublisher = itemView.findViewById(R.id.source);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

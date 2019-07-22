@@ -1,6 +1,5 @@
 package com.luo.ming.delicipe.Views;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,73 +11,59 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.luo.ming.delicipe.Presenters.MainActivityPresenter;
 import com.luo.ming.delicipe.Presenters.RecommendationFragmentPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 
-public class StaggeredRecipeRecyclerViewAdapter extends RecyclerView.Adapter<StaggeredRecipeRecyclerViewAdapter.ViewHolder> {
+public class RecommendedRecyclerViewAdapter extends RecyclerView.Adapter<RecommendedRecyclerViewAdapter.ViewHolder> {
 
-    private Context context;
     private RecommendationFragmentPresenter presenter;
+    private Context context;
 
-    public StaggeredRecipeRecyclerViewAdapter(Context context, RecommendationFragmentPresenter presenter) {
-        this.context = context;
+
+    public RecommendedRecyclerViewAdapter(RecommendationFragmentPresenter presenter, Context context) {
         this.presenter = presenter;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position % 3;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int layoutId = R.layout.staggered_recipe_first;
-        switch (viewType){
-            case 1:
-                layoutId = R.layout.staggered_recipe_second;
-                break;
-            case 2:
-                layoutId = R.layout.staggered_recipe_third;
-        }
-
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(layoutId,parent,false);
-        return new ViewHolder(layoutView);
+        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.single_view,parent,false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         try {
-            presenter.onBindViewHolder(holder, position);
+            presenter.onBindViewHolder(holder,position);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public int getItemCount() {
+
         return presenter.getCount();
+
     }
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder implements RecommendationFragmentPresenter.RowView{
 
-        private ImageView recipeImage;
-        private TextView recipeTitle, recipeSource;
-
+        ImageView recipeImage;
+        TextView txtRecipePublisher;
+        TextView txtRecipeTitle;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            recipeImage = itemView.findViewById(R.id.recipe_image);
-            recipeTitle = itemView.findViewById(R.id.recipe_title);
-            recipeSource = itemView.findViewById(R.id.recipe_source);
+            recipeImage =  itemView.findViewById(R.id.recipe_cover_image);
+            txtRecipeTitle = itemView.findViewById(R.id.recipe_cover_title);
+            txtRecipePublisher = itemView.findViewById(R.id.source);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -98,27 +83,25 @@ public class StaggeredRecipeRecyclerViewAdapter extends RecyclerView.Adapter<Sta
         @Override
         public void setRecipePhoto(String imageLink) {
 
-            Glide.with(context)
+            Picasso.with(context)
                     .load(imageLink)
                     .error(R.drawable.ic_launcher_background)
-                    .centerCrop()
+                    .fit()
                     .into(recipeImage);
-
-
         }
 
         @Override
         public void setRecipeTitle(String title) {
 
-            recipeTitle.setText(title);
+            txtRecipeTitle.setText(title);
 
         }
 
         @Override
         public void setRecipePublisher(String source) {
 
-            recipeSource.setText(source);
-
+            txtRecipePublisher.setText(source);
         }
     }
+
 }

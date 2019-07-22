@@ -1,9 +1,8 @@
 package com.luo.ming.delicipe.Presenters;
 
-import android.content.Context;
 
 import com.luo.ming.delicipe.Models.Recipe;
-import com.luo.ming.delicipe.Views.StaggeredRecipeRecyclerViewAdapter;
+import com.luo.ming.delicipe.Views.RecommendedRecyclerViewAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +18,7 @@ public class RecommendationFragmentPresenter {
         recipeJsonArray = Recipe.loadRecommendedRecipeJsonArray();
     }
 
-    public void onBindViewHolder(StaggeredRecipeRecyclerViewAdapter.ViewHolder holder, int position) throws JSONException {
+    public void onBindViewHolder(RecommendedRecyclerViewAdapter.ViewHolder holder, int position) throws JSONException {
 
         JSONObject jsonObject= recipeJsonArray.getJSONObject(position);
         holder.setRecipePhoto(Recipe.getOnlineUrl(jsonObject.getString("image_url")));

@@ -43,26 +43,11 @@ public class RecommendationFragment extends Fragment implements RecommendationFr
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView_recommendation);
         recyclerView.setHasFixedSize(true);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,
-                GridLayoutManager.HORIZONTAL, false);
-
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return position % 3 ==2 ? 2: 1;
-            }
-        });
-
         RecommendationFragmentPresenter presenter = new RecommendationFragmentPresenter( this);
-
-        recyclerView.setLayoutManager(gridLayoutManager);
-        StaggeredRecipeRecyclerViewAdapter adapter = new StaggeredRecipeRecyclerViewAdapter(getActivity(),presenter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        RecommendedRecyclerViewAdapter adapter = new RecommendedRecyclerViewAdapter(presenter,getActivity());
         recyclerView.setAdapter(adapter);
 
-        int largePadding = getResources().getDimensionPixelSize(R.dimen.staggered_recipe_spacing_large);
-        int smallPadding = getResources().getDimensionPixelSize(R.dimen.staggered_recipe_spacing_small);
-
-        recyclerView.addItemDecoration(new RecipeItemDecoration(largePadding,smallPadding));
 
     }
 }
