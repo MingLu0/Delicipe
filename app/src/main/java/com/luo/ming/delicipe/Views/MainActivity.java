@@ -2,7 +2,6 @@ package com.luo.ming.delicipe.Views;
 
 import android.content.Intent;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,30 +23,29 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.luo.ming.delicipe.Models.User;
 import com.luo.ming.delicipe.Presenters.MainActivityPresenter;
 import com.luo.ming.delicipe.R;
+import com.luo.ming.delicipe.R2;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class MainActivity extends AppCompatActivity implements MainActivityPresenter.View {
 
-    private Button browseButton;
 
-    private FirebaseDatabase database;
+    @BindView(R2.id.browseButton) Button browseButton;
+    @BindView(R2.id.email_input_layout) TextInputLayout email_layout;
+    @BindView(R2.id.password_input_layout) TextInputLayout password_layout;
+    @BindView(R2.id.email_edit_text) TextInputEditText email_edit_text;
+    @BindView(R2.id.password_edit_text) TextInputEditText password_edit_Text;
+    @BindView(R2.id.btnSignIn) MaterialButton btn_sign_in;
+    @BindView(R2.id.btnSignUp) TextView btn_sign_up;
+    @BindView(R2.id.image_background) ImageView backgroundImage;
+    @BindView(R2.id.google_sign_in_button) SignInButton googleSignInBtn;
 
-    private FirebaseAuth mAuth;
-    private TextInputLayout email_layout, password_layout;
-    private TextInputEditText email_edit_text, password_edit_Text;
-    private MaterialButton btn_sign_in;
-    private TextView btn_sign_up;
-
-    private ImageView backgroundImage;
-
-    private SignInButton googleSignInBtn;
     private GoogleSignInClient mGoogleApiClient;
     private MainActivityPresenter presenter;
 
@@ -63,62 +61,38 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        browseButton = findViewById(R.id.browseButton);
-        email_layout = findViewById(R.id.email_input_layout);
-        password_layout = findViewById(R.id.password_input_layout);
-        email_edit_text = findViewById(R.id.email_edit_text);
-        password_edit_Text = findViewById(R.id.password_edit_text);
-        btn_sign_in = findViewById(R.id.btnSignIn);
-        btn_sign_up = findViewById(R.id.btnSignUp);
-        googleSignInBtn = findViewById(R.id.google_sign_in_button);
-        googleSignInBtn.setSize(SignInButton.SIZE_WIDE);
-        backgroundImage = findViewById(R.id.image_background);
+        ButterKnife.bind(this);
 
-        database = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+        googleSignInBtn.setSize(SignInButton.SIZE_WIDE);
 
         presenter = new MainActivityPresenter(this);
 
-
-        googleSignInBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                presenter.signInWithGoogleAcct();
-
-            }
-        });
-
-        browseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TabbedActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-        btn_sign_in.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String email = email_edit_text.getText().toString();
-                String password = password_edit_Text.getText().toString();
-                presenter.signInWithEmailAndPassword(email,password);
-
-            }
-        });
-
-        btn_sign_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
     }
+
+    @OnClick(R2.id.google_sign_in_button)
+    public void googleSignIn(){
+        presenter.signInWithGoogleAcct();
+    }
+
+    @OnClick(R2.id.browseButton)
+    public void browseWithoutSignIn(){
+        Intent intent = new Intent(getApplicationContext(), TabbedActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R2.id.btnSignIn)
+    public void signInWithEmailAndPassword(){
+        String email = email_edit_text.getText().toString();
+        String password = password_edit_Text.getText().toString();
+        presenter.signInWithEmailAndPassword(email,password);
+    }
+
+    @OnClick(R2.id.btnSignUp)
+    public void goToSignUpPage(){
+        Intent intent = new Intent(MainActivity.this,SignUpActivity.class);
+        startActivity(intent);
+    }
+
 
     @Override
     public void signInWithGoogleAcct() {
