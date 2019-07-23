@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Presenters.FavouriteFragmentPresenter;
 import com.luo.ming.delicipe.R;
@@ -62,7 +63,7 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
             txtRecipeTitle = itemView.findViewById(R.id.recipe_cover_title);
             txtRecipePublisher = itemView.findViewById(R.id.source);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            recipeImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
@@ -80,10 +81,10 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
         @Override
         public void setRowViewImage(String imageLink) {
 
-            Picasso.with(context)
+            Glide.with(context)
                     .load(imageLink)
                     .error(R.drawable.ic_launcher_background)
-                    .fit()
+                    .centerCrop()
                     .into(recipeImage);
 
         }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.luo.ming.delicipe.Models.Recipe;
 import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
 import com.luo.ming.delicipe.R;
@@ -97,10 +98,10 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
         @Override
         public void setRowViewImage(String imageLink) {
 
-            Picasso.with(context)
+            Glide.with(context)
                     .load(imageLink)
                     .error(R.drawable.ic_launcher_background)
-                    .fit()
+                    .centerCrop()
                     .into(recipeImage);
 
         }

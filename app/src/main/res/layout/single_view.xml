@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/recipe_cover_title"
                 android:fontFamily="@font/merriweather"
+                android:ellipsize="end"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"

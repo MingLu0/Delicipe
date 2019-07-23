@@ -19,8 +19,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -31,7 +29,6 @@ import com.luo.ming.delicipe.Presenters.TabbedActivityPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,35 +37,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class TabbedActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         TabbedActivityPresenter.View {
 
-    /**
-     * The {@link PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
-
-    private DrawerLayout drawerLayout;
-    private TabbedActivityPresenter presenter;
+    @BindView(R.id.fragment_container) ViewPager mViewPager;
+    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
     private ImageView userImage;
     private TextView userName,userEmail;
 
+    private TabbedActivityPresenter presenter;
+
     public static final String MESSAGE_FROM_TABBEDACTIVITY_TAG ="package com.luo.ming.delicipe.Views";
-
-
-    //00c853
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,19 +63,13 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
 
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        ButterKnife.bind(this);
+
         presenter = new TabbedActivityPresenter(this);
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-
-
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.fragment_container);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
@@ -109,8 +89,7 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
         tabLayout.addTab(tabLayout.newTab().setText("Hot"));
         tabLayout.addTab(tabLayout.newTab().setText("My Recipe"));
         tabLayout.addTab(tabLayout.newTab().setText("Favorite"));
-        //tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label3));
-        // Set the tabs to fill the entire layout.
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Create the adapter that will return a fragment for each of the three
@@ -134,8 +113,6 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
             }
         }
 
-
-
     }
 
 
@@ -144,8 +121,6 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu,menu);
-
-
         androidx.appcompat.widget.SearchView searchView =
                 (androidx.appcompat.widget.SearchView) menu.findItem(R.id.search).getActionView();
 
@@ -173,6 +148,8 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
         return true;
 
     }
+
+
 
 
     @Override

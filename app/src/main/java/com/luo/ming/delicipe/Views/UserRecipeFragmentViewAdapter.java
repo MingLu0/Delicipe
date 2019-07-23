@@ -77,7 +77,7 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
             coverName = itemView.findViewById(R.id.recipe_cover_title);
             deleteBtn = itemView.findViewById(R.id.delete_user_recipe);
             deleteBtn.setVisibility(View.VISIBLE);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            coverImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
@@ -115,6 +115,7 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
 
             Glide.with(context)
                     .load(userRecipeCover.getImageBytes())
+                    .centerCrop()
                     .into(coverImage);
 
             coverName.setText(userRecipeCover.getCoverName());

@@ -48,6 +48,5 @@ public class RecommendationFragment extends Fragment implements RecommendationFr
         RecommendedRecyclerViewAdapter adapter = new RecommendedRecyclerViewAdapter(presenter,getActivity());
         recyclerView.setAdapter(adapter);
 
-
     }
 }

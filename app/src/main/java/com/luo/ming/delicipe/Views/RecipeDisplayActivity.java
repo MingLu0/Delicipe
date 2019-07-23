@@ -139,7 +139,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
 
                 Boolean checked = ((CheckBox)v).isChecked();
                 if(checked){
-                    checkBox.setButtonDrawable(R.drawable.ic_action_favourited_button_24dp);
+                    checkBox.setButtonDrawable(R.drawable.ic_favorite_green_24dp);
 
                     presenter.saveFavouriteRecipe();
 
@@ -287,7 +287,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
 
         //android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.
         if(bool){
-            checkBox.setButtonDrawable(R.drawable.ic_action_favourited_button_24dp);
+            checkBox.setButtonDrawable(R.drawable.ic_favorite_green_24dp);
         } else {
             checkBox.setButtonDrawable(R.drawable.ic_action_favourite);
         }

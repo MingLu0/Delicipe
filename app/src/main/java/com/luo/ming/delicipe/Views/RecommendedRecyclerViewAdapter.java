@@ -66,7 +66,7 @@ public class RecommendedRecyclerViewAdapter extends RecyclerView.Adapter<Recomme
             txtRecipeTitle.setSingleLine(true);
             txtRecipePublisher.setSingleLine(true);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            recipeImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context,RecipeDisplayActivity.class);
@@ -83,7 +83,6 @@ public class RecommendedRecyclerViewAdapter extends RecyclerView.Adapter<Recomme
 
         @Override
         public void setRecipePhoto(String imageLink) {
-
             Glide.with(context)
                     .load(imageLink)
                     .error(R.drawable.ic_launcher_background)
