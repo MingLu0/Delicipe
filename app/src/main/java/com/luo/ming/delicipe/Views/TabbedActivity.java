@@ -23,7 +23,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,7 +32,6 @@ import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -68,7 +66,6 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
     private TextView userName,userEmail;
 
     public static final String MESSAGE_FROM_TABBEDACTIVITY_TAG ="package com.luo.ming.delicipe.Views";
-    public static final String MESSAGE_FROM_NAVIGATIONDRAWER_TAGE ="package com.luo.ming.delicipe.Views.NavigationDrawer";
 
 
     //00c853
@@ -142,8 +139,6 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
     }
 
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -165,7 +160,6 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 intent.putExtra(MESSAGE_FROM_TABBEDACTIVITY_TAG,query);
                 startActivity(intent);
-                Log.d("searchview",query);
 
                 return false;
             }

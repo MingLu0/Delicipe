@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
         ButterKnife.bind(this);
         googleSignInBtn.setSize(SignInButton.SIZE_WIDE);
-
         presenter = new MainActivityPresenter(this);
 
     }
@@ -104,13 +103,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
     @Override
     public void displayPasswordInputError(String message) {
-
         password_layout.setError(message);
     }
 
     @Override
     public void displayEmailInputError(String message) {
-
         email_layout.setError(message);
     }
 
@@ -158,13 +155,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
     @Override
     public void displayToast(String text) {
-
         Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void goToHotRecipePageWithUserInfo(User user) {
-
         Intent intent = new Intent(this,TabbedActivity.class);
         intent.putExtra(MAIN_ACTIVITY_MESSAGE, user);
         startActivity(intent);

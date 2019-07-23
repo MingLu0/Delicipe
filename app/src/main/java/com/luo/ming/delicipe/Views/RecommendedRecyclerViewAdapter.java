@@ -12,11 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.luo.ming.delicipe.Presenters.MainActivityPresenter;
 import com.luo.ming.delicipe.Presenters.RecommendationFragmentPresenter;
 import com.luo.ming.delicipe.R;
-import com.squareup.picasso.Picasso;
-
 import org.json.JSONException;
 
 public class RecommendedRecyclerViewAdapter extends RecyclerView.Adapter<RecommendedRecyclerViewAdapter.ViewHolder> {
@@ -65,6 +62,9 @@ public class RecommendedRecyclerViewAdapter extends RecyclerView.Adapter<Recomme
             recipeImage =  itemView.findViewById(R.id.recipe_cover_image);
             txtRecipeTitle = itemView.findViewById(R.id.recipe_cover_title);
             txtRecipePublisher = itemView.findViewById(R.id.source);
+
+            txtRecipeTitle.setSingleLine(true);
+            txtRecipePublisher.setSingleLine(true);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

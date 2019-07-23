@@ -32,6 +32,7 @@
                 android:layout_below="@id/recipe_cover_image"
                 android:fontFamily="@font/merriweather"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:ellipsize="end"
                 android:textStyle="bold"
                 android:textColor="#ff373435"
                 android:paddingLeft="10dp"
