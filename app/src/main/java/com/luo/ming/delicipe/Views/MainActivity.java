@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,9 +49,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     private MainActivityPresenter presenter;
 
     private static final int RC_SIGN_IN = 9001;
-
-
-
     private static final String TAG = "MainActivity";
     public static final String MAIN_ACTIVITY_MESSAGE = "package com.luo.ming.delicipe.Views.MainActivity";
 
@@ -62,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
         googleSignInBtn.setSize(SignInButton.SIZE_WIDE);
 
         presenter = new MainActivityPresenter(this);
@@ -145,7 +140,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
         }
     }
-
 
 
     @Override

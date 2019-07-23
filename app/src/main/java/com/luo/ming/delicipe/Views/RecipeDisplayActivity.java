@@ -185,9 +185,6 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
                 .error(R.drawable.ic_launcher_foreground)
                 .into(toolbarImage);
 
-//        Glide.with(this).load(bitmap)
-//                .bitmapTransform(new BlurTransformation(context))
-//                .into((ImageView) findViewById(R.id.image));
     }
 
     @Override

@@ -49,5 +49,7 @@
     <string name="title_activity_sign_up">Sign up</string>
 
     <string name="default_web_client_id">658109207604-5pgumb5trm2rq1agq31ef6i88u8kcar0.apps.googleusercontent.com</string>
+    <string name="SIGN_UP_PASSWORD_HELPER_TEXT">Please enter a password with at least 6 characters</string>
+    <string name="SIGN_UP_SUCCESS_TOAST_MESSAGE">Account has been created, please log in</string>
 
 </resources>

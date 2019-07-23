@@ -72,7 +72,6 @@ public class MainActivityPresenter implements SignInCallBack {
     public interface View{
 
         void displayToast(String text);
-
         void goToHotRecipePageWithUserInfo(User user);
         void signInWithGoogleAcct();
         void displayPasswordInputError(String message);

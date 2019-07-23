@@ -11,6 +11,7 @@ public class SignUpActivityPresenter implements SignUpCallBack {
 
     public SignUpActivityPresenter(View view) {
         this.view = view;
+        view.displayBackgroundImage();
     }
 
     public void signUpWithEmailAndPassWord(Activity activity, String email, String password) {
@@ -51,7 +52,7 @@ public class SignUpActivityPresenter implements SignUpCallBack {
 
         void displayLogInSuccessMessage();
         void goBackToMainActivity();
-
+        void displayBackgroundImage();
         void displayPasswordErrorMessage(String message);
         void displayEmailErrorMessage(String message);
     }
