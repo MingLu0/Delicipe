@@ -38,9 +38,9 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
 
         recyclerView = findViewById(R.id.shoppingRecyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this)); //?
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        presenter = new ShoppingFragmentPresenter(this);//?
+        presenter = new ShoppingFragmentPresenter(this);
 
         recyclerViewAdapter = new ShoppingListRecyclerViewAdapter(this,presenter);
 
@@ -51,13 +51,11 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.shopping_options_menu,menu);
 
-
         return true;
-
     }
 
     @Override
@@ -99,7 +97,6 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
     public void notifyShoppingItemRemoved(int position) {
 
         recyclerViewAdapter.notifyItemRemoved(position);
-
     }
 
 
@@ -119,7 +116,7 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingF
     @Override
     public void displayItemAllDeletedMessage() {
 
-        Toast.makeText(this,"All shopping item has been deleted",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,getString(R.string.SHOPPING_LIST_ALL_ITEM_DELETED_MESSAGE),Toast.LENGTH_SHORT).show();
     }
 
 

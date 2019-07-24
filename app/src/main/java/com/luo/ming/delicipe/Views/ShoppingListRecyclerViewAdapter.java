@@ -15,16 +15,18 @@ import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Presenters.ShoppingFragmentPresenter;
 import com.luo.ming.delicipe.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingListRecyclerViewAdapter.ViewHolder> {
 
     private  ShoppingFragmentPresenter presenter;
     private Context context;
-    private ShoppingFragmentPresenter.ShoppingRowView view;
 
     public ShoppingListRecyclerViewAdapter(Context context, ShoppingFragmentPresenter presenter){
         this.context = context;
         this.presenter = presenter;
-
 
     }
 
@@ -32,14 +34,12 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.table_row_shopping,viewGroup,false);
-        Log.d("ShoppingListAdapter","onCreateViewHolder has been called");
         return new ViewHolder(view,context);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         presenter.onBindItemRowViewAtPosition(position,viewHolder);
-        Log.d("ShoppingListAdapter","onBindViewHolder has been called");
 
     }
 
@@ -51,39 +51,29 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
 
     public class ViewHolder extends RecyclerView.ViewHolder implements ShoppingFragmentPresenter.ShoppingRowView {
 
-        private CheckBox btnChk;
-        private TextView txtItem;
-        private ImageButton btnEdit;
+        @BindView(R.id.chk_selected) CheckBox btnChk;
+        @BindView(R.id.txt_item) TextView txtItem;
+        @BindView(R.id.button_edit) ImageButton btnEdit;
 
         public ViewHolder(View itemView, final Context cxt){
             super(itemView);
 
-            btnChk = itemView.findViewById(R.id.chk_selected);
-            txtItem = itemView.findViewById(R.id.txt_item);
-            btnEdit = itemView.findViewById(R.id.button_edit);
+            ButterKnife.bind(this,itemView);
 
-            btnChk.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        }
 
-                    if(btnChk.isChecked()){
+        @OnClick(R.id.button_edit)
+        public void editShoppingItem(){
+            presenter.editShoppingItem(getAdapterPosition());
+        }
 
-                        presenter.deleteShoppingItem(getAdapterPosition());
-                        btnChk.setChecked(false);
+        @OnClick(R.id.chk_selected)
+        public void deleteShoppingItem(){
 
-                    }
-
-                }
-            });
-
-            btnEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.editShoppingItem(getAdapterPosition());
-                }
-            });
-
-
+            if(btnChk.isChecked()){
+                presenter.deleteShoppingItem(getAdapterPosition());
+                btnChk.setChecked(false);
+            }
         }
 
         @Override
