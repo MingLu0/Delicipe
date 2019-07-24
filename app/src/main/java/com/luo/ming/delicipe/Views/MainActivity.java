@@ -152,7 +152,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
     }
 
-
     @Override
     public void displayToast(String text) {
         Toast.makeText(this,text,Toast.LENGTH_SHORT).show();

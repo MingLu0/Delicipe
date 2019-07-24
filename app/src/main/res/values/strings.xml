@@ -56,5 +56,6 @@
     <string name="TABBED_ACTIVITY_TAB2">My Recipe</string>
     <string name="TABBED_ACTIVITY_TAB3">Favorite</string>
     <string name="SEARCH_ONLINE_RECIPE_HINT">Search Online Recipes</string>
+    <string name="INGREDIENT_INPUT_DIALOG_VIEW_ITEM_NAME_MISSING_ERROR">Item name required</string>
 
 </resources>
