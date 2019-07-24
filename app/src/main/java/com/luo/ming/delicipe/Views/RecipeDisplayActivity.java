@@ -27,25 +27,34 @@ import java.util.ArrayList;
 
 import com.bumptech.glide.Glide;
 import com.luo.ming.delicipe.Helpers.BitmapUtility;
-import com.luo.ming.delicipe.Models.Ingredient;
 import com.luo.ming.delicipe.Models.Recipe;
-import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Models.UserRecipeStep;
 import com.luo.ming.delicipe.Presenters.RecipeDisplayActivityPresenter;
 import com.luo.ming.delicipe.R;
+import com.luo.ming.delicipe.R2;
 import com.squareup.picasso.Picasso;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDisplayActivityPresenter.View {
 
-    private ImageView toolbarImage;
+    @BindView(R2.id.toolbarimageview) ImageView toolbarImage;
+    @BindView(R2.id.btnCart) CheckBox btnCart;
+    @BindView(R2.id.table_main) TableLayout ingredientTableLayout;
+    @BindView(R2.id.table_steps) TableLayout stepsTableLayout;
+    @BindView(R2.id.txtServing) TextView txtServing;
+    @BindView(R2.id.text_recipe_title) TextView textTitle;
+    @BindView(R2.id.txtSteps) TextView textSteps;
+    @BindView(R2.id.txtCookingTime) TextView textCookingTime;
+    @BindView(R2.id.txtComment) TextView textComment;
+    @BindView(R2.id.toolbar) Toolbar toolbar;
+    @BindView(R2.id.checkBox) CheckBox checkBox;
+    @BindView(R2.id.btnGetDirection) Button btnGetDirection;
+
     private RecipeDisplayActivityPresenter presenter;
-    private CheckBox btnCart;
-    private TableLayout ingredientTableLayout,stepsTableLayout;
-    private TextView txtServing,textTitle,textSteps,textCookingTime,textComment;
     private static int newServing;
-    private Toolbar toolbar;
-    private CheckBox checkBox;
-    private Button btnGetDirection;
 
 
     //todo handle rotation
@@ -76,32 +85,18 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling2);
-         toolbar =  findViewById(R.id.toolbar);
+
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home_up);
 
-
-
-        btnCart = findViewById(R.id.btnCart);
-        ingredientTableLayout = (TableLayout)findViewById(R.id.table_main);
-        stepsTableLayout = findViewById(R.id.table_steps);
-        txtServing = (TextView)findViewById(R.id.txtServing);
-        toolbarImage = findViewById(R.id.toolbarimageview);
-        textTitle = findViewById(R.id.text_recipe_title);
-        checkBox = (CheckBox) findViewById(R.id.checkBox);
-        textSteps = findViewById(R.id.txtSteps);
-        btnGetDirection = findViewById(R.id.btnGetDirection);
-        textCookingTime = findViewById(R.id.txtCookingTime);
-        textComment = findViewById(R.id.txtComment);
-
-
         newServing = 4;
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-
+        
 
         if(bundle.containsKey(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE)){
             Recipe recipe = (Recipe) bundle.getSerializable(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE);
@@ -125,56 +120,44 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
         }
 
 
+    }
 
-        btnCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // presenter.saveAllIngredients();
-            }
-        });
 
-        checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @OnClick(R2.id.checkBox)
+    public void saveFavoriteRecipe(View v){
 
-                Boolean checked = ((CheckBox)v).isChecked();
-                if(checked){
-                    checkBox.setButtonDrawable(R.drawable.ic_favorite_green_24dp);
+        Boolean checked = ((CheckBox)v).isChecked();
+        if(checked){
+            checkBox.setButtonDrawable(R.drawable.ic_favorite_green_24dp);
 
-                    presenter.saveFavouriteRecipe();
+            presenter.saveFavouriteRecipe();
 
-                    Toast.makeText(getApplication(), "Recipe Saved!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplication(), "Recipe Saved!", Toast.LENGTH_SHORT).show();
 
-                } else {
-                    checkBox.setButtonDrawable(R.drawable.ic_action_favourite);
+        } else {
+            checkBox.setButtonDrawable(R.drawable.ic_action_favourite);
 
-                    Toast.makeText(getApplication(), "Recipe Unsaved!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplication(), "Recipe Unsaved!", Toast.LENGTH_SHORT).show();
 
-                    presenter.unSaveFavouriteRecipe();
-                }
-            }
-        });
+            presenter.unSaveFavouriteRecipe();
+        }
 
-        btnGetDirection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.displayDirectionsPage();
-            }
-        });
+    }
 
+    @OnClick(R2.id.btnGetDirection)
+    public void getCookingDirections(){
+        presenter.displayDirectionsPage();
     }
 
 
     @Override
     public void displayRecipePhoto(String imageLink) {
 
-
         Picasso.with(this)
                 .load(imageLink)
                 .error(R.drawable.ic_launcher_foreground)
                 .fit()
                 .into(toolbarImage);
-
     }
 
     @Override
@@ -285,7 +268,6 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
 
         checkBox.setChecked(bool);
 
-        //android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.
         if(bool){
             checkBox.setButtonDrawable(R.drawable.ic_favorite_green_24dp);
         } else {

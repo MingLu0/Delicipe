@@ -27,8 +27,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/browseButton"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:id="@+id/signInBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -36,16 +35,16 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="@+id/btnSignIn"
+        android:text="Sign in"
+        app:layout_constraintBottom_toBottomOf="@+id/browseButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnSignIn"
+        app:layout_constraintTop_toTopOf="@+id/browseButton"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -74,7 +73,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -101,13 +100,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSignIn"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:id="@+id/browseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Sign in"
+        android:text="Skip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/password_input_layout"
         app:layout_constraintHorizontal_bias="1.0"
@@ -147,7 +147,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/browseButton"
+        app:layout_constraintTop_toBottomOf="@+id/signInBtn"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -163,7 +163,7 @@
         app:layout_constraintBottom_toTopOf="@+id/google_sign_in_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/browseButton" />
+        app:layout_constraintTop_toBottomOf="@+id/signInBtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

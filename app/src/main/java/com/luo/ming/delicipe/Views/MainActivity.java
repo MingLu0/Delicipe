@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     @BindView(R2.id.password_input_layout) TextInputLayout password_layout;
     @BindView(R2.id.email_edit_text) TextInputEditText email_edit_text;
     @BindView(R2.id.password_edit_text) TextInputEditText password_edit_Text;
-    @BindView(R2.id.btnSignIn) MaterialButton btn_sign_in;
+    @BindView(R2.id.signInBtn) Button btn_sign_in;
     @BindView(R2.id.btnSignUp) TextView btn_sign_up;
     @BindView(R2.id.image_background) ImageView backgroundImage;
     @BindView(R2.id.google_sign_in_button) SignInButton googleSignInBtn;
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         startActivity(intent);
     }
 
-    @OnClick(R2.id.btnSignIn)
+    @OnClick(R2.id.signInBtn)
     public void signInWithEmailAndPassword(){
         String email = email_edit_text.getText().toString();
         String password = password_edit_Text.getText().toString();
