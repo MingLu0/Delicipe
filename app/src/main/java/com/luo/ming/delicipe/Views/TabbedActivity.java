@@ -79,16 +79,16 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerView =  navigationView.getHeaderView(0);
-        userName = (TextView)headerView.findViewById(R.id.nav_header_user_name);
+        userName = headerView.findViewById(R.id.nav_header_user_name);
         userImage = headerView.findViewById(R.id.nav_header_user_image);
         userEmail = headerView.findViewById(R.id.nav_header_email);
 
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         // Set the text for each tab.
-        tabLayout.addTab(tabLayout.newTab().setText("Hot"));
-        tabLayout.addTab(tabLayout.newTab().setText("My Recipe"));
-        tabLayout.addTab(tabLayout.newTab().setText("Favorite"));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.TABBED_ACTIVITY_TAB1)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.TABBED_ACTIVITY_TAB2)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.TABBED_ACTIVITY_TAB3)));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -106,7 +106,6 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
         Bundle bundle = intent.getExtras();
         if(bundle!=null){
             if(bundle.containsKey(MainActivity.MAIN_ACTIVITY_MESSAGE)){
-
                 User user = (User)bundle.getSerializable(MainActivity.MAIN_ACTIVITY_MESSAGE);
                 presenter.updateUiFromIntent(user);
 
@@ -124,10 +123,8 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
         androidx.appcompat.widget.SearchView searchView =
                 (androidx.appcompat.widget.SearchView) menu.findItem(R.id.search).getActionView();
 
-        searchView.setQueryHint("Search Online Recipes");
-
+        searchView.setQueryHint(getResources().getString(R.string.SEARCH_ONLINE_RECIPE_HINT));
         searchView.setIconified(false);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -268,7 +265,6 @@ public class TabbedActivity extends AppCompatActivity implements NavigationView.
         public int getCount() {
             return mNumOfTabs;
         }
-
 
     }
 

@@ -52,5 +52,9 @@
     <string name="SIGN_UP_PASSWORD_HELPER_TEXT">Please enter a password with at least 6 characters</string>
     <string name="SIGN_UP_SUCCESS_TOAST_MESSAGE">Account has been created, please log in</string>
     <string name="SHOPPING_LIST_ALL_ITEM_DELETED_MESSAGE">All shopping item has been deleted</string>
+    <string name="TABBED_ACTIVITY_TAB1">Hot</string>
+    <string name="TABBED_ACTIVITY_TAB2">My Recipe</string>
+    <string name="TABBED_ACTIVITY_TAB3">Favorite</string>
+    <string name="SEARCH_ONLINE_RECIPE_HINT">Search Online Recipes</string>
 
 </resources>

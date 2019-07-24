@@ -76,6 +76,6 @@ public class UserRecipeFragment extends Fragment implements UserRecipeFragmentPr
     @Override
     public void displayRecipeDeletedMessage() {
 
-        Toast.makeText(getActivity(),"Recipe has been deleted succssfully",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),"Recipe has been deleted successfully",Toast.LENGTH_SHORT).show();
     }
 }
