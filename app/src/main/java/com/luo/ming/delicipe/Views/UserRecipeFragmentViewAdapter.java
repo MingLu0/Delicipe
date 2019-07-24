@@ -25,6 +25,10 @@ import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Presenters.UserRecipeFragmentPresenter;
 import com.luo.ming.delicipe.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserRecipeFragmentViewAdapter.ViewHolder>{
 
     private UserRecipeFragmentPresenter presenter;
@@ -33,10 +37,8 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
 
 
     public UserRecipeFragmentViewAdapter(UserRecipeFragmentPresenter presenter, Context context) {
-
         this.presenter = presenter;
         this.context = context;
-
     }
 
     @NonNull
@@ -65,48 +67,39 @@ public class UserRecipeFragmentViewAdapter extends RecyclerView.Adapter<UserReci
 
     public class ViewHolder extends RecyclerView.ViewHolder implements UserRecipeFragmentPresenter.UserRecipeRowView{
 
-        private ImageView coverImage;
-        private TextView coverName;
-        private ImageButton deleteBtn;
-
+        @BindView(R.id.recipe_cover_image) ImageView coverImage;
+        @BindView(R.id.recipe_cover_title) TextView coverName;
+        @BindView(R.id.delete_user_recipe) ImageButton deleteBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            coverImage = itemView.findViewById(R.id.recipe_cover_image);
-            coverName = itemView.findViewById(R.id.recipe_cover_title);
-            deleteBtn = itemView.findViewById(R.id.delete_user_recipe);
+            ButterKnife.bind(this,itemView);
             deleteBtn.setVisibility(View.VISIBLE);
-            coverImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    Intent intent = new Intent(context, RecipeDisplayActivity.class);
-                    UserRecipeCover userRecipeCover = presenter.getUserRecipeCover(position);
-                    intent.putExtra(USER_RECIPE_ADPATER_MESSAGE,userRecipeCover.getCoverID());
-                    context.startActivity(intent);
-                }
-            });
+        }
 
-            deleteBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        @OnClick(R.id.delete_user_recipe)
+        public void deleteUserRecipe(){
+            new AlertDialog.Builder(context)
+                    .setTitle(R.string.alert_dialog_delete_recipe_title)
+                    .setMessage(R.string.alert_dialog_delete_recipe_message)
+                    .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            presenter.deleteUserRecipe(getAdapterPosition());
+                        }
+                    })
+                    .setNegativeButton(R.string.alert_dialog_cancel,null)
+                    .show();
+        }
 
-                    new AlertDialog.Builder(context)
-                            .setTitle(R.string.alert_dialog_delete_recipe_title)
-                            .setMessage(R.string.alert_dialog_delete_recipe_message)
-                            .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    presenter.deleteUserRecipe(getAdapterPosition());
-                                }
-                            })
-                            .setNegativeButton(R.string.alert_dialog_cancel,null)
-                            .show();
-
-                }
-            });
-
+        @OnClick(R.id.recipe_cover_image)
+        public void displayUserRecipeDetails(){
+            int position = getAdapterPosition();
+            Intent intent = new Intent(context, RecipeDisplayActivity.class);
+            UserRecipeCover userRecipeCover = presenter.getUserRecipeCover(position);
+            intent.putExtra(USER_RECIPE_ADPATER_MESSAGE,userRecipeCover.getCoverID());
+            context.startActivity(intent);
         }
 
 

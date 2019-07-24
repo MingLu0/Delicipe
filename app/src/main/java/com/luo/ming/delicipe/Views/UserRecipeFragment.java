@@ -14,14 +14,17 @@ import android.widget.Toast;
 import com.luo.ming.delicipe.Presenters.UserRecipeFragmentPresenter;
 import com.luo.ming.delicipe.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class UserRecipeFragment extends Fragment implements UserRecipeFragmentPresenter.View {
 
-    private RecyclerView recyclerView;
+    @BindView(R.id.recyclerView_user_recipe) RecyclerView recyclerView;
+    @BindView(R.id.addRecipe) FloatingActionButton addRecipeButton;
     private UserRecipeFragmentPresenter presenter;
     private UserRecipeFragmentViewAdapter adapter;
-    private FloatingActionButton addRecipeButton;
 
     public UserRecipeFragment() {
         // Required empty public constructor
@@ -37,15 +40,14 @@ public class UserRecipeFragment extends Fragment implements UserRecipeFragmentPr
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_recipe, container, false);
+         View view = inflater.inflate(R.layout.fragment_user_recipe, container, false);
+         ButterKnife.bind(this,view);
+         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        recyclerView = view.findViewById(R.id.recyclerView_user_recipe);
-        addRecipeButton = view.findViewById(R.id.addRecipe);
 
         presenter = new UserRecipeFragmentPresenter(this );
         adapter = new UserRecipeFragmentViewAdapter(presenter,getActivity());
@@ -53,17 +55,14 @@ public class UserRecipeFragment extends Fragment implements UserRecipeFragmentPr
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-
         recyclerView.getAdapter().notifyDataSetChanged();
 
-        addRecipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),AddRecipeActivity.class);
-                startActivity(intent);
-            }
-        });
+    }
 
+    @OnClick(R.id.addRecipe)
+    public void addUserRecipe(){
+        Intent intent = new Intent(getActivity(),AddRecipeActivity.class);
+        startActivity(intent);
     }
 
     @Override
