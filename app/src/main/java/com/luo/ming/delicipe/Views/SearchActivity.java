@@ -114,13 +114,9 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
 
                 mQuery = query;
                 Log.d("query",mQuery);
-
                 presenter.setUrl(mQuery);
-
                 searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(presenter,getApplicationContext());
-
                 presenter.getRecipesList();
-
                 searchRecyclerViewAdapter.notifyDataSetChanged();
 
                 return false;

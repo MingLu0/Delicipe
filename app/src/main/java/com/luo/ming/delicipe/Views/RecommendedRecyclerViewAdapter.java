@@ -16,6 +16,10 @@ import com.luo.ming.delicipe.Presenters.RecommendationFragmentPresenter;
 import com.luo.ming.delicipe.R;
 import org.json.JSONException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class RecommendedRecyclerViewAdapter extends RecyclerView.Adapter<RecommendedRecyclerViewAdapter.ViewHolder> {
 
     private RecommendationFragmentPresenter presenter;
@@ -53,32 +57,30 @@ public class RecommendedRecyclerViewAdapter extends RecyclerView.Adapter<Recomme
 
     public class ViewHolder extends RecyclerView.ViewHolder implements RecommendationFragmentPresenter.RowView{
 
-        ImageView recipeImage;
-        TextView txtRecipePublisher;
-        TextView txtRecipeTitle;
+        @BindView(R.id.recipe_cover_image) ImageView recipeImage;
+        @BindView(R.id.source) TextView txtRecipePublisher;
+        @BindView(R.id.recipe_cover_title) TextView txtRecipeTitle;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            recipeImage =  itemView.findViewById(R.id.recipe_cover_image);
-            txtRecipeTitle = itemView.findViewById(R.id.recipe_cover_title);
-            txtRecipePublisher = itemView.findViewById(R.id.source);
 
+            ButterKnife.bind(this,itemView);
             txtRecipeTitle.setSingleLine(true);
             txtRecipePublisher.setSingleLine(true);
 
-            recipeImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context,RecipeDisplayActivity.class);
+        }
 
-                    try {
-                        intent.putExtra(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE,presenter.getRecipeID(getAdapterPosition()));
-                        context.startActivity(intent);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+        @OnClick(R.id.recipe_cover_image)
+        public void displayRecipeDetails(){
+
+            Intent intent = new Intent(context,RecipeDisplayActivity.class);
+
+            try {
+                intent.putExtra(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE,presenter.getRecipeID(getAdapterPosition()));
+                context.startActivity(intent);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override

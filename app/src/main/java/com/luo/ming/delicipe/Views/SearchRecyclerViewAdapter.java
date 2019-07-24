@@ -17,6 +17,10 @@ import com.luo.ming.delicipe.Presenters.SearchActivityPresenter;
 import com.luo.ming.delicipe.R;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>{
 
@@ -29,14 +33,14 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
     public SearchRecyclerViewAdapter(SearchActivityPresenter presenter,Context context){
         this.context = context;
         this.presenter = presenter;
-        Log.d("RecipeRecyclerView","RecipeRecyclerViewAdapter constructor has been called");
+
     }
 
     //inflate the viewholder with xml layout
     @Override
     public SearchRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.single_view,viewGroup,false);
-        Log.d("onCreateViewHolder","onCreateViewHolder has been called");
+
         return new ViewHolder(view);
     }
 
@@ -45,7 +49,7 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
     public void onBindViewHolder( SearchRecyclerViewAdapter.ViewHolder viewHolder, int position) {
 
         presenter.onBindRecipeRowViewAtPosition(position,viewHolder);
-        Log.d("onBindViewHolder","onBindViewHolder has been called");
+
 
     }
 
@@ -57,40 +61,30 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements SearchActivityPresenter.RecipeRowView{
-        ImageView recipeImage;
-        TextView txtRecipePublisher;
-        TextView txtRecipeTitle;
+        @BindView(R.id.recipe_cover_image) ImageView recipeImage;
+        @BindView(R.id.source) TextView txtRecipePublisher;
+        @BindView(R.id.recipe_cover_title) TextView txtRecipeTitle;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            recipeImage = (ImageView) itemView.findViewById(R.id.recipe_cover_image);
-            txtRecipeTitle = (TextView) itemView.findViewById(R.id.recipe_cover_title);
-            txtRecipePublisher = (TextView) itemView.findViewById(R.id.source);
+            ButterKnife.bind(this,itemView);
 
+        }
 
-            recipeImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        @OnClick(R.id.recipe_cover_image)
+        public void displayRecipeDetails(){
 
-                    Log.d("itemview intent","itemviewonclicklistener called");
+            Recipe recipe = presenter.getRecipeList().get(getAdapterPosition());
+            //send the info about the specific view that the user has clicked on to the
+            //the next recipe page
+            Intent intent = new Intent(context, RecipeDisplayActivity.class);
 
-                    Recipe recipe = presenter.getRecipeList().get(getAdapterPosition());
-                    //send the info about the specific view that the user has clicked on to the
-                    //the next recipe page
-                    Intent intent = new Intent(context, RecipeDisplayActivity.class);
+            //send the recipe id to the next page
+            intent.putExtra(RECIPE_ID_MESSAGE,recipe.getID());
+            intent.putExtra(RECIPE_TITLE_MESSAGE,recipe.getTitle());
 
-                    //send the recipe id to the next page
-                    intent.putExtra(RECIPE_ID_MESSAGE,recipe.getID());
-                    intent.putExtra(RECIPE_TITLE_MESSAGE,recipe.getTitle());
-
-                    //TODO android.util.AndroidRuntimeException: Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?
-                    context.startActivity(intent);
-
-                }
-            });
-
-
+            context.startActivity(intent);
         }
 
 

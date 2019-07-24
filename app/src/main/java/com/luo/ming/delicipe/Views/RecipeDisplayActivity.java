@@ -96,7 +96,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        
+
 
         if(bundle.containsKey(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE)){
             Recipe recipe = (Recipe) bundle.getSerializable(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE);
