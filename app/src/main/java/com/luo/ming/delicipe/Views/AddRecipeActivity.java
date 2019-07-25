@@ -36,7 +36,6 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
     private AddCoverFragment addCoverFragment;
     private AddIngredientFragment addIngredientFragment;
     private AddCookingStepFragment addCookingStepFragment;
-
     private AddRecipeActivityPresenter presenter;
 
 

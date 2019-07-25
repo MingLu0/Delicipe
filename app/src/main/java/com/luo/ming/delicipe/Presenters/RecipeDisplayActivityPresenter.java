@@ -163,6 +163,7 @@ public class RecipeDisplayActivityPresenter {
 
     public void displayOnlineRecipe(){
         view.setIconVisibility(android.view.View.INVISIBLE,android.view.View.VISIBLE,android.view.View.VISIBLE);
+        view.displayProgressDialog();
 
         recipe.getRecipeObj(url, new VolleyCallBack() {
             @Override
@@ -173,6 +174,7 @@ public class RecipeDisplayActivityPresenter {
                 displayFavBtnForAPIRecipes();
                 displayCookingTime(recipe.getCookingTime());
                 displayCartButton();
+                view.dismissProgessDialog();
             }
             @Override
             public void onFailure() {
@@ -294,6 +296,8 @@ public class RecipeDisplayActivityPresenter {
         void displayCookingSteps(ArrayList<UserRecipeStep> userRecipeSteps);
         void displayDirectionsPage(String Url);
         void displayShoppingCartButton();
+        void displayProgressDialog();
+        void dismissProgessDialog();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.luo.ming.delicipe.Views;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -55,6 +56,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
 
     private RecipeDisplayActivityPresenter presenter;
     private static int newServing;
+    private ProgressDialog progressDialog;
 
 
     //todo handle rotation
@@ -118,6 +120,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
             presenter = new RecipeDisplayActivityPresenter(this,userRecipeID);
             presenter.displayUserRecipe();
         }
+
 
 
     }
@@ -247,6 +250,28 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
     public void displayShoppingCartButton() {
 
         btnCart.setButtonDrawable(R.drawable.ic_action_shopping_cart_add);
+    }
+
+    @Override
+    public void displayProgressDialog() {
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setMessage("Your recipe is coming ...");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(true);
+        progressDialog.show();
+
+    }
+
+    @Override
+    public void dismissProgessDialog() {
+
+        if(progressDialog !=null){
+            progressDialog.dismiss();
+        }
+
     }
 
     @Override
