@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +36,7 @@ public class RecommendedRecyclerViewAdapter extends RecyclerView.Adapter<Recomme
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.single_view,parent,false);
+
         return new ViewHolder(view);
     }
 
@@ -67,6 +69,7 @@ public class RecommendedRecyclerViewAdapter extends RecyclerView.Adapter<Recomme
             ButterKnife.bind(this,itemView);
             txtRecipeTitle.setSingleLine(true);
             txtRecipePublisher.setSingleLine(true);
+            recipeImage.getLayoutParams().height=500;
 
         }
 
