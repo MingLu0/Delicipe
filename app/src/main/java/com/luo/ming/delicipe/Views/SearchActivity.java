@@ -1,7 +1,5 @@
 package com.luo.ming.delicipe.Views;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,8 +48,8 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityP
         Bundle bundle = intent.getExtras();
 
         if(bundle!=null){
-            if(bundle.containsKey(TabbedActivity.MESSAGE_FROM_TABBEDACTIVITY_TAG)){
-                String keyword = bundle.getString(TabbedActivity.MESSAGE_FROM_TABBEDACTIVITY_TAG);
+            if(bundle.containsKey(MainActivity.MESSAGE_FROM_TABBEDACTIVITY_TAG)){
+                String keyword = bundle.getString(MainActivity.MESSAGE_FROM_TABBEDACTIVITY_TAG);
 
                 presenter.setUrl(keyword);
                 searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(presenter,this);

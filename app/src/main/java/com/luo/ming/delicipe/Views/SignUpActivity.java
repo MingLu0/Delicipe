@@ -5,22 +5,14 @@ import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
 import com.luo.ming.delicipe.Presenters.SignUpActivityPresenter;
 import com.luo.ming.delicipe.R;
 import com.luo.ming.delicipe.R2;
@@ -85,7 +77,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityP
     @Override
     public void goBackToMainActivity() {
 
-         Intent intent = new Intent(this,MainActivity.class);
+         Intent intent = new Intent(this, SignInActivity.class);
          startActivity(intent);
     }
 

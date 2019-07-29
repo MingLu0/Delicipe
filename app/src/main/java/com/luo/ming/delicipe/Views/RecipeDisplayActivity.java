@@ -96,6 +96,11 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
 
         newServing = 4;
 
+        handleIntents();
+
+    }
+
+    private void handleIntents() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
@@ -120,9 +125,6 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
             presenter = new RecipeDisplayActivityPresenter(this,userRecipeID);
             presenter.displayUserRecipe();
         }
-
-
-
     }
 
 
@@ -258,7 +260,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
         progressDialog = new ProgressDialog(this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setTitle("Please wait");
-        progressDialog.setMessage("Your recipe is coming ...");
+        progressDialog.setMessage("Your recipe is on the way ...");
         progressDialog.setIndeterminate(false);
         progressDialog.setCancelable(true);
         progressDialog.show();

@@ -17,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.luo.ming.delicipe.Models.UserRecipe;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Models.UserRecipeIngredient;
 import com.luo.ming.delicipe.Models.UserRecipeStep;
@@ -160,7 +159,7 @@ public class AddRecipeActivity extends AppCompatActivity implements AddCoverFrag
 
     @Override
     public void showSaveSuccessMessage() {
-        Intent intent = new Intent(this, TabbedActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         Toast.makeText(this,"Recipe has been saved", Toast.LENGTH_SHORT).show();
 
