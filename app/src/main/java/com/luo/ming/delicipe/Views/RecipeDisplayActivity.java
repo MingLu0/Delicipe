@@ -58,7 +58,6 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
     private static int newServing;
     private ProgressDialog progressDialog;
 
-
     //todo handle rotation
     //todo add divider
     //todo add progress bar
@@ -95,9 +94,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home_up);
 
         newServing = 4;
-
         handleIntents();
-
     }
 
     private void handleIntents() {
@@ -106,15 +103,14 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
 
 
         if(bundle.containsKey(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE)){
-            Recipe recipe = (Recipe) bundle.getSerializable(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE);
 
+            Recipe recipe = (Recipe) bundle.getSerializable(FavouritesRecyclerViewAdapter.FAVOURITE_RECYCLER_VIEW_MESSAGE);
             presenter = new RecipeDisplayActivityPresenter(this,recipe);
             presenter.displayFavouriteRecipe();
 
         } else if (bundle.containsKey(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE)){
 
             String recipeID = bundle.getString(SearchRecyclerViewAdapter.RECIPE_ID_MESSAGE);
-
             presenter = new RecipeDisplayActivityPresenter(this);
             presenter.setUrl(recipeID);
             presenter.displayOnlineRecipe();
@@ -229,6 +225,7 @@ public class RecipeDisplayActivity extends AppCompatActivity implements RecipeDi
             stepText.setText(userRecipeSteps.get(i).getStepText());
             byte[]imageBytes = userRecipeSteps.get(i).getImageBytes();
             Bitmap bitmap = BitmapUtility.covertBytesToBitmap(imageBytes);
+
             Glide.with(this)
                     .load(bitmap)
                     .into(stepImage);

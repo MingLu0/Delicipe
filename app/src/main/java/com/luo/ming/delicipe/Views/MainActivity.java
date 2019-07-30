@@ -146,9 +146,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

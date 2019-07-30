@@ -31,11 +31,17 @@ import com.luo.ming.delicipe.Helpers.BitmapUtility;
 import com.luo.ming.delicipe.Models.UserRecipeCover;
 import com.luo.ming.delicipe.Presenters.AddCoverFragmentPresenter;
 import com.luo.ming.delicipe.R;
+import com.luo.ming.delicipe.R2;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -46,15 +52,22 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
 
 
     private Uri imageUri;
-    private ImageView coverImageButton;
+
     private Button addBtn;
     private OnAddCoverFragmentInteractionListener listener;
     private UserRecipeCover userRecipeCover;
     public final static String COVER_INFO_BUNDLE_TAG= "com.luo.ming.delicipe.Views.AddCoverFragment";
     private AddCoverFragmentPresenter presenter;
 
-    private TextInputLayout name_layout, cooking_time_layout, serving_size_layout, comment_layout;
-    private TextInputEditText name_text, cooking_time_text, serving_size_text, comment_text;
+    @BindView(R.id.imageCover) ImageView coverImageButton;
+    @BindView(R.id.input_layout_recipe_name) TextInputLayout name_layout;
+    @BindView(R.id.input_layout_cooking_time) TextInputLayout cooking_time_layout;
+    @BindView(R.id.input_layout_servings) TextInputLayout serving_size_layout;
+    @BindView(R.id.input_layout_comment) TextInputLayout comment_layout;
+    @BindView(R.id.input_text_recipe_name) TextInputEditText name_text;
+    @BindView(R.id.input_text_cooking_time) TextInputEditText cooking_time_text;
+    @BindView(R.id.input_edit_text_servings) TextInputEditText serving_size_text;
+    @BindView(R.id.input_edit_text_comment) TextInputEditText comment_text;
 
 
     private byte[] imageBytes;
@@ -68,29 +81,16 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_cover, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_cover, container, false);
+        ButterKnife.bind(this,view);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        name_layout = view.findViewById(R.id.input_layout_recipe_name);
-        cooking_time_layout = view.findViewById(R.id.input_layout_cooking_time);
-        serving_size_layout = view.findViewById(R.id.input_layout_servings);
-        comment_layout = view.findViewById(R.id.input_layout_comment) ;
-
-
-        cooking_time_text = view.findViewById(R.id.input_text_cooking_time);
-        serving_size_text = view.findViewById(R.id.input_edit_text_servings);
-        comment_text = view.findViewById(R.id.input_edit_text_comment);
-        name_text = view.findViewById(R.id.input_text_recipe_name);
-
-        coverImageButton = view.findViewById(R.id.imageCover);
-
         if(savedInstanceState!=null){
-
             imageUri = savedInstanceState.getParcelable("Uri");
             Picasso.with(getActivity())
                     .load(imageUri)
@@ -99,36 +99,22 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
 
         }
 
-        coverImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                Intent pickPhoto = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-                startActivityForResult(pickPhoto,1);
-            }
-        });
-
-        name_text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus&& TextUtils.isEmpty(name_text.getText())){
-                    name_layout.setError(null);
-                }
-            }
-        });
-
-
-        name_text.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                resetNameEditText();
-                return false;
-            }
-        });
-
         presenter = new AddCoverFragmentPresenter(this);
+    }
+
+
+    @OnTextChanged(value = R.id.input_text_recipe_name, callback=OnTextChanged.Callback.TEXT_CHANGED)
+    public void resetRecipeNameInput(){
+        name_layout.setError(null);
+        name_layout.setHelperText("*Required");
+    }
+
+    
+    @OnClick(R.id.imageCover)
+    public void selectCoverImage(){
+        Intent pickPhoto = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(pickPhoto,1);
+
     }
 
     @Override
@@ -229,10 +215,6 @@ public class AddCoverFragment extends Fragment implements AddCoverFragmentPresen
         name_layout.setError("Please Enter Recipe Name");
     }
 
-    public void resetNameEditText(){
-        name_layout.setError(null);
-        name_layout.setHelperText("*Required");
-    }
 
     public void sendDataBackToActivity(){
 
